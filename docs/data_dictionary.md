@@ -29,15 +29,21 @@ The data dictionary details the structure of data for key system components: "us
 | created_at      | DATETIME                 | Property record creation time  | 2024-01-01 12:00:00|
 | updated_at      | DATETIME                 | Property record update time    | 2024-01-02 12:00:00|
 
+
 ## Transactions
 
-| Field Name      | Data Type                | Description                    | Example            |
-| --------------- | ------------------------ | ------------------------------ | ------------------ |
-| transaction_id  | INT                      | Unique transaction identifier  | 3003               |
-| lease_id        | INT                      | ID of associated lease         | 4004               |
-| amount          | DECIMAL(10, 2)           | Transaction amount             | 1200.00            |
-| timestamp       | DATETIME                 | Transaction time               | 2024-01-03 15:30:00|
-| type            | ENUM('rent', 'deposit')  | Type of transaction (Rent or Deposit) | rent       |
+This updated section of the data dictionary includes additional fields to represent the parties involved in each transaction. This is important for clarity and accountability in transaction records.
+
+| Field Name       | Data Type            | Description                                | Example            |
+| ---------------- | -------------------- | ------------------------------------------ | ------------------ |
+| transaction_id   | INT                  | Unique transaction identifier              | 3003               |
+| lease_id         | INT                  | ID of associated lease                     | 4004               |
+| payer_user_id    | INT                  | User ID of the party making the payment    | 1001               |
+| payee_user_id    | INT                  | User ID of the party receiving the payment | 1002               |
+| amount           | DECIMAL(10, 2)       | Transaction amount                         | 1200.00            |
+| timestamp        | DATETIME             | Transaction time                           | 2024-01-03 15:30:00|
+| type             | ENUM('rent', 'deposit') | Type of transaction (Rent or Deposit) | rent               |
+
 
 ## Leases
 
