@@ -14,7 +14,7 @@ This data dictionary describes the structure of the `User` table in the rental m
 | username           | VARCHAR(50)    | Username chosen by the user                           | johndoe                |
 | password_hash      | VARCHAR(255)   | Encrypted password for the user account               | 5f4dcc3b5aa765d61...   |
 | email              | VARCHAR(100)   | User's email address                                  | user@example.com       |
-| role               | ENUM('tenant', 'admin') | User role in the system                  | tenant                 |
+| role               | ENUM('tenant', 'admin') | User role in the system                      | tenant                 |
 | created_at         | DATETIME       | Timestamp when the account was created                | 2024-01-01 12:00:00    |
 | updated_at         | DATETIME       | Timestamp when the account was last updated           | 2024-01-02 12:00:00    |
 | first_name         | VARCHAR(50)    | The first name of the user                            | John                   |
@@ -33,6 +33,9 @@ This data dictionary describes the structure of the `User` table in the rental m
 | bank_info          | VARCHAR(100)   | Bank Name and account number                          | Scotial, 12345567890   |
 | reference_url      | VARCHAR(100)   | A reference letter from employer or mentor            | https://example.com/   |
 | is_verified        | BOOLEAN        | Indicates whether the user's identity has been verified | TRUE/FALSE           |
+| oauth_provider          | VARCHAR(50)        | Name of the OAuth provider       | Google            |
+| oauth_provider_user_id  | VARCHAR(100)       | User's ID from the OAuth provider| 1234567890abcdef  |
+
 
 ## Notes
 
@@ -61,14 +64,14 @@ This data dictionary outlines the structure of the `Properties` table in the ren
 | owner_user_id    | INT                     | User ID of property owner (links to `User` table)     | 1001                              |
 | address          | VARCHAR(255)            | Full address of the property                          | 123 Main St                       |
 | number_of_units  | INT                     | Number of individual units in the property            | 10                                |
-| created_at       | DATETIME                | Timestamp when the property record was created       | 2024-01-01 12:00:00               |
-| updated_at       | DATETIME                | Timestamp when the property record was last updated  | 2024-01-02 12:00:00               |
-| property_type    | ENUM('apartment', 'house', 'condo', etc.) | Type of property               | apartment                         |
+| created_at       | DATETIME                | Timestamp when the property record was created        | 2024-01-01 12:00:00               |
+| updated_at       | DATETIME                | Timestamp when the property record was last updated   | 2024-01-02 12:00:00               |
+| property_type    | ENUM('apartment', 'house', 'condo', etc.) | Type of property                    | apartment                         |
 | size_in_sq_ft    | INT                     | Size of the property in square feet                   | 1200                              |
 | year_built       | YEAR                    | Year in which the property was built                  | 1990                              |
 | rental_price     | DECIMAL(10, 2)          | Monthly rental price for the property                 | 1500.00                           |
 | amenities        | TEXT                    | List of amenities available with the property         | Pool, Gym, Wi-Fi                  |
-| status           | ENUM('available', 'rented', 'under_maintenance') | Current status of the property | available                        |
+| status           | ENUM('available', 'rented', 'under_maintenance') | Current status of the property | available                       |
 | lease_terms      | TEXT                    | Terms and conditions of the lease                     | 12 months lease, no pets          |
 | photos_url       | TEXT                    | URL to a gallery of photos of the property            | https://example.com/properties/2002/photos |
 | description      | TEXT                    | Detailed description of the property                  | Spacious two-bedroom apartment... |
@@ -97,11 +100,11 @@ This data dictionary outlines the structure of the `Image` table in the rental m
 | Field Name   | Data Type    | Description                                      | Example                                        |
 |--------------|--------------|--------------------------------------------------|------------------------------------------------|
 | image_id     | INT          | Unique identifier for each image                 | 5003                                           |
-| property_id  | INT          | Identifier for the property (links to `Properties` table) | 2002                                   |
+| property_id  | INT          | Identifier for the property (links to `Properties` table) | 2002                                  |
 | image_url    | VARCHAR(255) | URL where the image is stored                    | https://example.com/properties/2002/image1.jpg |
 | description  | VARCHAR(255) | Brief description or label for the image         | Front view of the property                     |
 | uploaded_at  | DATETIME     | Timestamp when the image was uploaded            | 2024-01-05 15:30:00                            |
-| is_primary   | BOOLEAN      | Indicates if the image is the primary display image for the property | TRUE/FALSE            |
+| is_primary   | BOOLEAN      | Indicates if the image is the primary display image for the property | TRUE/FALSE                 |
 
 ## Notes
 
@@ -151,7 +154,7 @@ This data dictionary provides a detailed structure of the expanded `Transactions
 - The structure supports a wide range of transactional data, suitable for diverse payment scenarios.
 
 
-# Expanded Data Dictionary for Leases Table
+# Leases Table
 
 This data dictionary describes the structure of the expanded `Leases` table in the rental management system, providing comprehensive details on lease agreements.
 
@@ -201,6 +204,28 @@ This data dictionary describes the structure of the expanded `Leases` table in t
 
 - Both tables are designed to be scalable and can include additional fields or document types as required.
 - The structure ensures easy integration with other system components and adapts to evolving legal and regulatory changes.
+
+## New OAuth Tokens Table
+
+| Field Name     | Data Type    | Description                            | Example           |
+|----------------|--------------|----------------------------------------|-------------------|
+| token_id       | INT          | Unique identifier for each token record| 6006              |
+| user_id        | INT          | Links to `User` table’s `user_id`      | 1001              |
+| access_token   | TEXT         | The OAuth access token                 | xYzabc123...      |
+| refresh_token  | TEXT         | The OAuth refresh token                | abc123xYz...      |
+| expires_in     | DATETIME     | Expiry date and time of access token   | 2024-02-01 12:00:00|
+| provider       | VARCHAR(50)  | Name of the OAuth provider             | Google            |
+
+## Notes
+
+- The integration of OAuth requires careful handling of sensitive data, such as tokens.
+- Storing OAuth-related data should comply with security standards and privacy regulations.
+- The schema can be adjusted or extended based on specific OAuth providers' requirements or system needs.
+
+## Extensibility
+
+- The schema allows for adding more fields related to OAuth or other authentication methods in the future.
+- It supports integration with multiple OAuth providers.
 
 ---
 
