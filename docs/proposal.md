@@ -17,9 +17,11 @@ QLMS is envisioned as a comprehensive platform engineered to streamline the intr
   - **Front-End**: React.js with TypeScript
   - **Back-End**: Node.js with Express
   - **Database**: MySQL
+  - **API Test & Docs**: Postman
   - **Authentication**: OAuth
   - **Deployment**: Docker, GitHub, Azure
   - **Project-Management**: GitHub Project - KanBan
+
 
 - **Special Features**:
   - Multi-tenant system architecture
