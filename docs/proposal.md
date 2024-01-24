@@ -83,8 +83,8 @@ The database is designed to be simple yet scalable, incorporating:
 - **Properties Table**: Property details and ownership
 - **Leases Table**: Records of lease agreements
 - **Transactions Table**: Financial transactions related to leases
-- **Image Table**: This table stores images related to the rental properties. 
-- **LegalDoc Table**: This table stores legal documents related to the rental properties.
+- ***Image Table***: This table stores images related to the rental properties. 
+- ***LegalDoc Table***: This table stores legal documents related to the rental properties.
 
 A detailed ERD will be provided to visualize the database schema.
 
