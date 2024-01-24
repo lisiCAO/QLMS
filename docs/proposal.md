@@ -1,7 +1,7 @@
-# Integrated Property Management Solution (IPMS)
+# Quebec Landlord Management System (QLMS) Proposal (QLMS)
 
 ## Project Title
-Integrated Property Management Solution (IPMS)
+Quebec Landlord Management System (QLMS) 
 
 ## Team Members
 - **Cao, Lisi**: Full-Stack Developer & DevOps
@@ -9,7 +9,7 @@ Integrated Property Management Solution (IPMS)
 - **Tang, Shixin**: Backend Developer & Database Administrator
 
 ## Project Description
-IPMS is envisioned as a comprehensive platform engineered to streamline the intricacies of managing rental properties, leases, and user interactions. Our application aims to furnish both tenants and property managers with an interactive, real-time interface for managing their operations. With robust financial processing capabilities, IPMS also offers a suite of tools for detailed property oversight, ensuring efficiency and tenant satisfaction. 
+QLMS is envisioned as a comprehensive platform engineered to streamline the intricacies of managing rental properties, leases, and user interactions. Our application aims to furnish both tenants and property managers with an interactive, real-time interface for managing their operations. With robust financial processing capabilities, QLMS also offers a suite of tools for detailed property oversight, ensuring efficiency and tenant satisfaction. 
 
 ## Technologies and Features
 
@@ -19,23 +19,29 @@ IPMS is envisioned as a comprehensive platform engineered to streamline the intr
   - **Database**: MySQL
   - **Authentication**: OAuth
   - **Deployment**: Docker, GitHub, Azure
+  - **Project-Management**: GitHub Project - KanBan
 
 - **Special Features**:
   - Multi-tenant system architecture
   - Automated lease management with renewal notifications
   - Real-time transaction processing
-  - Personalized tenant portal
+  - Personalized landlord portal
   - Role-based access control system
 
 - **Additional Libraries**:
-  - Sequelize ORM
+  - Sequelize ORM / Sequelize Cli
   - Axios
-  - React Bootstrap
+  - React Bootstrap / tailwindcss CSS
+  - dotenv
+  - Passport
+  - bcryptjs
+  - cors
 
 - **Challenges Beyond Classroom**:
   - Payment gateway integration
   - Real-time notifications system
   - Secure document management
+  - Project management
 
 ## URL Endpoints
 Outlined below are the proposed RESTful API endpoints:
@@ -60,6 +66,16 @@ Outlined below are the proposed RESTful API endpoints:
   - `/leases` - GET/POST: Lease agreements and initiation
   - `/leases/:id` - GET/PUT/DELETE: Lease-specific operations
 
+  ## Optional Future Enhancement: Cross-Search Endpoint
+
+  In the future, we can consider adding a cross-search endpoint to enhance the search functionality of the application. This endpoint would allow users to search for properties based on multiple criteria, such as location, price range, number of bedrooms, and amenities.
+
+  The proposed endpoint could be:
+
+  - `/properties/search` - POST: Search for properties based on specified criteria
+
+  Detailed API documentation will be provided.
+  
 ## Database Design
 The database is designed to be simple yet scalable, incorporating:
 
@@ -67,6 +83,8 @@ The database is designed to be simple yet scalable, incorporating:
 - **Properties Table**: Property details and ownership
 - **Leases Table**: Records of lease agreements
 - **Transactions Table**: Financial transactions related to leases
+- **Image Table**: This table stores images related to the rental properties. 
+- **LegalDoc Table**: This table stores legal documents related to the rental properties.
 
 A detailed ERD will be provided to visualize the database schema.
 
@@ -80,7 +98,7 @@ A detailed ERD will be provided to visualize the database schema.
 - **Day 12**: Final review and launch
 
 ## Conclusion
-This proposal serves as a dynamic blueprint for the IPMS project. It outlines our technical approach, features, and the project's developmental trajectory. Our aim is to establish a robust platform that enhances property management through technology.
+This proposal serves as a dynamic blueprint for the QLMS project. It outlines our technical approach, features, and the project's developmental trajectory. Our aim is to establish a robust platform that enhances property management through technology.
 
 ---
 
