@@ -1,6 +1,6 @@
-# API Endpoints for IPMS
+# API Endpoints for QLMS
 
-The IPMS API provides a series of endpoints that serve as the communication interface between the front-end and back-end services, facilitating property management operations. Below is the comprehensive list of endpoints with their respective HTTP methods and a brief description.
+The QLMS API provides a series of endpoints that serve as the communication interface between the front-end and back-end services, facilitating property management operations. Below is the comprehensive list of endpoints with their respective HTTP methods and a brief description.
 
 ## Authentication Endpoints
 
