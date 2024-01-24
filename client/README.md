@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+# 前端client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 开发环境设置
 
-In the project directory, you can run:
+本项目使用 Docker 容器化环境来确保一致的开发体验。请遵循以下步骤来设置和运行开发环境。
 
-### `npm start`
+### 先决条件
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 安装 [Docker](https://www.docker.com/get-started)
+- 安装 [Node.js](https://nodejs.org/) (如果需要在本地运行或测试)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 安装和启动
 
-### `npm test`
+1. **克隆仓库**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git checkout feature/client
+   git clone <https://github.com/lisiCAO/Rental-Management-Web.git>
+   ```
 
-### `npm run build`
+2. **构建 Docker 镜像**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   docker-compose build
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   这一步将会根据 `Dockerfile` 和 `docker-compose.yml` 文件构建 Docker 镜像。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **启动 Docker 容器**
 
-### `npm run eject`
+   ```bash
+   docker-compose up
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+   这将启动所有必要的服务。你的应用现在应该在 [http://localhost:3000](http://localhost:3000) 上运行。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 文件夹挂载说明
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+以下文件夹被挂载到 Docker 容器中，意味着你可以在本地编辑这些文件夹中的文件，更改将实时反映在容器中：
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `src/` - 包含 React 应用的源代码。
+- `public/` - 包含公共静态文件。
 
-## Learn More
+### 注意事项
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 如果需要对 Dockerfile 或 docker-compose.yml 进行重大更改，请联系[LISI CAO]。
+- 对于添加新的依赖或需要更新 node_modules 的情况，请运行 `docker-compose build` 重新构建镜像。
