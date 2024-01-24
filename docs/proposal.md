@@ -14,7 +14,7 @@ QLMS is envisioned as a comprehensive platform engineered to streamline the intr
 ## Technologies and Features
 
 - **Technologies Used**:
-  - **Front-End**: React.js
+  - **Front-End**: React.js with TypeScript
   - **Back-End**: Node.js with Express
   - **Database**: MySQL
   - **Authentication**: OAuth
@@ -37,6 +37,9 @@ QLMS is envisioned as a comprehensive platform engineered to streamline the intr
   - bcryptjs
   - cors
   - @azure/storage-blob
+  - formik
+  - yup
+  - vite
 
 - **Challenges Beyond Classroom**:
   - Payment gateway integration
