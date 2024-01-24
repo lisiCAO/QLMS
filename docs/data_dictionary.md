@@ -29,6 +29,9 @@ This data dictionary describes the structure of the `User` table in the rental m
 | date_of_birth      | DATE           | The user's date of birth                              | 1990-01-01             |
 | emergency_contact  | VARCHAR(100)   | Emergency contact details (name and phone number)     | Jane Doe, +1234567891  |
 | national_id        | VARCHAR(20)    | National identification number for verification       | AB1234567              |
+| employer_info      | VARCHAR(100)   | Employer name and phone number                        | College, +1234567891   |
+| bank_info          | VARCHAR(100)   | Bank Name and account number                          | Scotial, 12345567890   |
+| reference_url      | VARCHAR(100)   | A reference letter from employer or mentor            | https://example.com/   |
 | is_verified        | BOOLEAN        | Indicates whether the user's identity has been verified | TRUE/FALSE           |
 
 ## Notes
