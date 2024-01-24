@@ -36,6 +36,7 @@ QLMS is envisioned as a comprehensive platform engineered to streamline the intr
   - Passport
   - bcryptjs
   - cors
+  - @azure/storage-blob
 
 - **Challenges Beyond Classroom**:
   - Payment gateway integration
