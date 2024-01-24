@@ -131,3 +131,12 @@ dist
 
 # macOs 
 .DS_Store
+
+# windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# vscode
+.vscode
+.vscodeignore
