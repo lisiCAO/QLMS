@@ -1,10 +1,10 @@
 Based on our discussions and the details provided, I'll structure the API documentation in Markdown format. This document will cover authentication, user management, property management, transactions, and lease management. Each endpoint will be described with its HTTP method, path, request parameters, and the expected response structure.
 
-# API Documentation for Integrated Property Management Solution (IPMS)
+# API Documentation for Integrated Property Management Solution (QLMS)
 
 ## Overview
 
-This document outlines the API endpoints for the IPMS, detailing the interaction with the backend services for user authentication, property, transaction, and lease management.
+This document outlines the API endpoints for the QLMS, detailing the interaction with the backend services for user authentication, property, transaction, and lease management.
 
 ### Base URL
 
@@ -87,7 +87,8 @@ http://localhost:3000/api
       {
         "userId": 12,
         "username": "user@example.com",
-        "role": "tenant"
+        "role": "tenant",
+        // Other fields
       }
     ],
     "message": "Users retrieved successfully."
@@ -656,5 +657,5 @@ The API uses standard HTTP response codes to indicate the success or failure of 
 
 ## Conclusion
 
-The above endpoints provide a RESTful API for the IPMS, designed to manage all aspects of property management, from user authentication to detailed property oversight. Each endpoint returns a structured JSON response with clear success/error messaging, making integration straightforward for front-end developers.
+The above endpoints provide a RESTful API for the QLMS, designed to manage all aspects of property management, from user authentication to detailed property oversight. Each endpoint returns a structured JSON response with clear success/error messaging, making integration straightforward for front-end developers.
 
