@@ -1,22 +1,51 @@
-Got it! I'll adjust the data dictionary to use lowercase field names with underscores and reformat it into Markdown. This format is often used in database schema design for readability and consistency. Here's the updated Markdown documentation:
-
----
-
 # Data Dictionary
 
 The data dictionary details the structure of data for key system components: "users", "properties", "transactions", and "leases". It's crucial for database design, API development, and data communication between the front and back ends.
 
-## Users
+# Data Dictionary for User Table
 
-| Field Name      | Data Type                | Description                    | Example            |
-| --------------- | ------------------------ | ------------------------------ | ------------------ |
-| user_id         | INT                      | Unique user identifier         | 1001               |
-| username        | VARCHAR(50)              | Username                       | johndoe            |
-| password_hash   | VARCHAR(255)             | Encrypted password             | 5f4dcc3b5aa765d61...|
-| email           | VARCHAR(100)             | User's email address           | user@example.com   |
-| role            | ENUM('tenant', 'admin')  | User role (Tenant or Admin)    | tenant             |
-| created_at      | DATETIME                 | Account creation time          | 2024-01-01 12:00:00|
-| updated_at      | DATETIME                 | Account update time            | 2024-01-02 12:00:00|
+This data dictionary describes the structure of the `User` table in the rental management system. It includes details on each field, such as data type, description, and examples.
+
+## Table Structure
+
+| Field Name         | Data Type      | Description                                           | Example                |
+|--------------------|----------------|-------------------------------------------------------|------------------------|
+| user_id            | INT            | Unique identifier for each user                       | 1001                   |
+| username           | VARCHAR(50)    | Username chosen by the user                           | johndoe                |
+| password_hash      | VARCHAR(255)   | Encrypted password for the user account               | 5f4dcc3b5aa765d61...   |
+| email              | VARCHAR(100)   | User's email address                                  | user@example.com       |
+| role               | ENUM('tenant', 'admin') | User role in the system                  | tenant                 |
+| created_at         | DATETIME       | Timestamp when the account was created                | 2024-01-01 12:00:00    |
+| updated_at         | DATETIME       | Timestamp when the account was last updated           | 2024-01-02 12:00:00    |
+| first_name         | VARCHAR(50)    | The first name of the user                            | John                   |
+| last_name          | VARCHAR(50)    | The last name of the user                             | Doe                    |
+| street_number      | VARCHAR(10)    | The street number of the user's address               | 123                    |
+| street_name        | VARCHAR(100)   | The street name of the user's address                 | Main Street            |
+| city_name          | VARCHAR(50)    | The city of the user's address                        | Anytown                |
+| postcode           | VARCHAR(10)    | The postal code of the user's address                 | 12345                  |
+| province           | VARCHAR(50)    | The province or state of the user's address           | StateName              |
+| phone_number       | VARCHAR(15)    | Contact phone number of the user                      | +1234567890            |
+| profile_picture_url| VARCHAR(255)   | URL to the user's profile picture                     | https://example.com/images/user1.jpg |
+| date_of_birth      | DATE           | The user's date of birth                              | 1990-01-01             |
+| emergency_contact  | VARCHAR(100)   | Emergency contact details (name and phone number)     | Jane Doe, +1234567891  |
+| national_id        | VARCHAR(20)    | National identification number for verification       | AB1234567              |
+| is_verified        | BOOLEAN        | Indicates whether the user's identity has been verified | TRUE/FALSE           |
+
+## Notes
+
+- The `user_id` field is the primary key for the table.
+- `role` field is limited to 'tenant' or 'admin' to categorize the user's role within the system.
+- `created_at` and `updated_at` fields are automatically managed by the system to track record creation and updates.
+- Personal information fields such as `first_name`, `last_name`, `street_number`, etc., are crucial for identity verification and user management.
+- `is_verified` field is important for security and verification processes in the rental management system.
+
+## Extensibility
+
+- The table is designed to accommodate additional fields as needed.
+- It follows a modular and normalized structure for easy integration with other tables in the system.
+- The choice of data types and field lengths ensures scalability for a large user base.
+
+
 
 ## Properties
 
