@@ -17,7 +17,7 @@ IPMS is envisioned as a comprehensive platform engineered to streamline the intr
   - **Front-End**: React.js
   - **Back-End**: Node.js with Express
   - **Database**: MySQL
-  - **Authentication**: JWT
+  - **Authentication**: OAuth
   - **Deployment**: Docker, GitHub, Azure
 
 - **Special Features**:
