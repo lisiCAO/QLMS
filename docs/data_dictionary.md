@@ -184,7 +184,7 @@ This data dictionary describes the structure of the expanded `Leases` table in t
 - `utility_responsibility` clearly define responsibilities, helping to prevent disputes.
 - The `lease_clauses` field allows for customization and inclusion of specific terms pertinent to individual leases.
 
-### LegalDocs Table Structure
+# LegalDocs Table Structure
 
 | Field Name   | Data Type           | Description                               | Example                                                   |
 |--------------|---------------------|-------------------------------------------|-----------------------------------------------------------|
@@ -205,7 +205,68 @@ This data dictionary describes the structure of the expanded `Leases` table in t
 - Both tables are designed to be scalable and can include additional fields or document types as required.
 - The structure ensures easy integration with other system components and adapts to evolving legal and regulatory changes.
 
-## New OAuth Tokens Table
+# MaintenanceRequests Table
+
+## Table Strucutre
+| Field Name     | Data Type    | Constraints                       | Nullable | Default           | Description                           |
+| -------------- | ------------ | --------------------------------- | -------- | ----------------- | ------------------------------------- |
+| request_id     | INT          | PRIMARY KEY, AUTO_INCREMENT       | NO       | None              | Unique identifier for each maintenance request. |
+| property_id    | INT          | FOREIGN KEY (Properties)          | NO       | None              | Identifier of the property related to the maintenance request. |
+| tenant_user_id | INT          | FOREIGN KEY (Users)               | NO       | None              | Identifier of the tenant who made the request. |
+| description    | TEXT         | NONE                              | NO       | None              | Detailed description of the maintenance request. |
+| status         | ENUM('open', 'in_progress', 'closed') | NONE   | NO       | 'open'           | Current status of the maintenance request. |
+| created_at     | DATETIME     | NONE                              | NO       | CURRENT_TIMESTAMP | Timestamp when the request was created. |
+| updated_at     | DATETIME     | NONE                              | YES      | CURRENT_TIMESTAMP | Timestamp when the request was last updated. |
+
+## Notes
+- **New Addition**: This table will track maintenance requests from tenants.
+- **Key Connections**:
+  - `tenant_user_id` (Foreign Key): Links to `Users` (UserID) to identify the tenant who made the request.
+  - `property_id` (Foreign Key): Links to `Properties` (PropertyID) to identify the property in question.
+
+  This table stores information about maintenance requests made by tenants.
+
+### Data Flow and Interactions
+
+- **Maintenance Requests**:
+  - Tenants (Users) can raise requests for property (Properties) maintenance.
+  - These requests are tracked in the `MaintenanceRequests` table and can be associated with specific leases (Leases).
+
+# CommunicationRecords Table
+
+## Table Strucutre
+This table logs communications between users, typically between tenants and landlords.
+
+| Field Name    | Data Type    | Constraints                       | Nullable | Default           | Description                          |
+| ------------- | ------------ | --------------------------------- | -------- | ----------------- | ------------------------------------ |
+| record_id     | INT          | PRIMARY KEY, AUTO_INCREMENT       | NO       | None              | Unique identifier for each communication record. |
+| from_user_id  | INT          | FOREIGN KEY (Users)               | NO       | None              | Identifier of the user who initiated the communication. |
+| to_user_id    | INT          | FOREIGN KEY (Users)               | NO       | None              | Identifier of the user who received the communication. |
+| property_id   | INT          | FOREIGN KEY (Properties), NULLABLE | YES      | None              | Identifier of the property related to the communication, if applicable. |
+| subject       | VARCHAR(255) | NONE                              | NO       | None              | Subject or topic of the communication. |
+| message       | TEXT         | NONE                              | NO       | None              | Detailed content of the communication. |
+| status        | ENUM('sent', 'received', 'read') | NONE      | NO       | 'sent'           | Current status of the communication (e.g., sent, received, read). |
+| created_at    | DATETIME     | NONE                              | NO       | CURRENT_TIMESTAMP | Timestamp when the record was created. |
+| updated_at    | DATETIME     | NONE                              | YES      | CURRENT_TIMESTAMP | Timestamp when the record was last updated. |
+
+- **New Addition**: This table will record communications between users.
+- **Key Connections**:
+  - `from_user_id` and `to_user_id` (Foreign Keys): Link to `Users` (UserID) to identify the sender and receiver of the communication.
+  - This table can also be linked to `MaintenanceRequests` (request_id) if a particular communication is regarding a specific maintenance request.
+
+### Data Flow and Interactions
+
+- **Communication Records**:
+  - Any communication between tenants and landlords or between landlords and service providers can be logged in the `CommunicationRecords` table.
+  - This provides a transparent and traceable history of interactions, which can be critical for dispute resolution or service quality tracking.
+
+### Extensibility
+
+- This database structure allows for future expansions, such as adding a table for `ServiceProviders` or `MaintenanceWorkers` if you decide to track external service providers or in-house maintenance staff.
+- Additional features, like rating systems for maintenance services or automated notifications for maintenance updates, can be integrated using these tables as a foundation.
+
+
+# New OAuth Tokens Table
 
 | Field Name     | Data Type    | Description                            | Example           |
 |----------------|--------------|----------------------------------------|-------------------|
@@ -227,6 +288,3 @@ This data dictionary describes the structure of the expanded `Leases` table in t
 - The schema allows for adding more fields related to OAuth or other authentication methods in the future.
 - It supports integration with multiple OAuth providers.
 
----
-
-This format ensures clear and consistent documentation, which is adaptable for future modifications or expansions in the system.
