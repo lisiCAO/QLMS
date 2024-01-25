@@ -1,3 +1,124 @@
+我们将使用MySQL数据库来存储用户数据。为此，我会调整前面的方案，以适应MySQL数据库的使用。这个完整方案包括使用Express, Passport.js进行Google OAuth认证，生成JWT，并将用户数据保存到MySQL数据库中。
+
+### 基础设置
+
+1. **初始化Node.js项目和安装依赖**：
+   ```bash
+   npm init -y
+   npm install express passport passport-google-oauth20 jsonwebtoken mysql dotenv
+   ```
+
+2. **设置`.env`文件**：
+   ```
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   MYSQL_HOST=your_mysql_host
+   MYSQL_USER=your_mysql_user
+   MYSQL_PASSWORD=your_mysql_password
+   MYSQL_DATABASE=your_mysql_database
+   JWT_SECRET=your_jwt_secret
+   ```
+
+### 设置Express和Passport
+
+3. **初始化Express和配置Passport**：
+   在您的主应用文件（例如`app.js`）中，设置Express和Passport。
+   ```javascript
+   const express = require('express');
+   const passport = require('passport');
+   const GoogleStrategy = require('passport-google-oauth20').Strategy;
+   const jwt = require('jsonwebtoken');
+   const mysql = require('mysql');
+   require('dotenv').config();
+
+   const app = express();
+
+   // MySQL数据库连接
+   const db = mysql.createConnection({
+     host: process.env.MYSQL_HOST,
+     user: process.env.MYSQL_USER,
+     password: process.env.MYSQL_PASSWORD,
+     database: process.env.MYSQL_DATABASE
+   });
+
+   db.connect((err) => {
+     if (err) throw err;
+     console.log('Connected to MySQL');
+   });
+
+   passport.use(new GoogleStrategy({
+     clientID: process.env.GOOGLE_CLIENT_ID,
+     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+     callbackURL: "/auth/google/callback"
+   },
+   (accessToken, refreshToken, profile, done) => {
+     const userData = {
+       googleId: profile.id,
+       email: profile.emails[0].value,
+       name: profile.displayName
+     };
+     // 这里处理数据库逻辑
+     // 查找或创建用户，然后生成JWT
+     findOrCreateUser(userData, (err, user) => {
+       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+       done(null, { user, token });
+     });
+   }));
+
+   passport.serializeUser(function(user, done) {
+     done(null, user);
+   });
+
+   passport.deserializeUser(function(obj, done) {
+     done(null, obj);
+   });
+
+   app.use(passport.initialize());
+
+   function findOrCreateUser(userData, callback) {
+     // 根据userData.googleId查找用户
+     // 如果找不到，就创建一个新用户
+     // 此处省略了具体的SQL查询和插入逻辑
+   }
+   ```
+
+### 设置路由和认证
+
+4. **添加Google认证路由和回调处理**：
+   ```javascript
+   app.get('/auth/google',
+     passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+   app.get('/auth/google/callback', 
+     passport.authenticate('google', { failureRedirect: '/login' }),
+     function(req, res) {
+       // 认证成功，发送JWT
+       res.cookie('jwt', req.user.token, { httpOnly: true });
+       res.redirect('/somewhere');
+     });
+
+   const PORT = process.env.PORT || 3000;
+   app.listen(PORT, () => {
+     console.log(`Server is running on port ${PORT}`);
+   });
+   ```
+
+### MySQL数据库逻辑
+
+5. **实现`findOrCreateUser`函数**：
+   您需要实现`findOrCreateUser`函数，以在MySQL数据库中查找或创建新用户。这将涉及编写SQL查询和插入逻辑。
+
+   这个函数将根据传入的`userData`（从Google获取的用户数据）在数据库中查找用户。如果找不到，就创建一个新用户。
+
+### 注意事项
+
+- 确保您的MySQL数据库已经建立，并且有相应的用户表和字段。
+- 在生产环境部署时，更新回调URL和环境变量。
+- 确保处理好数据库连接和错误处理逻辑。
+- 根据需要添加额外的安全措施，如HTTPS支持和更强的JWT密钥。
+
+通过以上步骤，您将能够实现一个完整的用户认证系统，结合了Google
+
 回调处理API在OAuth认证流程中的“回调”或“重定向”步骤中使用。在使用Passport.js和Google OAuth的情景下，这一步骤尤其关键。让我们详细了解这个过程：
 
 ### OAuth认证流程中的回调步骤
