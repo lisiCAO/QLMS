@@ -8,33 +8,34 @@ This data dictionary describes the structure of the `User` table in the rental m
 
 ## Table Structure
 
-| Field Name         | Data Type      | Description                                           | Example                |
-|--------------------|----------------|-------------------------------------------------------|------------------------|
-| user_id            | INT            | Unique identifier for each user                       | 1001                   |
-| username           | VARCHAR(50)    | Username chosen by the user                           | johndoe                |
-| password_hash      | VARCHAR(255)   | Encrypted password for the user account               | 5f4dcc3b5aa765d61...   |
-| email              | VARCHAR(100)   | User's email address                                  | user@example.com       |
-| role               | ENUM('tenant', 'admin') | User role in the system                      | tenant                 |
-| created_at         | DATETIME       | Timestamp when the account was created                | 2024-01-01 12:00:00    |
-| updated_at         | DATETIME       | Timestamp when the account was last updated           | 2024-01-02 12:00:00    |
-| first_name         | VARCHAR(50)    | The first name of the user                            | John                   |
-| last_name          | VARCHAR(50)    | The last name of the user                             | Doe                    |
-| street_number      | VARCHAR(10)    | The street number of the user's address               | 123                    |
-| street_name        | VARCHAR(100)   | The street name of the user's address                 | Main Street            |
-| city_name          | VARCHAR(50)    | The city of the user's address                        | Anytown                |
-| postcode           | VARCHAR(10)    | The postal code of the user's address                 | 12345                  |
-| province           | VARCHAR(50)    | The province or state of the user's address           | StateName              |
-| phone_number       | VARCHAR(15)    | Contact phone number of the user                      | +1234567890            |
-| profile_picture_url| VARCHAR(255)   | URL to the user's profile picture                     | https://example.com/images/user1.jpg |
-| date_of_birth      | DATE           | The user's date of birth                              | 1990-01-01             |
-| emergency_contact  | VARCHAR(100)   | Emergency contact details (name and phone number)     | Jane Doe, +1234567891  |
-| national_id        | VARCHAR(20)    | National identification number for verification       | AB1234567              |
-| employer_info      | VARCHAR(100)   | Employer name and phone number                        | College, +1234567891   |
-| bank_info          | VARCHAR(100)   | Bank Name and account number                          | Scotial, 12345567890   |
-| reference_url      | VARCHAR(100)   | A reference letter from employer or mentor            | https://example.com/   |
-| is_verified        | BOOLEAN        | Indicates whether the user's identity has been verified | TRUE/FALSE           |
-| oauth_provider          | VARCHAR(50)        | Name of the OAuth provider       | Google            |
-| oauth_provider_user_id  | VARCHAR(100)       | User's ID from the OAuth provider| 1234567890abcdef  |
+| Field Name         | Data Type      | Description                                           | Example                | Constraint             |
+|--------------------|----------------|-------------------------------------------------------|------------------------|------------------------|
+| user_id            | INT            | Unique identifier for each user                       | 1001                   |                        |
+| username           | VARCHAR(50)    | Username chosen by the user                           | johndoe                |                        |
+| password_hash      | VARCHAR(550)   | Encrypted password for the user account               | 5f4dcc3b5aa765d61...   | digit, num, uppercase, symbol, >8|
+| email              | VARCHAR(100)   | User's email address                                  | user@example.com       | email                  |
+| role               | ENUM('tenant', 'landlord') | User role in the system                   | tenant                 |  'tenant', 'landlord'  |
+| created_at         | DATETIME       | Timestamp when the account was created                | 2024-01-01 12:00:00    |                        |
+| updated_at         | DATETIME       | Timestamp when the account was last updated           | 2024-01-02 12:00:00    |                        |
+| first_name         | VARCHAR(50)    | The first name of the user                            | John                   |                        |
+| last_name          | VARCHAR(50)    | The last name of the user                             | Doe                    |                        |
+| street_number      | VARCHAR(10)    | The street number of the user's address               | 123                    |                        |
+| street_name        | VARCHAR(200)   | The street name of the user's address                 | Main Street            |                        |
+| city_name          | VARCHAR(50)    | The city of the user's address                        | Anytown                |                        |
+| postcode           | VARCHAR(10)    | The postal code of the user's address                 | 12345                  |   H4P 0B3              |
+| province           | VARCHAR(20)    | The province or state of the user's address           | StateName              |                        |
+| phone_number       | VARCHAR(15)    | Contact phone number of the user / number(10)         | +1234567890            |                        |
+| profile_picture_url| VARCHAR(500)   | URL to the user's profile picture                     | https://example.com/images/user1.jpg |          |
+| date_of_birth      | DATE           | The user's date of birth                              | 1990-01-01             |                        |
+| emerge_contact_name | VARCHAR(100)  | Emergency contact name                                | Jane Doe               |                        |
+| emerge_contact_number | VARCHAR(15) | Emergency contact  phone number                       |  +1234567891           |                        |
+| national_id        | VARCHAR(20)    | National identification number for verification       | AB1234567              |                        |
+| employer_info      | VARCHAR(100)   | Employer name and phone number                        | College, +1234567891   |                        |
+| bank_info          | VARCHAR(100)   | Bank Name and account number                          | Scotial, 12345567890   |                        |
+| reference_url      | VARCHAR(100)   | A reference letter from employer or mentor            | https://example.com/   |                        |
+| is_verified        | BOOLEAN        | Indicates whether the user's identity has been verified | TRUE/FALSE           |                        |
+| oauth_provider          | VARCHAR(50)        | Name of the OAuth provider                   | Google                 |                        |
+| oauth_provider_user_id  | VARCHAR(100)       | User's ID from the OAuth provider            | 1234567890abcdef       |                        |
 
 
 ## Notes
