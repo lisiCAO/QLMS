@@ -3,7 +3,7 @@ services:
   server:
     build: ./server  
     ports:
-      - "5000:5000"
+      - "3000:3000"
     depends_on:
       - qlms-db
     environment:
@@ -11,6 +11,9 @@ services:
       - DB_USER=root
       - DB_PASSWORD=password
       - DB_NAME=qlmsuser
+    volumes:
+      - ./server:/app
+      - /app/node_modules
 
   qlms-db:
     image: mysql:8.0.36

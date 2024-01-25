@@ -21,7 +21,6 @@
     "dialect": "mysql"
   },
   "models-path": "src/models",
-"migrations-path": "src/migrations",
-"seeders-path": "src/seeders"
-
+  "migrations-path": "src/migrations",
+  "seeders-path": "src/seeders"
 }
