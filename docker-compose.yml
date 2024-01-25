@@ -24,16 +24,6 @@ services:
     volumes:
       - qlms-db-data:/var/lib/mysql
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8080:80"
-    depends_on:
-      - qlms-db
-    environment:
-      PMA_HOST: qlms-db
-      MYSQL_ROOT_PASSWORD: password
-
 volumes:
   qlms-db-data:
 
