@@ -9,6 +9,8 @@
     "axios": "^1.6.5",
     "bootstrap": "^5.3.2",
     "formik": "^2.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
@@ -44,7 +46,6 @@
   },
   "description": "本项目使用 Docker 容器化环境来确保一致的开发体验。请遵循以下步骤来设置和运行开发环境。",
   "main": "index.js",
-  "devDependencies": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
