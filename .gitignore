@@ -140,3 +140,25 @@ Desktop.ini
 # vscode
 .vscode
 .vscodeignore
+
+.vscode
+*.jar
+*.zip
+
+/node_modules
+/.pnp
+.pnp.js
+package-lock.json
+
+# Distribution directories
+dist/
+
+# Typescript v1 declaration files
+typings/
+
+
+
+
+
+
+
