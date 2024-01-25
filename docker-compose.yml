@@ -1,19 +1,16 @@
 version: "3.8"
 services:
-    server:
-        build: ./server
-        ports:
-            - "8000:8000"
-        depends_on:
-            - qlms-db
-        environment:
-            - DB_HOST=qlms-db
-            - DB_USER=root
-            - DB_PASSWORD=password
-            - DB_NAME=qlmsuser
-        volumes:
-            - ./server:/app
-            - /app/node_modules
+  server:
+    build: ./server  
+    ports:
+      - "8000:8000"
+    depends_on:
+      - qlms-db
+    environment:
+      - DB_HOST=qlms-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=qlmsuser
 
     qlms-db:
         image: mysql:8.0.36

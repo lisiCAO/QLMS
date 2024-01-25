@@ -57,41 +57,7 @@ app.get("/", (req, res) => {
 
 // app.use('/api', require('./routes/api'));
 
-passport.use(
-    new GoogleStrategy(
-        {
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "/auth/google/callback",
-        },
-        authController.googleAuthCallback
-    )
-);
-
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function (obj, done) {
-    done(null, obj);
-});
-
-app.use(passport.initialize());
-
-app.get(
-    "/auth/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-app.get(
-    "/auth/google/callback",
-    passport.authenticate("google", { failureRedirect: "/login" }),
-    function (req, res) {
-        res.cookie("jwt", req.user.token, { httpOnly: true });
-        res.redirect("/");
-    }
-);
-
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
