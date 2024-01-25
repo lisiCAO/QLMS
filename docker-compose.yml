@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  server:
+    build: ./server  
+    ports:
+      - "5000:5000"
+    depends_on:
+      - qlms-db
+    environment:
+      - DB_HOST=qlms-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=qlmsuser
+
+  qlms-db:
+    image: mysql:8.0.36
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: qlmsdb      
+      MYSQL_PASSWORD: password
+      MYSQL_NAME: qlmsuser
+    volumes:
+      - qlms-db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - qlms-db
+    environment:
+      PMA_HOST: qlms-db
+      MYSQL_ROOT_PASSWORD: password
+
+volumes:
+  qlms-db-data:
+
