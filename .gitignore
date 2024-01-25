@@ -156,9 +156,4 @@ dist/
 # Typescript v1 declaration files
 typings/
 
-
-
-
-
-
-
+*.bkp
