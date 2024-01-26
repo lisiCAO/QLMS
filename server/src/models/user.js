@@ -110,3 +110,14 @@ module.exports = (sequelize) => {
     );
     return user;
 };
+
+User.hasMany(Property, {
+    foreignKey: "owner_user_id",
+    as: "properties", // 别名，可用于查询
+});
+
+user.associate = function (models) {
+    user.hasMany(models.property, {
+        foreignKey: "owner_user_id",
+    });
+};
