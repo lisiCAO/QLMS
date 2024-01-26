@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
     response => {
-      // 处理成功响应
+      // handle success
       if (response.data.success) {
         return response.data.data;
       } else {
@@ -18,32 +18,60 @@ axiosInstance.interceptors.response.use(
       }
     },
     error => {
-      // 处理网络或其他错误
+      // handle server errors
       if (error.response) {
-        // 服务器有响应，但状态码不在 2xx 范围内
+        // if the server responds with a status code >= 300
         console.error("Backend error:", error.response);
         throw new Error(error.response.data.message || "Backend error");
       } else if (error.request) {
-        // 请求已发出，但没有收到响应
+        // request was made but no response was received
         console.error("No response:", error.request);
       } else {
-        // 请求设置触发了错误
+        // something else happened
         console.error("Error:", error.message);
       }
       throw error;
     }
   );
   const ApiService = {
+    login: async (userData) => {
+      try {
+        const response = await axiosInstance.post('/auth/login', userData);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+  
+    // add register method
+    register: async (userData) => {
+      try {
+        const response = await axiosInstance.post('/auth/register', userData);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+  
+    // add logout method
+    forgotPassword: async (email) => {
+      try {
+        const response = await axiosInstance.post('/auth/forgot-password', { email });
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
     fetchUsers: async () => {
       try {
         const response = await axiosInstance.get('/users');
         return response;
       } catch (error) {
-        // 这里可以处理或记录错误
+        // handle error
         console.error("Failed to fetch users:", error.message);
         throw error;
       }
     },
-    // 其他 API 方法...
+    // other service methods
   };
     
