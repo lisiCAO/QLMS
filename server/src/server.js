@@ -58,6 +58,11 @@ app.get("/", (req, res) => {
 // app.use('/api', require('./routes/api'));
 
 const PORT = process.env.PORT || 8000;
+
+app.get("/", (req, res) => {
+    res.json(`Hello, this is the QLMS backend server on port ${PORT}!`);
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
