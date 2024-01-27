@@ -7,6 +7,5 @@ services:
       target: development
     volumes:
       - ./client:/app
-      - /app/node_modules
     ports:
       - "3000:3000"
