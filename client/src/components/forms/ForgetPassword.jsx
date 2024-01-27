@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ApiService } from './../../services/ApiService';
-import InputField from "./../common/InputField";
-import Button from "./../common/Button";
+import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
@@ -21,19 +20,23 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="container">
-      <form className="form-forgot-password" onSubmit={handleResetPassword}>
+    <Container>
+      <Form className="form-forgot-password" onSubmit={handleResetPassword}>
         <h1 className="h3 mb-3 font-weight-normal text-center">Forgot Password</h1>
-        <InputField 
-          type="email"
-          className="form-control mb-2"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email address"
-        />
-        <Button type="submit" className="btn btn-lg btn-primary btn-block" text="Reset Password" />
-      </form>
-    </div>
+        <Form.Group controlId="email">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" block>
+          Reset Password
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { ApiService } from './../services/ApiService';
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const AuthPage = () => {
 
@@ -14,24 +15,25 @@ const AuthPage = () => {
     <div className="container mt-5">
       <div className="text-center">
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <button 
-          className="btn btn-lg btn-primary btn-block"
+        <Button 
+          variant="primary"
           onClick={handleGoogleLogin}
         >
           Continue with Google
-        </button>
-        <button 
-          className="btn btn-lg btn-secondary btn-block"
+        </Button>
+        <Button 
+          variant="link"
           onClick={() => navigate('/login')}
         >
           Login
-        </button>
-        <button 
-          className="btn btn-lg btn-success btn-block"
+        </Button>
+        
+        <Button 
+          variant="link"
           onClick={() => navigate('/register')}
         >
           Register
-        </button>
+        </Button>
       </div>
     </div>
   );
