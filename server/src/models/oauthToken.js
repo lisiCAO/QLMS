@@ -5,7 +5,7 @@ class oauth_token extends Model {}
   module.exports = (sequelize) => {
     oauth_token.init(
           {                
-            token_id: {
+            id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -14,9 +14,10 @@ class oauth_token extends Model {}
       access_token: DataTypes.TEXT,
       refresh_token: DataTypes.TEXT,
       expires_in: DataTypes.DATE,
-      provider: DataTypes.STRING
+      provider: DataTypes.STRING,
+      oauth_provider_user_id: DataTypes.STRING
     }, {
-      sequelize,
+      sequelize,  
       modelName: "oauth_token",
       tableName: "oauth_token",
       timestamps: false,
@@ -28,7 +29,8 @@ class oauth_token extends Model {}
   
   oauth_token.associate = function (models) {
     oauth_token.belongsTo(models.user, {
-          foreignKey: "oauth_provider_user_id",
-      });
-  };
+        foreignKey: "user_id",
+    });
+};
+
   
