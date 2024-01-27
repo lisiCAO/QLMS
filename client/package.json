@@ -44,10 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "本项目使用 Docker 容器化环境来确保一致的开发体验。请遵循以下步骤来设置和运行开发环境。",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
