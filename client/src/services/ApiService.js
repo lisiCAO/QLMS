@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
       throw error;
     }
   );
-  const ApiService = {
+export const ApiService = {
     login: async (userData) => {
       try {
         const response = await axiosInstance.post('/auth/login', userData);
@@ -72,6 +72,15 @@ axiosInstance.interceptors.response.use(
         throw error;
       }
     },
+    loginWithGoogle: async() => {
+      try {
+        const response = await axiosInstance.get('/auth/google');
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    }
     // other service methods
   };
     
+

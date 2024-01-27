@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ApiService } from './apiService';
-import InputField from "../common/InputField";
-import Button from "./Button";
+import { ApiService } from './../../services/ApiService';
+import InputField from "./../common/InputField";
+import Button from "./../common/Button";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 

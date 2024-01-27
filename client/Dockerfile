@@ -1,19 +1,15 @@
 
 FROM node:20.9.0 AS development
 
-
 WORKDIR /app
 
 COPY package*.json ./
 
-# COPY . .
-
+COPY . .
 
 RUN npm install
 
-
 EXPOSE 3000
-
 
 CMD ["npm", "start"]
 

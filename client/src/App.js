@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import Registration from "./components/forms/Registration";
 import LoginForm from "./components/forms/LoginFom";
-import ForgotPassword from "./components/forms/ForgotPassword"; 
+import ForgetPassword from "./components/forms/ForgetPassword"; 
 import "./App.css";
 
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<AuthPage />} /> {/* AuthPage as Default page */}
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<LoginForm/>} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgetPassword />} />
           {/* Other routes */}
         </Routes>
       </Router>

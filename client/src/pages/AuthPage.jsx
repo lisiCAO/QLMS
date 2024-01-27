@@ -1,4 +1,5 @@
 import React from "react";
+import { ApiService } from './../services/ApiService';
 import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {

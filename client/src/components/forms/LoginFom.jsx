@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ApiService } from './apiService';
-import InputField from "./InputField";
-import Button from "./Button";
+import { ApiService } from './../../services/ApiService';
+import InputField from "./../common/InputField";
+import Button from "./../common/Button";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
