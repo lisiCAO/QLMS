@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const db = require('../models/index'); 
-const OAuthToken = db.OAuthToken;
+const OAuthToken = db.oauth_token;
 
 const User = db.user; 
 
@@ -23,7 +23,9 @@ exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
     oauth_provider_user_id: profile.id,
     email: profile.emails[0].value,
     first_name: profile.name.givenName,
-    last_name: profile.name.familyName
+    last_name: profile.name.familyName,
+    username:  profile.emails[0].value,
+    role: "tenant" 
   };
 
   findOrCreateUser(userData, (err, user) => {
@@ -40,10 +42,10 @@ exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
 
 const saveOrUpdateOAuthToken = (userId, accessToken, refreshToken) => {
     OAuthToken.upsert({
-      userId: userId,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-      expiresIn: new Date(Date.now() + 3600000), 
+      user_id: userId,
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      expires_in: new Date(Date.now() + 3600000), 
       provider: 'Google'
     })
     .then(() => console.log('OAuth Token saved or updated'))

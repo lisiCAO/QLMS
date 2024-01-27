@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const db = require("./models"); //import models and sequelize instance
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -11,12 +10,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-dotenv.config();
+const session = require('express-session');
+
+app.use(session({
+  secret: process.env.SESSION_SECRET, // 用于签名 session ID 的秘钥，建议使用随机字符串
+  resave: false, // 强制保存 session 即使它没有变化
+  saveUninitialized: true, // 强制将未初始化的 session 存储
+  cookie: { secure: false } // 如果为 true，则只通过 HTTPS 发送 cookie
+  // 注意：在生产环境中，应设置 secure 为 true，并确保网站使用 HTTPS
+}));
 
 // sync database
-db.sequelize
-    .sync()
-    .then(() => {
+db.sequelize.sync().then(() => {
         console.log("Database synced");
     })
     .catch((error) => {
