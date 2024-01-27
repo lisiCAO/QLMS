@@ -2,7 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
+
   const navigate = useNavigate();
+
+  const handleGoogleLogin = () => {
+    ApiService.loginWithGoogle();
+  };
 
   return (
     <div className="container mt-5">
@@ -10,7 +15,7 @@ const AuthPage = () => {
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
         <button 
           className="btn btn-lg btn-primary btn-block"
-          onClick={() => navigate('/login-with-google')} // TODO: implement， path: {backend}/auth/google
+          onClick={handleGoogleLogin}
         >
           Continue with Google
         </button>
