@@ -1,5 +1,5 @@
 // const { BlobServiceClient } = require('@azure/storage-blob');
-import { Image } from '../models';
+const { image } = require('../models');
 
 // initialize Azure Blob Storage client
 // const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
@@ -34,7 +34,7 @@ exports.saveImages = async (imagesData, propertyId,  { transaction } = {}) => {
         // Parallelly save images to database and return the result
         const images = await Promise.all(uploadPromises);
 
-        return await Image.bulkCreate(images, { transaction });
+        return await image.bulkCreate(images, { transaction });
     } catch (error) {
         // handle error
         console.error("Error saving images:", error);

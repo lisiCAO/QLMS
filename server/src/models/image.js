@@ -3,7 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 class image extends Model {}
 
 module.exports = (sequelize) => {
-    Image.init({
+    image.init({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Properties',
+                model: 'property',
                 key: 'id' 
             }
         },
@@ -38,8 +38,8 @@ module.exports = (sequelize) => {
         }
     }, {
         sequelize,
-        modelName: 'Image', 
-        tableName: 'images', 
+        modelName: 'image', 
+        tableName: 'image', 
         timestamps: false, 
         underscored: true, 
     });
@@ -50,7 +50,6 @@ module.exports = (sequelize) => {
 image.associate = (models) => {
     image.belongsTo(models.property, {
         foreignKey: 'property_id', 
-        targetKey: 'id',
         as: 'property' 
     });
 };

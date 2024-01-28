@@ -88,7 +88,6 @@ property.associate = function (models) {
 property.associate = (models) => {
     property.hasMany(models.image, {
         foreignKey: 'property_id',
-        sourceKey: 'id',
         as: 'images' // alias
     });
 };
