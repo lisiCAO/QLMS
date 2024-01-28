@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const db = require('../models/index');
-const OAuthToken = db.oauth_token;
+const { oauth_token, user } = require('../models/index');
+const OAuthToken = oauth_token;
 
-const User = db.user;
+const User = user;
 
 const findOrCreateUser = (userData, callback) => {
   User.findOrCreate({

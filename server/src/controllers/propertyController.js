@@ -1,6 +1,5 @@
 const { body, validationResult } = require('express-validator');
 const propertyService = require('../services/propertyService');
-const imageService = require('../services/imageService');  // TODO: Import image service
 
 // Validate and sanitize fields using express-validator
 exports.propertyValidationRules = [

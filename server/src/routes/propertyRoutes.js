@@ -20,7 +20,7 @@ propertyController.createProperty
 // TODO: Adjust the following routes to use propertyController
 
 // get all properties
-router.get("/properties", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const properties = await property.findAll();
         res.sendSuccess(properties, "Properties retrieved successfully");
@@ -30,7 +30,7 @@ router.get("/properties", async (req, res) => {
 });
 
 // get single property
-router.get("/properties/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const prop = await property.findByPk(req.params.id);
         if (prop) {
@@ -44,7 +44,7 @@ router.get("/properties/:id", async (req, res) => {
 });
 
 // update single property
-router.put("/properties/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const updated = await property.update(req.body, {
             where: { id: req.params.id },
@@ -61,7 +61,7 @@ router.put("/properties/:id", async (req, res) => {
 });
 
 // delete single property
-router.delete("/properties/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
         const deleted = await property.destroy({
             where: { id: req.params.id },
