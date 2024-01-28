@@ -67,25 +67,12 @@ const saveOrUpdateOAuthToken = (
     })
         .then(() => console.log("OAuth Token saved or updated"))
         .catch((err) => console.error("Error saving OAuth Token:", err));
+    console.log("userId:", userId);
 };
-
-const saveOrUpdateOAuthToken = (userId, accessToken, refreshToken, provider, oauth_provider_user_id) => {
-  OAuthToken.upsert({
-    user_id: userId,
-    access_token: accessToken,
-    refresh_token: refreshToken,
-    expires_in: new Date(Date.now() + 3600000),
-    provider: provider,
-    oauth_provider_user_id: oauth_provider_user_id
-  })
-    .then(() => console.log('OAuth Token saved or updated'))
-    .catch(err => console.error('Error saving OAuth Token:', err));
-    console.log('userId:', userId);
-}
 
 exports.googleSendToken = (req, res) => {
     res.cookie("jwt", req.user.token, { httpOnly: true });
-    console.log('req.user:', req.user);
+    console.log("req.user:", req.user);
     res.redirect("/");
 };
 
