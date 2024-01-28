@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import {ApiService} from "../services/ApiService";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // 处理登录逻辑
+    const response = await ApiService.login({ username, password });
+    window.localStorage.setItem('token', token);
   };
 
   return (
