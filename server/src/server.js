@@ -48,15 +48,6 @@ db.sequelize
         console.error("Error syncing database: ", error);
     });
 
-// define routes
-const PORT = process.env.PORT || 8000;
-
-app.get("/", (req, res) => {
-    res.json(`Hello, this is the QLMS backend server on port ${PORT}!`);
-});
-
-// app.use('/api', require('./routes/api'));
-
 const PORT = process.env.PORT || 8000;
 
 app.get("/", (req, res) => {
