@@ -65,7 +65,6 @@ db.sequelize.sync({ force: true }) // force: true will drop the table if it alre
         // Use other routes...
 
         // Listen to port
-        const PORT = process.env.PORT || 8000;
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
