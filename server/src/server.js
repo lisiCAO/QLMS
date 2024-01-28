@@ -42,7 +42,7 @@ const authController = require("./controllers/authController");
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/auth/google/callback"
+    callbackURL: "auth/google/callback"
 },
 // Handle by authController.googleAuthCallback function
 authController.googleAuthCallback
@@ -60,7 +60,7 @@ db.sequelize.sync({ force: true }) // force: true will drop the table if it alre
 
         // Use routes
         app.get("/", (req, res) => {res.json(`Hello, this is the QLMS backend server on port ${PORT}!`);});
-        app.use('/api/auth', authRoutes);
+        app.use('/auth', authRoutes);
         app.use('/api/properties', propertyRoutes);
         // Use other routes...
 

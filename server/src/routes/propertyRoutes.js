@@ -11,7 +11,7 @@ const { property } = require("../models");
 /* Auth middleware */
 
 // Route for creating a new property
-router.post("/properties",
+router.post("/",
 /* authMiddleware,*/
 propertyController.propertyValidationRules, 
 propertyController.createProperty
