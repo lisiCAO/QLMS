@@ -5,6 +5,7 @@ const OAuthToken = oauth_token;
 const User = user;
 
 const findOrCreateUser = (userData, callback) => {
+  console.log('userData:', userData);
   User.findOrCreate({
     where: { oauth_provider_user_id: userData.oauth_provider_user_id, oauth_provider: userData.oauth_provider },
     defaults: userData
@@ -28,6 +29,8 @@ exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
     role: "tenant"
   };
 
+  console.log('userData:', userData);
+
   findOrCreateUser(userData, (err, user) => {
     if (err) {
       return done(err);
@@ -50,6 +53,13 @@ const saveOrUpdateOAuthToken = (userId, accessToken, refreshToken, provider, oau
   })
     .then(() => console.log('OAuth Token saved or updated'))
     .catch(err => console.error('Error saving OAuth Token:', err));
+    console.log('userId:', userId);
 }
+
+exports.googleSendToken = (req, res) => {
+    res.cookie("jwt", req.user.token, { httpOnly: true });
+    console.log('req.user:', req.user);
+    res.redirect("/");
+};
 
 // Other Methods

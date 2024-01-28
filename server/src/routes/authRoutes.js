@@ -7,11 +7,7 @@ const router = express.Router();
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // Google OAuth callback route
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), authController.googleAuthCallback, function (req, res) {
-    res.cookie("jwt", req.user.token, { httpOnly: true });
-    console.log("req.user.token", req.user.token);
-    res.redirect("/");
-});
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), authController.googleSendToken);
 
 // Other OAuth login routes
 
