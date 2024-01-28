@@ -1,16 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const { property } = require("../models"); //import property model
+const propertyController = require("../controllers/propertyController");
 
-// create property
-router.post("/properties", async (req, res) => {
-    try {
-        const newProperty = await property.create(req.body);
-        res.sendSuccess(newProperty, "Property created successfully");
-    } catch (error) {
-        res.sendError("Failed to create property: " + error.message, 500);
-    }
-});
+/* No more models import here */
+const { property } = require("../models"); 
+/* No more models import here */
+
+/* Auth middleware */
+// TODO: Add auth middleware here
+/* Auth middleware */
+
+// Route for creating a new property
+router.post("/properties",
+/* authMiddleware,*/
+propertyController.propertyValidationRules, 
+propertyController.createProperty
+); // TODO: Add auth middleware to get user id
+
+// TODO: Adjust the following routes to use propertyController
 
 // get all properties
 router.get("/properties", async (req, res) => {
