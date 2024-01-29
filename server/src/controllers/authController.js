@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { oauth_token, user } = require("../models/index");
 const OAuthToken = oauth_token;
-const bcryptjs = require("bcryptjs"); //add bcrypt package
-const { Sequelize } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 const User = user;
 
@@ -95,7 +94,7 @@ exports.register = async (req, res) => {
         }
 
         // hash the password
-        const hashedPassword = await bcryptjs.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         // create a new user
         const newUser = await User.create({
@@ -151,7 +150,7 @@ exports.login = async (req, res) => {
             return res.sendError("User not found", 404);
         }
 
-        const isMatch = await bcryptjs.compare(password, user.password_hash);
+        const isMatch = await bcrypt.compare(password, user.password_hash);
         if (!isMatch) {
             return res.sendError("Password is incorrect", 401);
         }
