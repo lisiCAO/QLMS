@@ -3,8 +3,35 @@ const { oauth_token, user } = require("../models/index");
 const OAuthToken = oauth_token;
 const bcrypt = require("bcryptjs");
 const { Sequelize } = require("sequelize");
+const { body, validationResult } = require("express-validator");
 
 const User = user;
+
+//add validation rules for user registration
+exports.registerValidationRules = [
+    body("username").trim().notEmpty().withMessage("Username is required"),
+    body("email").isEmail().withMessage("Invalid email address"),
+    body("password")
+        .isLength({ min: 8 }) // at least 8 characters
+        .withMessage("Password must be at least 8 characters long")
+        .matches(/[A-Z]/)
+        .withMessage("Password must contain at least one uppercase letter")
+        .matches(/[a-z]/)
+        .withMessage("Password must contain at least one lowercase letter")
+        .matches(/[0-9]/)
+        .withMessage("Password must contain at least one number")
+        .matches(/[\W]/)
+        .withMessage("Password must contain at least one special character"),
+    body("role")
+        .isIn(["tenant", "landlord"])
+        .withMessage("Role must be either tenant or landlord"),
+];
+
+//add validation rules for user login
+exports.loginValidationRules = [
+    body("email").isEmail().withMessage("Invalid email address"),
+    body("password").notEmpty().withMessage("Password is required"),
+];
 
 const findOrCreateUser = (userData, callback) => {
     User.findOrCreate({
@@ -81,6 +108,19 @@ exports.googleSendToken = (req, res) => {
 // register a new user
 exports.register = async (req, res) => {
     try {
+        //check if user information is valid
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.sendError(
+                "Registeration failed: " +
+                    errors
+                        .array()
+                        .map((err) => err.msg)
+                        .join(", "),
+                422
+            );
+        }
+
         const { username, email, password, role } = req.body;
 
         // check if username or email already exists
@@ -126,7 +166,7 @@ exports.register = async (req, res) => {
             newUser.id
         );
 
-        // 设置 HTTP-only cookie
+        // set HTTP-only cookie
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600000 }); // 1 hour
 
         // send response
@@ -143,6 +183,21 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        //check if login information is valid
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.sendError(
+                "Login failed: " +
+                    errors
+                        .array()
+                        .map((err) => err.msg)
+                        .join(", "),
+                422
+            );
+        }
+
+        // check if username or email already exists
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
@@ -154,10 +209,31 @@ exports.login = async (req, res) => {
             return res.sendError("Password is incorrect", 401);
         }
 
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-        });
-        res.sendSuccess({ token }, "Login successful");
+        // generate access and refresh tokens
+        const accessToken = jwt.sign(
+            { userId: user.id },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h",
+            }
+        );
+
+        const refreshToken = jwt.sign(
+            { userId: user.id },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "24h",
+            }
+        );
+
+        // set HTTP-only cookie
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600000 }); // 1 hour
+
+        // send response
+        res.sendSuccess(
+            { userId: user.id, username: user.username },
+            "User registered successfully"
+        );
     } catch (error) {
         res.sendError("Login failed: " + error.message, 500);
     }
