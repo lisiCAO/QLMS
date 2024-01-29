@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { oauth_token, user } = require("../models/index");
 const OAuthToken = oauth_token;
-const bcrypt = require("bcrypt"); //add bcrypt package
+const bcrypt = require("bcryptjs"); 
 
 const User = user;
 
