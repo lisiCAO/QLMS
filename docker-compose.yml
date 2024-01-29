@@ -13,7 +13,6 @@ services:
             - DB_NAME=qlmsuser
         volumes:
             - ./server:/app
-            - /app/node_modules
 
     qlms-db:
         image: mysql:8.0.36
