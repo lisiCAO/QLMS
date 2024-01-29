@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LoginForm from './../components/forms/LoginForm';
 import Registration from './../components/forms/Registration';
 import ForgotPassword from '../components/forms/ForgotPassword';
@@ -8,7 +8,6 @@ import './AuthPage.scss';
 
 const AuthPage = () => {
   const [bgImageUrl, setBgImageUrl] = useState(null); 
-
   useEffect(() => {
     const loadImage = async () => {
       const img = new Image();
@@ -32,8 +31,11 @@ const AuthPage = () => {
     // ApiService.loginWithGoogle();
     console.log('Google login simulation');
   };
-
-  const [activeView, setActiveView] = useState('default'); // 可以是 'login' 或 'register'
+  const { view } = useParams();
+  const [activeView, setActiveView] = useState(view || 'default'); // 可以是 'login' 或 'register'
+  useEffect(() => {
+    setActiveView( view || 'default');
+  }, [view]);
 
   const renderAuthComponent = () => {
     switch (activeView) {

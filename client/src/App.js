@@ -14,10 +14,8 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<AuthPage />} /> {/* AuthPage as Default page */}
-          <Route path="/register" element={<Registration />} />
-          <Route path="/login" element={<LoginForm/>} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/" element={<AuthPage />} /> 
+          <Route path="/:view" element={<AuthPage />} /> {/* AuthPage as Default page */}
           <Route path="/property/create" element={<CreateProperty />} />
           <Route path="/property/list" element={<ListOfProperties />} />
           {/* Other routes */}
@@ -26,6 +24,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
