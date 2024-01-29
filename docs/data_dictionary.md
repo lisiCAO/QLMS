@@ -12,7 +12,7 @@ This data dictionary describes the structure of the `User` table in the rental m
 |--------------------|----------------|-------------------------------------------------------|------------------------|------------------------|
 | user_id            | INT            | Unique identifier for each user                       | 1001                   |                        |
 | username           | VARCHAR(50)    | Username chosen by the user                           | johndoe                |                        |
-| password_hash      | VARCHAR(550)   | Encrypted password for the user account               | 5f4dcc3b5aa765d61...   | at least 1 digit, at least 1 num, at least 1 uppercase, at least 1 lowercase, at least 1 special character, >8|
+| password_hash      | VARCHAR(550)   | Encrypted password for the user account               | 5f4dcc3b5aa765d61...   | at least 1 digit, at least 1 uppercase, at least 1 lowercase, at least 1 special character, >8|
 | email              | VARCHAR(100)   | User's email address                                  | user@example.com       | email                  |
 | role               | ENUM('tenant', 'landlord') | User role in the system                   | tenant                 |  'tenant', 'landlord'  |
 | created_at         | DATETIME       | Timestamp when the account was created                | 2024-01-01 12:00:00    |                        |
