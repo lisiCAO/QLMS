@@ -85,9 +85,7 @@ const Registration = () => {
           />
         </Form.Group>
         <Button type="submit" className="btn btn-lg btn-primary btn-block">Register</Button>
-        <p className="mt-2 text-center">
-          Already have an account? <Link to="/login">Login here</Link>
-        </p>
+
       </Form>
     </div>
   );

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import {ApiService} from "../services/ApiService";
+import {ApiService} from "../../services/ApiService";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await ApiService.login({ username, password });
+    const response = await ApiService.login({ email, password });
     window.localStorage.setItem('token', token);
   };
 
@@ -31,7 +32,6 @@ const LoginForm = () => {
         <Button type="submit" className="btn btn-lg btn-primary btn-block">
           Sign in
         </Button>
-        <Button variant="link" href="/forgot-password"> Forgot Password?</Button>
       </Form>
     </div>
   );
