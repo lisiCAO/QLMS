@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { oauth_token, user } = require("../models/index");
 const OAuthToken = oauth_token;
 const bcrypt = require("bcryptjs");
+const { Sequelize } = require("sequelize");
 
 const User = user;
 
@@ -126,15 +127,13 @@ exports.register = async (req, res) => {
         );
 
         // 设置 HTTP-only cookie
-        //res.cookie("jwt", token, { httpOnly: true });
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600000 }); // 1 hour
 
         // send response
         res.sendSuccess(
-            { user: newUser, accessToken, refreshToken },
+            { userId: newUser.id, username: newUser.username },
             "User registered successfully"
         );
-
-        //res.redirect("/");
     } catch (error) {
         res.sendError("Registration failed: " + error.message, 500);
     }
