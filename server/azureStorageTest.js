@@ -4,7 +4,7 @@ require('dotenv').config();
 async function listBlobs() {
     try {
         const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-        const containerClient = blobServiceClient.getContainerClient('qlmsfile'); // 使用你的容器名称
+        const containerClient = blobServiceClient.getContainerClient('qlmsfile'); // container name
 
         // 列出容器中的blobs
         console.log('Listing blobs...');
