@@ -23,7 +23,7 @@ const ForgotPassword = () => {
     <Container>
       <Form className="form-forgot-password" onSubmit={handleResetPassword}>
         <h1 className="h3 mb-3 font-weight-normal text-center">Forgot Password</h1>
-        <Form.Group controlId="email">
+        <Form.Group controlId="email" className="w-100 mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -32,7 +32,7 @@ const ForgotPassword = () => {
             placeholder="Enter email"
           />
         </Form.Group>
-        <Button variant="primary" type="submit" block>
+        <Button variant="primary" type="submit" className="w-100 mb-3">
           Reset Password
         </Button>
       </Form>

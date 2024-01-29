@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -35,11 +34,10 @@ const Registration = () => {
   };
 
   return (
-    <div className="container">
       <Form className="form-signup" onSubmit={handleSubmit}>
-        <h1 className="h3 mb-3 font-weight-normal text-center">Create an Account</h1>
+        <h1 className="h3 w-100 mb-3 font-weight-normal text-center">Create an Account</h1>
         {registerError && <div className="alert alert-danger" role="alert">{registerError}</div>}
-        <Form.Group controlId="firstName">
+        <Form.Group controlId="firstName" className="w-100 mb-3">
           <Form.Control
             type="text"
             name="firstName"
@@ -48,7 +46,7 @@ const Registration = () => {
             placeholder="First Name"
           />
         </Form.Group>
-        <Form.Group controlId="lastName">
+        <Form.Group controlId="lastName" className="w-100 mb-3">
           <Form.Control
             type="text"
             name="lastName"
@@ -57,7 +55,7 @@ const Registration = () => {
             placeholder="Last Name"
           />
         </Form.Group>
-        <Form.Group controlId="email">
+        <Form.Group controlId="email" className="w-100 mb-3">
           <Form.Control
             type="email"
             name="email"
@@ -66,7 +64,7 @@ const Registration = () => {
             placeholder="Email Address"
           />
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password" className="w-100 mb-3">
           <Form.Control
             type="password"
             name="password"
@@ -75,7 +73,7 @@ const Registration = () => {
             placeholder="Password"
           />
         </Form.Group>
-        <Form.Group controlId="confirmPassword">
+        <Form.Group controlId="confirmPassword" className="w-100 mb-3">
           <Form.Control
             type="password"
             name="confirmPassword"
@@ -85,9 +83,7 @@ const Registration = () => {
           />
         </Form.Group>
         <Button type="submit" className="btn btn-lg btn-primary btn-block">Register</Button>
-
       </Form>
-    </div>
   );
 };
 

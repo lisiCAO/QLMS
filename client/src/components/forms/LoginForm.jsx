@@ -22,12 +22,14 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          className="w-100 mb-3"
         />
         <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          className="w-100 mb-3"
         />
         <Button type="submit" className="btn btn-lg btn-primary btn-block">
           Sign in

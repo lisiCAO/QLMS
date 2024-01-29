@@ -2,7 +2,6 @@
 @media (max-width: 768px) {
   .modal-dialog {
     max-width: none;
-    width: 90%;
   }
   .d-none.d-md-flex {
     display: none !important;
@@ -24,18 +23,18 @@
   z-index: 2;  
   
   @media (max-width: 600px) {
-    color: #fff; /* 小屏幕下设置为白色 */
+    color: #fff; 
   }
 }
 
-.modal-custom { /* 新增类名 .modal-custom 用于定制模态框样式 */
-  max-width: 600px; /* 固定模态框宽度 */
+.modal-custom { 
+  max-width: 600px; 
   background-color: #fff; 
-  border: 1px solid #adb5bd; /* 边框颜色 */
-  border-radius: 0.3rem; /* 边框圆角 */
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* 边框阴影 */
+  border: 1px solid #adb5bd; 
+  border-radius: 0.3rem; 
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); 
   .modal-content {
-    padding: 20px; /* 内容间距 */
+    padding: 20px; 
   }
   z-index: 2;
 }
@@ -61,22 +60,22 @@
 
 .modal-custom {
   .modal-title {
-    font-weight: bold; /* 标题字体粗细 */
-    font-size: 24px; /* 标题字体大小 */
-    color: #004085; /* 标题字体颜色 */
+    font-weight: bold; 
+    font-size: 24px; 
+    color: #004085; 
   }
 
   .modal-body {
-    font-size: 16px; /* 正文字体大小 */
-    color: #004085; /* 正文字体颜色 */
+    font-size: 16px; 
+    color: #004085;
     p {
-      margin-bottom: 1rem; /* 段落间距 */
+      margin-bottom: 1rem; 
     }
   }
   .modal-footer {
-    justify-content: flex-start; /* 调整按钮位置 */
+    justify-content: flex-start; 
     button {
-      margin-right: 1rem; /* 按钮间距 */
+      margin-right: 1rem; 
     }
   }
 }
@@ -87,17 +86,17 @@
   .modal-content {
     width: 100%;
     margin: 0;
-    padding: 20px; /* 保持内容间距 */
+    padding: 20px; 
     border: none;
     background: transparent;
     box-shadow: none;
     
     .modal-title, .modal-body, .modal-footer {
-      color: #fff; /* 设置小屏幕下的文本颜色为白色 */
+      color: #fff; 
     }
   }
 
   .modal-header, .modal-footer {
-    display: none; /* 在小屏幕上隐藏头部和脚部 */
+    display: none;
   }
 }
