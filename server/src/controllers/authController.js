@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { oauth_token, user } = require("../models/index");
 const OAuthToken = oauth_token;
-const bcrypt = require("bcrypt"); //add bcrypt package
+const bcryptjs = require("bcryptjs"); //add bcrypt package
+const { Sequelize } = require("sequelize");
 
 const User = user;
 
@@ -81,8 +82,22 @@ exports.googleSendToken = (req, res) => {
 exports.register = async (req, res) => {
     try {
         const { username, email, password, role } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
 
+        // check if username or email already exists
+        const existingUser = await User.findOne({
+            where: {
+                [Sequelize.Op.or]: [{ username }, { email }],
+            },
+        });
+
+        if (existingUser) {
+            return res.sendError("Username or email already exists", 409); // 409 Conflict
+        }
+
+        // hash the password
+        const hashedPassword = await bcryptjs.hash(password, 10);
+
+        // create a new user
         const newUser = await User.create({
             username,
             email,
@@ -90,7 +105,37 @@ exports.register = async (req, res) => {
             role,
         });
 
-        res.sendSuccess(newUser, "User registered successfully");
+        // generate access and refresh tokens
+        const accessToken = jwt.sign(
+            { userId: newUser.id },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+        const refreshToken = jwt.sign(
+            { userId: newUser.id },
+            process.env.JWT_SECRET,
+            { expiresIn: "24h" }
+        );
+
+        // use saveOrUpdateOAuthToken function to save or update OAuth token info in oauth_token table
+        saveOrUpdateOAuthToken(
+            newUser.id,
+            accessToken,
+            refreshToken,
+            "QLMS",
+            newUser.id
+        );
+
+        // 设置 HTTP-only cookie
+        //res.cookie("jwt", token, { httpOnly: true });
+
+        // send response
+        res.sendSuccess(
+            { user: newUser, accessToken, refreshToken },
+            "User registered successfully"
+        );
+
+        //res.redirect("/");
     } catch (error) {
         res.sendError("Registration failed: " + error.message, 500);
     }
@@ -106,7 +151,7 @@ exports.login = async (req, res) => {
             return res.sendError("User not found", 404);
         }
 
-        const isMatch = await bcrypt.compare(password, user.password_hash);
+        const isMatch = await bcryptjs.compare(password, user.password_hash);
         if (!isMatch) {
             return res.sendError("Password is incorrect", 401);
         }

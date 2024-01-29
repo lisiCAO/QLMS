@@ -3,7 +3,7 @@ const router = express.Router();
 const propertyController = require("../controllers/propertyController");
 
 /* No more models import here */
-const { property } = require("../models"); 
+const { property } = require("../models");
 /* No more models import here */
 
 /* Auth middleware */
@@ -11,10 +11,11 @@ const { property } = require("../models");
 /* Auth middleware */
 
 // Route for creating a new property
-router.post("/",
-/* authMiddleware,*/
-propertyController.propertyValidationRules, 
-propertyController.createProperty
+router.post(
+    "/",
+    /* authMiddleware,*/
+    propertyController.propertyValidationRules,
+    propertyController.createProperty
 ); // TODO: Add auth middleware to get user id
 
 // TODO: Adjust the following routes to use propertyController
