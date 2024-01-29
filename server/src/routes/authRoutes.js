@@ -23,9 +23,17 @@ router.get(
 
 // Other OAuth login routes
 // register a new user
-router.post("/register", authController.register);
+router.post(
+    "/register",
+    authController.registerValidationRules,
+    authController.register
+);
 
 // user login
-router.post("/login", authController.login);
+router.post(
+    "/login",
+    authController.loginValidationRules,
+    authController.login
+);
 
 module.exports = router;
