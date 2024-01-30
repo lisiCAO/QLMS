@@ -1,5 +1,6 @@
 const { property, user } = require("../models"); // Import property model
-const sequelize = require("../models/index").sequelize;
+const { sequelize } = require("../models/index");
+const imageService = require("./imageService");
 
 // Service to create a new property
 /* In service layer, all errors should be thrown only , and handled in controller */
@@ -32,7 +33,7 @@ exports.createProperty = async (propertyData, userId, transaction) => {
         const newProperty = await property.create(
             {
                 ...propertyData,
-                owner_user_id: User.id,
+                owner_user_id: userId,
             },
             { transaction }
         );
@@ -52,25 +53,32 @@ exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
 
     try {
         // Step 1: Create the property
-        const newProperty = await this.createProperty(propertyData, userId, {
-            transaction,
-        });
+        const newProperty = await this.createProperty(
+            propertyData,
+            userId,
+            transaction
+        );
+        console.log("newProperty:", newProperty);
 
         // Step 2: Process images with imageService
         // Ensure imageService.saveImages is adapted to accept a transaction
         const processedImages = await imageService.saveImages(
             imagesData,
             newProperty.id,
-            { transaction }
+            transaction
         );
+        console.log("processedImages:", processedImages);
 
         // If all operations are successful, commit the transaction
         await transaction.commit();
-
+        console.log("Transaction committed");
         return { property: newProperty, images: processedImages };
     } catch (error) {
         // If any operation fails, rollback the transaction
-        await transaction.rollback();
+        if (transaction.rollback) {
+            await transaction.rollback();
+        }
+        console.error("Error creating property with images:", error);
         throw error;
     }
 };
