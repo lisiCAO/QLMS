@@ -20,57 +20,45 @@ exports.createProperty = async (propertyData, userId, transaction) => {
     }
     // Trim address
     propertyData.address = propertyData.address.trim();
-    // Other validations...
-    // E.g. check if a property with the same address already exists
+    // Check if property with the same address already exists
     const existingProperty = await property.findOne({
         where: { address: propertyData.address },
     });
     if (existingProperty) {
         throw new Error("A property with the same address already exists.");
     }
-
-    try {
-        const newProperty = await property.create(
-            {
-                ...propertyData,
-                owner_user_id: userId,
-            },
-            { transaction }
-        );
-
-        // Other operations...
+    // Create property
+    try{
+        const newProperty = await property.create({
+            ...propertyData, 
+            owner_user_id: userId,
+        }, { transaction });
 
         return newProperty;
     } catch (error) {
         // Rollback transaction if any errors were encountered
-        await transaction.rollback();
+        // If any operation fails, rollback the transaction
+        if (transaction.rollback) {
+            await transaction.rollback();
+        }
         throw error; // Throw error to controller
     }
 };
 
 exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
-    const transaction = await sequelize.transaction();
+    const transaction = await sequelize.transaction(); 
 
     try {
         // Step 1: Create the property
-        const newProperty = await this.createProperty(
-            propertyData,
-            userId,
-            transaction
-        );
+        const newProperty = await this.createProperty(propertyData, userId, transaction);
         console.log("newProperty:", newProperty);
-
         // Step 2: Process images with imageService
         // Ensure imageService.saveImages is adapted to accept a transaction
-        const processedImages = await imageService.saveImages(
-            imagesData,
-            newProperty.id,
-            transaction
-        );
+        const processedImages = await imageService.saveImages(imagesData, newProperty.id, transaction);
         console.log("processedImages:", processedImages);
-
         // If all operations are successful, commit the transaction
         await transaction.commit();
+        console.log("Transaction committed");
         console.log("Transaction committed");
         return { property: newProperty, images: processedImages };
     } catch (error) {

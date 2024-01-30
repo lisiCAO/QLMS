@@ -5,9 +5,7 @@ const authController = require("../controllers/authController");
 const router = express.Router();
 
 // Google OAuth login route
-router.get(
-    "/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
+router.get("/google",passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google OAuth callback route
