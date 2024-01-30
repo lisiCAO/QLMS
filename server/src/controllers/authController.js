@@ -111,10 +111,10 @@ exports.register = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.sendError(
                 "Registeration failed: " +
-                errors
-                    .array()
-                    .map((err) => err.msg)
-                    .join(", "),
+                    errors
+                        .array()
+                        .map((err) => err.msg)
+                        .join(", "),
                 422
             );
         }
@@ -187,10 +187,10 @@ exports.login = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.sendError(
                 "Login failed: " +
-                errors
-                    .array()
-                    .map((err) => err.msg)
-                    .join(", "),
+                    errors
+                        .array()
+                        .map((err) => err.msg)
+                        .join(", "),
                 422
             );
         }
