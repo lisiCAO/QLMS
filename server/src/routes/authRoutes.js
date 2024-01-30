@@ -12,7 +12,6 @@ router.get("/google",passport.authenticate("google", { scope: ["profile", "email
 router.get(
     "/google/callback",
     passport.authenticate("google", { failureRedirect: "/login" }),
-    authController.googleAuthCallback,
     function (req, res) {
         res.cookie("jwt", req.user.token, { httpOnly: true });
         console.log("req.user.token", req.user.token);

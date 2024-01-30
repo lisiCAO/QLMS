@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
-import { ApiService } from './../../services/ApiService';
+
 // import './../../css/sb-admin-2.min.css';
 
 const ListOfProperties = () => {
