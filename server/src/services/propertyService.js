@@ -28,22 +28,12 @@ exports.createProperty = async (propertyData, userId, transaction) => {
     if (existingProperty) {
         throw new Error("A property with the same address already exists.");
     }
-
-    try {
-        const newProperty = await property.create(
-            {
-                ...propertyData,
-                owner_user_id: userId,
-            },
-            { transaction }
-        );
+    // Create property
     try{
         const newProperty = await property.create({
             ...propertyData, 
             owner_user_id: userId,
         }, { transaction });
-
-        // Other operations...
 
         return newProperty;
     } catch (error) {
