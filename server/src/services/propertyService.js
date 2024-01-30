@@ -20,8 +20,7 @@ exports.createProperty = async (propertyData, userId, transaction) => {
     }
     // Trim address
     propertyData.address = propertyData.address.trim();
-    // Other validations...
-    // E.g. check if a property with the same address already exists
+    // Check if property with the same address already exists
     const existingProperty = await property.findOne({
         where: { address: propertyData.address },
     });
@@ -38,7 +37,10 @@ exports.createProperty = async (propertyData, userId, transaction) => {
         return newProperty;
     } catch (error) {
         // Rollback transaction if any errors were encountered
-        await transaction.rollback();
+        // If any operation fails, rollback the transaction
+        if (transaction.rollback) {
+            await transaction.rollback();
+        }
         throw error; // Throw error to controller
     }
 };
@@ -61,10 +63,6 @@ exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
         return { property: newProperty, images: processedImages };
     } catch (error) {
         // If any operation fails, rollback the transaction
-        if (transaction.rollback) {
-            await transaction.rollback();
-        }
-        console.error("Error creating property with images:", error);
         if (transaction.rollback) {
             await transaction.rollback();
         }
