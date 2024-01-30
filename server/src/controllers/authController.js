@@ -135,6 +135,7 @@ exports.register = async (req, res) => {
         }
 
         // hash the password
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // create a new user
@@ -205,6 +206,7 @@ exports.login = async (req, res) => {
         }
 
         const isMatch = await bcrypt.compare(password, user.password_hash);
+
         if (!isMatch) {
             return res.sendError("Password is incorrect", 401);
         }
