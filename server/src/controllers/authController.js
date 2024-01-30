@@ -113,10 +113,10 @@ exports.register = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.sendError(
                 "Registeration failed: " +
-                errors
-                    .array()
-                    .map((err) => err.msg)
-                    .join(", "),
+                    errors
+                        .array()
+                        .map((err) => err.msg)
+                        .join(", "),
                 422
             );
         }
@@ -135,7 +135,7 @@ exports.register = async (req, res) => {
         }
 
         // hash the password
-        const hashedPassword = await bcryptjs.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         // create a new user
         const newUser = await User.create({
@@ -189,10 +189,10 @@ exports.login = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.sendError(
                 "Login failed: " +
-                errors
-                    .array()
-                    .map((err) => err.msg)
-                    .join(", "),
+                    errors
+                        .array()
+                        .map((err) => err.msg)
+                        .join(", "),
                 422
             );
         }
