@@ -1,68 +1,79 @@
 const express = require("express");
+const db = require("./models");
 const cors = require("cors");
-const db = require("./models"); //import models and sequelize instance
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const authController = require('./controllers/authController'); 
-require('dotenv').config();
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const {
+    sendSuccessResponse,
+    sendErrorResponse,
+} = require("./middleWares/responseHandler");
+const authController = require("./controllers/authController");
+require("dotenv").config();
 
 const app = express();
+const PORT = process.env.PORT || 8000;
+
+// Express App Settings
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: "GET,POST,PUT,PATCH,DELETE",
+        allowedHeaders: "Content-Type,Authorization",
+        credentials: true,
+    })
+);
 
-const session = require('express-session');
+// Error and Format Middlewares
+app.use(sendSuccessResponse);
+app.use(sendErrorResponse);
 
-app.use(session({
-  secret: process.env.SESSION_SECRET, // 用于签名 session ID 的秘钥，建议使用随机字符串
-  resave: false, // 强制保存 session 即使它没有变化
-  saveUninitialized: true, // 强制将未初始化的 session 存储
-  cookie: { secure: false } // 如果为 true，则只通过 HTTPS 发送 cookie
-  // 注意：在生产环境中，应设置 secure 为 true，并确保网站使用 HTTPS
-}));
+// Passport Init
+app.use(passport.initialize());
 
-// sync database
-db.sequelize.sync().then(() => {
+// GoogleStrategy
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL:
+                process.env.GOOGLE_CALLBACK_URL ||
+                "http://localhost:8000/auth/google/callback",
+        },
+        // Handle by authController.googleAuthCallback function
+        authController.googleAuthCallback
+    )
+);
+
+// Database sync
+db.sequelize
+    .sync({ force: false }) // force: true will drop the table if it already exists, default value is false, Production environment should set it to false
+    .then(() => {
         console.log("Database synced");
+
+        // Do not do  anything before database sync
+        const authRoutes = require("./routes/authRoutes");
+        const propertyRoutes = require("./routes/propertyRoutes.js");
+        // Import other routes...
+
+        // Use routes
+        app.get("/", (req, res) => {
+            res.json(`Hello, this is the QLMS backend server on port ${PORT}!`);
+        });
+        app.use("/auth", authRoutes);
+        app.use("/api/properties", propertyRoutes);
+        // Use other routes...
+
+        // Listen to port
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
     })
     .catch((error) => {
         console.error("Error syncing database: ", error);
     });
-
-// define routes
-const PORT = process.env.PORT || 8000;
-
-app.get("/", (req, res) => {
-    res.json(`Hello, this is the QLMS backend server on port ${PORT}!`);
-});
-
-// app.use('/api', require('./routes/api'));
-
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback"
-  }, authController.googleAuthCallback));
-  
-  passport.serializeUser(function(user, done) {
-    done(null, user);
-  });
-  
-  passport.deserializeUser(function(obj, done) {
-    done(null, obj);
-  });
-  
-  app.use(passport.initialize());
-  
-  app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }));
-  
-  app.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    function(req, res) {
-      res.cookie('jwt', req.user.token, { httpOnly: true });
-      res.redirect('/'); 
-    });
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});

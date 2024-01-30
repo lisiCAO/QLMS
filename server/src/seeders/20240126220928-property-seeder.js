@@ -16,7 +16,7 @@ module.exports = {
             "property",
             [
                 {
-                    owner_user_id: 2, //mock id
+                    owner_user_id: 4, //mock id
                     address: "123 Main St",
                     number_of_units: 2,
                     property_type: "apartment",
@@ -32,7 +32,7 @@ module.exports = {
                     updated_at: new Date(),
                 },
                 {
-                    owner_user_id: 2, // mock id
+                    owner_user_id: 4, // mock id
                     address: "456 Elm St",
                     number_of_units: 2,
                     property_type: "house",
@@ -44,6 +44,22 @@ module.exports = {
                     lease_terms: "6 months lease",
                     photos_url: "https://example.com/properties/2/photos",
                     description: "Cozy house with a beautiful garden...",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    owner_user_id: 4, // mock owner_user_id
+                    address: "789 Oak St",
+                    number_of_units: 3,
+                    property_type: "condo",
+                    size_in_sq_ft: 1000,
+                    year_built: 2010,
+                    rental_price: 1800.0,
+                    amenities: "Balcony, Parking, Washer/Dryer",
+                    status: "available",
+                    lease_terms: "1 year lease",
+                    photos_url: "https://example.com/properties/3/photos",
+                    description: "Modern condo with updated appliances...",
                     created_at: new Date(),
                     updated_at: new Date(),
                 },

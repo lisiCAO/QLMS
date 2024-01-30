@@ -110,3 +110,10 @@ module.exports = (sequelize) => {
     );
     return user;
 };
+
+//add associations with property model
+user.associate = function (models) {
+    user.hasMany(models.property, {
+        foreignKey: "owner_user_id",
+    });
+};

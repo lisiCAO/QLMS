@@ -84,3 +84,10 @@ property.associate = function (models) {
         foreignKey: "owner_user_id",
     });
 };
+
+property.associate = (models) => {
+    property.hasMany(models.image, {
+        foreignKey: 'property_id',
+        as: 'images' // alias
+    });
+};
