@@ -6,13 +6,18 @@ services:
             - "8000:8000"
         volumes:
             - ./server:/app
-            
-    client:
-        build:
-          context: ./client  # path to project
-          dockerfile: Dockerfile
-          target: development
-        volumes:
-          - ./client:/app
+
+    qlms-db:
+        image: mysql:8.0.36
         ports:
-          - "3000:3000"
+            - "3310:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: qlmsdb
+            MYSQL_PASSWORD: password
+            MYSQL_NAME: qlmsuser
+        volumes:
+            - qlms-db-data:/var/lib/mysql
+
+volumes:
+    qlms-db-data:
