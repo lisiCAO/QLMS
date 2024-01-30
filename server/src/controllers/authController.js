@@ -204,7 +204,7 @@ exports.login = async (req, res) => {
             return res.sendError("User not found", 404);
         }
 
-        const isMatch = await bcryptjs.compare(password, user.password_hash);
+        const isMatch = await bcrypt.compare(password, user.password_hash);
         if (!isMatch) {
             return res.sendError("Password is incorrect", 401);
         }
