@@ -3,7 +3,7 @@ const propertyService = require("../services/propertyService");
 
 // Validate and sanitize fields using express-validator
 exports.propertyValidationRules = [
-        /* TODO: adjust validation according to business logic */
+    /* TODO: adjust validation according to business logic */
     // body('owner_user_id').isInt().withMessage('Owner user ID must be an integer'),
     body('address').isLength({ min: 1 }).withMessage('Address is required'),
     body('number_of_units').isInt({ min: 1 }).withMessage('Number of units must be at least 1'),
@@ -16,19 +16,19 @@ exports.propertyValidationRules = [
 ];
 
 // Create a new property
-exports.createProperty  = async (req, res) => {
-    console.log(req.body); // 现在 req.body 将包含非文件字段
-    console.log(req.files); // req.files 将包含上传的文件信息
+exports.createProperty = async (req, res) => {
+    console.log(req.body); // req.body will contain the text fields, if there were any
+    console.log(req.files); // req.files will contain the uploaded files, if there were any
     // Check if there are validation errors
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.sendError(
             "Create a new property failed: " +
-                errors
-                    .array()
-                    .map((err) => err.msg)
-                    .join(", "),
+            errors
+                .array()
+                .map((err) => err.msg)
+                .join(", "),
             422
         );
     }
@@ -75,10 +75,10 @@ exports.updateProperty = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.sendError(
             "Update a property failed: " +
-                errors
-                    .array()
-                    .map((err) => err.msg)
-                    .join(", "),
+            errors
+                .array()
+                .map((err) => err.msg)
+                .join(", "),
             422
         );
     }
