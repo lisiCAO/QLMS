@@ -12,6 +12,7 @@ const LoginForm = () => {
     try {
       const { username } = await ApiService.login({ email, password });
       setUsername(username); 
+      console.log('Login Success:', username);
     } catch (error) {
       console.error('Login Error:', error.message);
     }
