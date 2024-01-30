@@ -1,9 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
-import Registration from "./components/forms/Registration";
-import LoginForm from "./components/forms/LoginForm";
-import ForgotPassword from "./components/forms/ForgotPassword"; 
 import CreateProperty from "./components/properties/CreateProperty";
 import ListOfProperties from "./components/properties/ListOfProperties";
 import "./App.css";

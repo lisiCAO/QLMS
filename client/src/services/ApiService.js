@@ -37,8 +37,10 @@ export const ApiService = {
     login: async (userData) => {
       try {
         const response = await axiosInstance.post('/auth/login', userData);
+        console.log(response);
         return response;
       } catch (error) {
+        console.log(error);
         throw error;
       }
     },

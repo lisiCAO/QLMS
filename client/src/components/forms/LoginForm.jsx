@@ -5,12 +5,18 @@ import {ApiService} from "../../services/ApiService";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
+  const [username, setUsername] = useState("")
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await ApiService.login({ email, password });
-    window.localStorage.setItem('token', token);
+    try
+    {const response = await ApiService.login({ email, password });
+    username = response.username;
+    setUsername(username);
+  }
+    catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (

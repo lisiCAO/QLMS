@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import LoginForm from './../components/forms/LoginForm';
 import Registration from './../components/forms/Registration';
 import ForgotPassword from '../components/forms/ForgotPassword';
