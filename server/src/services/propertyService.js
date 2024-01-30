@@ -37,6 +37,11 @@ exports.createProperty = async (propertyData, userId, transaction) => {
             },
             { transaction }
         );
+    try{
+        const newProperty = await property.create({
+            ...propertyData, 
+            owner_user_id: userId,
+        }, { transaction });
 
         // Other operations...
 
@@ -49,32 +54,27 @@ exports.createProperty = async (propertyData, userId, transaction) => {
 };
 
 exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
-    const transaction = await sequelize.transaction();
+    const transaction = await sequelize.transaction(); 
 
     try {
         // Step 1: Create the property
-        const newProperty = await this.createProperty(
-            propertyData,
-            userId,
-            transaction
-        );
+        const newProperty = await this.createProperty(propertyData, userId, transaction);
         console.log("newProperty:", newProperty);
-
         // Step 2: Process images with imageService
         // Ensure imageService.saveImages is adapted to accept a transaction
-        const processedImages = await imageService.saveImages(
-            imagesData,
-            newProperty.id,
-            transaction
-        );
+        const processedImages = await imageService.saveImages(imagesData, newProperty.id, transaction);
         console.log("processedImages:", processedImages);
-
         // If all operations are successful, commit the transaction
         await transaction.commit();
+        console.log("Transaction committed");
         console.log("Transaction committed");
         return { property: newProperty, images: processedImages };
     } catch (error) {
         // If any operation fails, rollback the transaction
+        if (transaction.rollback) {
+            await transaction.rollback();
+        }
+        console.error("Error creating property with images:", error);
         if (transaction.rollback) {
             await transaction.rollback();
         }
