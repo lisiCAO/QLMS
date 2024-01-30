@@ -1,19 +1,25 @@
 const express = require("express");
 const router = express.Router();
+const authenticateToken = require("./../middleWares/authenticateToken");
 const propertyController = require("../controllers/propertyController");
 
 /* No more models import here */
 const { property } = require("../models");
 /* No more models import here */
 
-/* Auth middleware */
-// TODO: Add auth middleware here
-/* Auth middleware */
+const multer = require("multer");
+
+// config multer
+const storage = multer.memoryStorage();
+
+// initialize multer
+const upload = multer({ storage: storage });
 
 // Route for creating a new property
 router.post(
     "/",
-    /* authMiddleware,*/
+    authenticateToken,
+    upload.array("images", 10),
     propertyController.propertyValidationRules,
     propertyController.createProperty
 ); // TODO: Add auth middleware to get user id

@@ -210,24 +210,12 @@ exports.login = async (req, res) => {
         }
 
         // generate access and refresh tokens
-        const accessToken = jwt.sign(
-            { userId: user.id },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "1h",
-            }
-        );
-
-        const refreshToken = jwt.sign(
-            { userId: user.id },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "24h",
-            }
-        );
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+        });
 
         // set HTTP-only cookie
-        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600000 }); // 1 hour
+        res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 }); // 1 hour
 
         // send response
         res.sendSuccess(
@@ -241,6 +229,6 @@ exports.login = async (req, res) => {
 
 // user logout
 exports.logout = (req, res) => {
-    res.clearCookie("token");
-    res.sendStatus(200);
+    res.clearCookie("jwt");
+    res.sendSuccess(null, "User logged out successfully");
 };
