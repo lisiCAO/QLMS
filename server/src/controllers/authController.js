@@ -238,3 +238,9 @@ exports.login = async (req, res) => {
         res.sendError("Login failed: " + error.message, 500);
     }
 };
+
+// user logout
+exports.logout = (req, res) => {
+    res.clearCookie("token");
+    res.sendStatus(200);
+};
