@@ -3,32 +3,20 @@ const propertyService = require("../services/propertyService");
 
 // Validate and sanitize fields using express-validator
 exports.propertyValidationRules = [
-    /* TODO: adjust validation according to business logic */
-    //body("owner_user_id").isInt().withMessage("Owner user ID must be an integer"),
-    body("address").isLength({ min: 5 }).withMessage("Address is required"),
-    body("number_of_units")
-        .isInt({ min: 1 })
-        .withMessage("Number of units must be at least 1"),
-    body("property_type")
-        .isIn(["apartment", "house", "condo"])
-        .withMessage("Invalid property type"),
-    body("size_in_sq_ft")
-        .isInt({ min: 1 })
-        .withMessage("Size in square feet must be a positive integer"),
-    body("year_built")
-        .isInt({ min: 1900, max: new Date().getFullYear() })
-        .withMessage("Invalid year built"),
-    body("rental_price")
-        .isDecimal()
-        .withMessage("Rental price must be a decimal"),
-    body("status")
-        .isIn(["available", "rented", "under_maintenance"])
-        .withMessage("Invalid status"),
+        /* TODO: adjust validation according to business logic */
+    // body('owner_user_id').isInt().withMessage('Owner user ID must be an integer'),
+    body('address').isLength({ min: 1 }).withMessage('Address is required'),
+    body('number_of_units').isInt({ min: 1 }).withMessage('Number of units must be at least 1'),
+    body('property_type').isIn(['apartment', 'house', 'condo']).withMessage('Invalid property type'),
+    body('size_in_sq_ft').isInt({ min: 1 }).withMessage('Size in square feet must be a positive integer'),
+    body('year_built').isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('Invalid year built'),
+    body('rental_price').isDecimal().withMessage('Rental price must be a decimal'),
+    body('status').isIn(['available', 'rented', 'under_maintenance']).withMessage('Invalid status'),
     // ...
 ];
 
 // Create a new property
-exports.createProperty = async (req, res) => {
+exports.createProperty  = async (req, res) => {
     console.log(req.body); // 现在 req.body 将包含非文件字段
     console.log(req.files); // req.files 将包含上传的文件信息
     // Check if there are validation errors
@@ -47,11 +35,7 @@ exports.createProperty = async (req, res) => {
 
     try {
         // Create property, body is property, req.user.id is owner_user_id, req.files is images
-        const result = await propertyService.createPropertyWithImages(
-            req.body,
-            req.files,
-            req.user.userId
-        );
+        const result = await propertyService.createPropertyWithImages(req.body, req.files, req.user.userId);
         // Send success response
         res.sendSuccess(result, "Property created successfully");
     } catch (error) {

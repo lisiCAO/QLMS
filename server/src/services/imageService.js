@@ -18,11 +18,13 @@ exports.saveImages = async (imagesData, propertyId, transaction) => {
             const blockBlobClient =
                 containerClient.getBlockBlobClient(blobName);
 
+            console.log("Uploading image to Azure Blob Storage:", blobName);
             // Upload image to Azure Blob Storage
             await blockBlobClient.uploadData(file.buffer, {
                 blobHTTPHeaders: { blobContentType: file.mimetype }, // Set blob content type
             });
 
+            console.log("Image uploaded to Azure Blob Storage:", blobName);
             // Get image URL from Azure Blob Storage
             const imageUrl = blockBlobClient.url;
 
