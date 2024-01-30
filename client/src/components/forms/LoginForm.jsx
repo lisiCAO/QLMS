@@ -9,16 +9,14 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try
-    {const response = await ApiService.login({ email, password });
-    username = response.username;
-    setUsername(username);
-  }
-    catch (error) {
-      console.error('Error:', error);
+    try {
+      const { username } = await ApiService.login({ email, password });
+      setUsername(username); 
+    } catch (error) {
+      console.error('Login Error:', error.message);
     }
   };
-
+  
   return (
     <div className="container">
       <Form onSubmit={handleLogin}>
