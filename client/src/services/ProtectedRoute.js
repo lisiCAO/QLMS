@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from './context/authContext'; // 请确保路径正确
+import { useAuth } from '../context/authContext'; // Import the useAuth hook
 
 const ProtectedRoute = () => {
   const { user } = useAuth();

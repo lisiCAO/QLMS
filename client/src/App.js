@@ -4,7 +4,7 @@ import { AuthProvider } from './context/authContext'; // Import AuthProvider
 import AuthPage from "./pages/AuthPage";
 import CreateProperty from "./components/properties/CreateProperty";
 import ListOfProperties from "./components/properties/ListOfProperties";
-import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
+import ProtectedRoute from "./services/ProtectedRoute"; // Import ProtectedRoute
 import "./App.css";
 
 function App() {
@@ -14,10 +14,10 @@ function App() {
           <Routes>
             <Route path="/" element={<AuthPage />} />
             <Route path="/:view" element={<AuthPage />} /> {/* AuthPage as default */}
-
+            <Route path="/property/create" element={<CreateProperty />} />
             {/* Protected Routes  */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/property/create" element={<CreateProperty />} />
+
               <Route path="/property/list" element={<ListOfProperties />} />
             </Route>
             
