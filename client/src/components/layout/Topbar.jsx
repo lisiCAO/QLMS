@@ -1,6 +1,5 @@
 import React from 'react';
 
-import "../../css/sb-admin-2.min.css";
 import "../../vendor/fontawesome-free/css/all.min.css";
 
 

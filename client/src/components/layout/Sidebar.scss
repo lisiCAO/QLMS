@@ -1,0 +1,66 @@
+// Sidebar.scss
+@import './../../assets/variables';
+
+.sidebar-container {
+  width: 250px; // Adjust as needed
+  height: 100vh;
+  background-color: $primary-color;
+  color: $text-light-color;
+  font-family: $font-family-base;
+
+  .sidebar {
+    background-color: $primary-color;
+    padding: $spacing-base;
+
+    .navbar-brand {
+      margin-bottom: $spacing-lg;
+    }
+
+    .nav-link {
+      color: $text-light-color;
+      margin-bottom: $spacing-sm;
+
+      &:hover {
+        color: $link-color;
+      }
+    }
+
+    .accordion .card {
+      background: none;
+      border: none;
+
+      .card-header {
+        background-color: $background-color;
+        color: $text-dark-color;
+        padding: $spacing-sm $spacing-base;
+
+        &:hover {
+          background-color: $secondary-color;
+        }
+      }
+
+      .card-body {
+        background-color: $background-color;
+        color: $text-dark-color;
+      }
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-top: $spacing-lg;
+
+      img {
+        border-radius: 50%;
+        margin-right: $spacing-sm;
+      }
+
+      strong {
+        font-size: $font-size-base;
+        color: $text-dark-color;
+      }
+    }
+  }
+}
+
+// Apply additional custom styles as needed

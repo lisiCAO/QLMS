@@ -71,7 +71,7 @@ const AuthPage = () => {
           <Button variant="outline-primary" className="btn-custom">Visit The Help Center</Button>
         </Col>
         <Col xs={12} md={6} className="d-flex justify-content-center align-items-center">
-          <Modal.Dialog className="modal-custom" style={{ minHeight :650, minWidth:550}}>
+          <Modal.Dialog className="modal-custom" style={{ minHeight :550, minWidth:450}}>
             <Modal.Header className='w-100 d-flex flex-column justify-content-center align-items-center border-bottom border-light-gray'>
               <Modal.Title >QLSM</Modal.Title>
             </Modal.Header>
