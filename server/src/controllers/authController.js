@@ -60,12 +60,10 @@ exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
         username: profile.emails[0].value,
         role: "tenant",
     };
-    console.log("userData:", userData);
     findOrCreateUser(userData, (err, user) => {
         if (err) {
             return done(err);
         }
-        console.log("user:", user);
         saveOrUpdateOAuthToken(
             user.id,
             accessToken,
@@ -73,7 +71,6 @@ exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
             profile.provider,
             profile.id
         );
-        console.log("user:", user);
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
             expiresIn: "1h",
         });
@@ -98,12 +95,10 @@ const saveOrUpdateOAuthToken = (
     })
         .then(() => console.log("OAuth Token saved or updated"))
         .catch((err) => console.error("Error saving OAuth Token:", err));
-    console.log("userId:", userId);
 };
 
 exports.googleSendToken = (req, res) => {
     res.cookie("jwt", req.user.token, { httpOnly: true });
-    console.log("req.user:", req.user);
     res.redirect("http://localhost:3000");
 };
 
