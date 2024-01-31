@@ -11,11 +11,11 @@ router.get("/google",passport.authenticate("google", { scope: ["profile", "email
 // Google OAuth callback route
 router.get(
     "/google/callback",
-    passport.authenticate("google", { failureRedirect: "/login" }),
+    passport.authenticate("google", { failureRedirect: "/login", session: false }),
     function (req, res) {
         res.cookie("jwt", req.user.token, { httpOnly: true });
         console.log("req.user.token", req.user.token);
-        res.redirect("/");
+        res.redirect("http://localhost:3000");
     }
 );
 
