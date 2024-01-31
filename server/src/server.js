@@ -59,6 +59,7 @@ db.sequelize
         // Do not do  anything before database sync
         const authRoutes = require("./routes/authRoutes");
         const propertyRoutes = require("./routes/propertyRoutes.js");
+        const userRoutes = require("./routes/userRoutes.js");
         // Import other routes...
 
         // Use routes
@@ -67,6 +68,7 @@ db.sequelize
         });
         app.use("/auth", authRoutes);
         app.use("/api/properties", propertyRoutes);
+        app.use("/api/users", userRoutes);
         // Use other routes...
 
         // Listen to port

@@ -35,11 +35,12 @@ router.get("/:id", propertyController.getSingleProperty);
 // update single property
 router.put(
     "/:id",
+    authenticateToken,
     propertyController.propertyValidationRules,
     propertyController.updateProperty
 );
 
 // delete single property
-router.delete("/:id", propertyController.deleteProperty);
+router.delete("/:id", authenticateToken, propertyController.deleteProperty);
 
 module.exports = router;
