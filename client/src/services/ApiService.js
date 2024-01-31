@@ -36,6 +36,15 @@ export const ApiService = {
     return response.data;
   },
 
+  // 在 ApiService 中添加注册方法
+  async register(userData) {
+    const response = await axios.post(`${AUTH_BASE_URL}/register`, userData, {
+      withCredentials: true,
+    });
+    return response.data;
+  }
+
+
   // 其他 API ...
 };
 
