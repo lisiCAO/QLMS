@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
-import '././RoleSelection.scss';
+import './RoleSelection.scss';
 
 const RoleSelection = ({ onSelectRole }) => {
   return (
