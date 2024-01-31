@@ -59,6 +59,15 @@
 }
 
 .modal-custom {
+  display: flex ;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  .modal-content {
+    height: 100%;
+    min-height: 550px;
+  }
+
   .modal-title {
     font-weight: bold; 
     font-size: 24px; 

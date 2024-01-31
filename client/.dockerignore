@@ -22,7 +22,6 @@ Dockerfile
 *.swl
 
 /dist
-/build
 /public
 
 test

@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import {ApiService} from "../../services/ApiService";
+import ApiService from "../../services/ApiService";
+import { useUnloadMessage } from './../hooks/useUnloadMessage';
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("")
+  const [message, setMessage] = useState(null);
+
+  useUnloadMessage(setMessage);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { username } = await ApiService.login({ email, password });
-      setUsername(username); 
-      console.log('Login Success:', username);
+      const credentials = { email, password };
+      console.log(credentials);
+      const response = await ApiService.login(credentials);
+
+      console.log(response);
+      setMessage(response.message);
     } catch (error) {
-      console.error('Login Error:', error.message);
+      setMessage(error.message);
     }
   };
-  
+
   return (
     <div className="container">
       <Form onSubmit={handleLogin}>
@@ -36,7 +42,8 @@ const LoginForm = () => {
           placeholder="Password"
           className="w-100 mb-3"
         />
-        <Button type="submit" className="btn btn-lg btn-primary btn-block">
+        {message && <div className="alert alert-danger" role="alert">{message}</div>}
+        <Button type="submit" className="btn btn-lg btn-primary btn-block mb-3 w-100">
           Sign in
         </Button>
       </Form>

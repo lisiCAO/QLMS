@@ -1,7 +1,8 @@
 // CreateProperty.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {ApiService} from './../../services/ApiService';
+import { useUnloadMessage } from './../hooks/useUnloadMessage';
+import ApiService from './../../services/ApiService';
 
 const propertyFormConfig = [
     {
@@ -65,9 +66,9 @@ const propertyFormConfig = [
         type: 'text',
     },
     {
-        name: 'photos_url',
-        label: 'Photos URL',
-        type: 'image', // Assuming you want to upload multiple images
+        name: 'image',
+        label: 'Image',
+        type: 'file',
     },
     {
         name: 'description',
@@ -78,22 +79,41 @@ const propertyFormConfig = [
 ];
 
 const CreateProperty = () => {
-    const handleSubmit = async (formData) => {
-        try {
-            // Format 'year_built' as a string
-            formData.year_built = String(formData.year_built);
-
-            // Assuming ApiService.createProperty is a function that sends the property data to the backend
-            const response = await ApiService.createProperty(formData);
-            console.log('Property created successfully:', response);
-
-            // Handle any additional logic or navigation upon successful submission
-        } catch (error) {
-            console.error('Error creating property:', error);
-            // Handle error, display a message, or redirect to an error page
+    const [formData, setFormData] = useState({});
+    const [files, setFiles] = useState({}); // Store uploaded files [name: file] pairs
+    const [message, setMessage] = useState(''); // Store success/error message
+    useUnloadMessage(setMessage); // Display a message if the user tries to leave the page with unsaved changes
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        if (event.target.type === 'file') {
+            setFiles({ ...files, [name]: event.target.files[0] });
+        } else {
+            setFormData({ ...formData, [name]: value });
         }
     };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = new FormData();
 
+        // Append text fields to the FormData object
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
+
+        // Append files to the FormData object
+        for (const key in files) {
+            data.append(key, files[key]);
+        }
+
+        try {
+            // Send the FormData object to the backend using the API service
+            const response = await ApiService.createProperty(data);
+            setMessage(response.message);
+            // Handle success
+        } catch (error) {
+            setMessage(error.message);
+        }
+    };
     return (
         <div className="create-property">
             <h1>Create Property</h1>
@@ -102,7 +122,7 @@ const CreateProperty = () => {
                     <Form.Group key={field.name} controlId={field.name}>
                         <Form.Label>{field.label}</Form.Label>
                         {field.type === 'select' ? (
-                            <Form.Control as="select" required={field.required}>
+                            <Form.Control as="select" name={field.name} onChange={handleInputChange} required={field.required}>
                                 {field.options.map((option) => (
                                     <option key={option} value={option}>
                                         {option}
@@ -110,12 +130,15 @@ const CreateProperty = () => {
                                 ))}
                             </Form.Control>
                         ) : field.type === 'textarea' ? (
-                            <Form.Control as="textarea" rows={3} />
+                            <Form.Control as="textarea" name={field.name} onChange={handleInputChange} rows={3} />
+                        ) : field.type === 'image' ? (
+                            <Form.Control type="file" name={field.name} onChange={handleInputChange} />
                         ) : (
-                            <Form.Control type={field.type} required={field.required} />
+                            <Form.Control type={field.type} name={field.name} onChange={handleInputChange} required={field.required} />
                         )}
                     </Form.Group>
                 ))}
+                {message && <div className="alert alert-danger" role="alert">{message}</div>}
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>

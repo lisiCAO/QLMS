@@ -28,7 +28,7 @@ const AuthPage = () => {
 
   
   const handleGoogleLogin = () => {
-    // ApiService.loginWithGoogle();
+    window.location.href = 'http://localhost:8000/auth/google';
     console.log('Google login simulation');
   };
   const { view } = useParams();
@@ -47,7 +47,7 @@ const AuthPage = () => {
         return <ForgotPassword />;
       default:
         return (
-          <Container className='d-flex flex-column align-items-center mb-3 g-5'>
+          <Container className='d-flex flex-column align-items-center'>
             <h3>Welcome Back!</h3>
             <p className="light-gray-text">To continue, log in to QLMS</p>
             <Button variant="primary" className='w-100 mb-3'onClick={handleGoogleLogin}>Continue with Google</Button>
@@ -71,13 +71,13 @@ const AuthPage = () => {
           <Button variant="outline-primary" className="btn-custom">Visit The Help Center</Button>
         </Col>
         <Col xs={12} md={6} className="d-flex justify-content-center align-items-center">
-          <Modal.Dialog className="modal-custom">
+          <Modal.Dialog className="modal-custom" style={{ minHeight :650, minWidth:550}}>
             <Modal.Header className='w-100 d-flex flex-column justify-content-center align-items-center border-bottom border-light-gray'>
               <Modal.Title >QLSM</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body className='border-bottom border-light-gray'>
-              <Container className='d-flex flex-column justify-content-center'>
+            <Modal.Body className='border-bottom border-light-gray d-flex flex-column justify-content-center'>
+              <Container className='d-flex flex-column justify-content-between'>
                 {renderAuthComponent()}
                 {activeView === 'login' && (
                   <>

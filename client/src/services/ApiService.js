@@ -1,72 +1,77 @@
-import axios from 'axios';
-const axiosInstance = axios.create({
-  baseURL: process.env.API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true, // 确保所有请求都带有cookie
-});
+const API_BASE_URL = "http://localhost:8000";
 
-axiosInstance.interceptors.response.use(
-  response => {
-    if (response.data.success) {
-      return response.data.data; // 直接返回data字段，以便在成功响应时获取实际的数据
-    } else {
-      throw new Error(response.data.message || "An error occurred");
-    }
+const ApiService = {
+  /* Posts */
+  createProperty: async (formData) => {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
+        method: 'POST',
+        body: formData,
+        // Do not set 'Content-Type': 'application/json' when sending FormData
+        // The browser will set the correct multipart/form-data boundary.
+        credentials: 'include', // if needed for cookies/CORS
+    });
+    const data = await handleResponse(response);
+    return data;
+},
+
+  /* Auth */
+  async login(credentials) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      body: JSON.stringify(credentials),
+    });
+    const data = await handleResponse(response);
+    return data;
   },
-  error => {
-    // 统一错误处理
-    console.error("Error:", error.response?.data?.message || error.message);
-    throw error;
+
+  async fetchCurrentUser() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/user`);
+    return handleResponse(response);
+  },
+
+  async logout() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/logout`, {
+      method: "POST",
+    });
+    return handleResponse(response);
+  },
+
+  async register(userData) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      body: JSON.stringify(userData),
+    });
+    const data = await handleResponse(response);
+    return data;
   }
-);
-export const ApiService = {
-  login: async (userData) => {
-    try {
-      const response = await axiosInstance.post('/auth/login', userData);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  },
-
-  // add register method
-  register: async (userData) => {
-    try {
-      const response = await axiosInstance.post('/auth/register', userData);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  },
-
-  // add logout method
-  forgotPassword: async (email) => {
-    try {
-      const response = await axiosInstance.post('/auth/forgot-password', { email });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  },
-  fetchUsers: async () => {
-    try {
-      const response = await axiosInstance.get('/users');
-      return response;
-    } catch (error) {
-      // handle error
-      console.error("Failed to fetch users:", error.message);
-      throw error;
-    }
-  },
-  loginWithGoogle: async () => {
-    try {
-      const response = await axiosInstance.get('/auth/google');
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-  // other service methods
+  // other APIs
 };
+
+  // Default Option
+const fetchWithConfig = (url, options = {}) => {
+  const defaultOptions = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  };
+  return fetch(url, { ...defaultOptions, ...options });
+};
+
+const handleResponse = async (response) => {
+  const contentType = response.headers.get("Content-Type");
+  if (contentType && contentType.includes("application/json")) {
+    const data = await response.json();
+    if (data.success) {
+      return data.data;
+    } else {
+      throw new Error(data.message || "An error occurred");
+    }
+  } else {
+    // non JSON response
+    const text = await response.text();
+    throw new Error(`Non-JSON response: ${text}`);
+  }
+};
+
+export default ApiService;

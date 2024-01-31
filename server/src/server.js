@@ -15,10 +15,6 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // Express App Settings
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(
     cors({
         origin: "http://localhost:3000",
@@ -27,6 +23,10 @@ app.use(
         credentials: true,
     })
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 
 // Error and Format Middlewares
 app.use(sendSuccessResponse);
