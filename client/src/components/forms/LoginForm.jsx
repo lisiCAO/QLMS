@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import ApiService from "../../services/ApiService";
+import { useUnloadMessage } from './../hooks/useUnloadMessage';
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
 
-  useEffect(() => {
-    const handleUnload = () => setMessage(null);
-
-    window.addEventListener('beforeunload', handleUnload);
-    window.addEventListener('blur', handleUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-      window.removeEventListener('blur', handleUnload);
-    };
-  }, []);
+  useUnloadMessage(setMessage);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,8 +42,8 @@ const LoginForm = () => {
           placeholder="Password"
           className="w-100 mb-3"
         />
-        {message && <p className="text-danger"  style={{ maxWidth: '200px' }} >{message}</p>}
-        <Button type="submit" className="btn btn-lg btn-primary btn-block mb-3">
+        {message && <div className="alert alert-danger" role="alert">{message}</div>}
+        <Button type="submit" className="btn btn-lg btn-primary btn-block mb-3 w-100">
           Sign in
         </Button>
       </Form>

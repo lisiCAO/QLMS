@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useUnloadMessage } from './../hooks/useUnloadMessage';
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FaUser, FaBuilding, FaWrench } from 'react-icons/fa';
 import Card from "react-bootstrap/Card";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 import './RoleSelection.scss';
 
@@ -41,7 +42,10 @@ const Registration = () => {
     confirmPassword: "",
     role: "",
   });
-  const [registerError, setRegisterError] = useState("");
+  const [message, setMessage] = useState("");
+
+  useUnloadMessage(setMessage);
+
   const navigate = useNavigate();
 
   const handleSelectRole = (role) => {
@@ -53,20 +57,20 @@ const Registration = () => {
   
     // Validate form data
     if (formData.password !== formData.confirmPassword) {
-      setRegisterError("Passwords do not match.");
+      setMessage("Passwords do not match.");
       return;
     }
   
     // Password complexity validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W]).{8,}$/;
     if (!passwordRegex.test(formData.password)) {
-      setRegisterError("Password does not meet complexity requirements.");
+      setMessage("Password does not meet complexity requirements.");
       return;
     }
   
     // Role validation
     if (formData.role !== "landlord" && formData.role !== "tenant") {
-      setRegisterError("Invalid role.");
+      setMessage("Invalid role.");
       return;
     }
   
@@ -89,10 +93,10 @@ const Registration = () => {
       //   body: JSON.stringify(userData),
       // });
       // console.log(response);
-      alert(response.message);
+      setMessage(response.message);
       // navigate('/'); // 注册成功后跳转到登录页面
     } catch (error) {
-      setRegisterError(error.message || "Failed to register.");
+      setMessage(error.message || "Failed to register.");
     }
   };
 
@@ -107,7 +111,7 @@ const Registration = () => {
     {formData.role && (
       <Form className="form-signup" onSubmit={handleSubmit}>
         <h1 className="h3 w-100 mb-3 font-weight-normal text-center">Create an Account</h1>
-        {registerError && <div className="alert alert-danger" role="alert">{registerError}</div>}
+        {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Form.Group controlId="firstName" className="w-100 mb-3">
           <Form.Control
             type="text"
@@ -153,7 +157,7 @@ const Registration = () => {
             placeholder="Confirm Password"
           />
         </Form.Group>
-        <Button type="submit" className="btn btn-lg btn-primary btn-block">Register</Button>
+        <Button type="submit" className="btn btn-lg btn-primary btn-block w-100">Register</Button>
       </Form>
     )}
       </>
