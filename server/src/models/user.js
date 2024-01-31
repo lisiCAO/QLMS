@@ -117,3 +117,9 @@ user.associate = function (models) {
         foreignKey: "owner_user_id",
     });
 };
+
+user.associate = function (models) {
+    user.hasMany(models.oauth_token, {
+        foreignKey: "user_id",
+    });
+};
