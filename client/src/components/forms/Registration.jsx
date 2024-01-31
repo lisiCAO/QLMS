@@ -82,19 +82,13 @@ const Registration = () => {
         username: formData.firstName + " " + formData.lastName, // Combine first and last name
         role: formData.role,
       };
-      console.log(userData);
+
       // Send user data to API
       const response = await ApiService.register(userData);
-      // const response = await fetch('http://localhost:8000/auth/register', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(userData),
-      // });
-      // console.log(response);
-      setMessage(response.message);
-      // navigate('/'); // 注册成功后跳转到登录页面
+
+      console.log(response);
+      setMessage("Account created successfully: " + response.username);
+      navigate('/login'); // Redirect to login page
     } catch (error) {
       setMessage(error.message || "Failed to register.");
     }
