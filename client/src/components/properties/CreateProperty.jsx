@@ -66,6 +66,11 @@ const propertyFormConfig = [
         type: 'text',
     },
     {
+        name: 'image',
+        label: 'Image',
+        type: 'file',
+    },
+    {
         name: 'description',
         label: 'Description',
         type: 'textarea',
