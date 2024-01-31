@@ -85,9 +85,9 @@ property.associate = function (models) {
     });
 };
 
-property.associate = (models) => {
+property.associate = function (models) {
     property.hasMany(models.image, {
-        foreignKey: 'property_id',
-        as: 'images' // alias
+        foreignKey: "property_id",
+        onDelete: "CASCADE",
     });
 };
