@@ -8,19 +8,14 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const initializeAuth = async () => {
-      try {
-        const currentUser = await ApiService.fetchCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        console.error('Failed to fetch current user:', error);
-        setUser(null);
-      }
-    };
+  // useEffect(() => {
+  //   const initializeAuth = async () => {
+  //       const currentUser = await ApiService.fetchCurrentUser();
+  //       setUser(currentUser);
+  //   };
 
-    initializeAuth();
-  }, []);
+  //   initializeAuth();
+  // }, []);
 
   const login = async (credentials) => {
     try {

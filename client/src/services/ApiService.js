@@ -1,51 +1,56 @@
-import axios from 'axios';
+const API_BASE_URL = "http://localhost:8000";
 
-// 基础配置
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL + '/api';
-const AUTH_BASE_URL = process.env.REACT_APP_API_BASE_URL + '/auth';
+const ApiService = {
 
-const axiosInstance = axios.create({
-  baseURL: API_BASE_URL, // 设置基础 URL
-  withCredentials: true, // 允许携带 cookies
-});
-
-export const ApiService = {
-  // 用户相关 API
-  async fetchUsers() {
-    const response = await axiosInstance.get('/users');
-    return response.data;
+  /* Auth */
+  async login(credentials) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      body: JSON.stringify(credentials),
+    });
+    const data = await handleResponse(response);
+    return data;
   },
 
   async fetchCurrentUser() {
-    const response = await axiosInstance.get('/user');
-    return response.data;
-  },
-
-  // 认证相关 API
-  async login(credentials) {
-    const response = await axios.post(`${AUTH_BASE_URL}/login`, credentials, {
-      withCredentials: true,
-    });
-    return response.data;
+    const response = await fetchWithConfig(`${API_BASE_URL}/user`);
+    return handleResponse(response);
   },
 
   async logout() {
-    const response = await axios.post(`${AUTH_BASE_URL}/logout`, {}, {
-      withCredentials: true,
+    const response = await fetchWithConfig(`${API_BASE_URL}/logout`, {
+      method: "POST",
     });
-    return response.data;
+    return handleResponse(response);
   },
+  // other APIs
+};
 
-  // 在 ApiService 中添加注册方法
-  async register(userData) {
-    const response = await axios.post(`${AUTH_BASE_URL}/register`, userData, {
-      withCredentials: true,
-    });
-    return response.data;
+  // Default Option
+const fetchWithConfig = (url, options = {}) => {
+  const defaultOptions = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  };
+  return fetch(url, { ...defaultOptions, ...options });
+};
+
+const handleResponse = async (response) => {
+  const contentType = response.headers.get("Content-Type");
+  if (contentType && contentType.includes("application/json")) {
+    const data = await response.json();
+    if (data.success) {
+      return data.data;
+    } else {
+      throw new Error(data.message || "An error occurred");
+    }
+  } else {
+    // non JSON response
+    const text = await response.text();
+    throw new Error(`Non-JSON response: ${text}`);
   }
-
-
-  // 其他 API ...
 };
 
 export default ApiService;

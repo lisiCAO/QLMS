@@ -1,7 +1,7 @@
 // CreateProperty.jsx
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {ApiService} from './../../services/ApiService';
+import ApiService from './../../services/ApiService';
 
 const propertyFormConfig = [
     {
