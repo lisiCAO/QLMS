@@ -91,3 +91,9 @@ property.associate = function (models) {
         onDelete: "CASCADE",
     });
 };
+
+property.associate = function (models) {
+    property.hasMany(models.lease, {
+        foreignKey: "property_id",
+    });
+};
