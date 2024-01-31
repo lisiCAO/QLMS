@@ -71,9 +71,13 @@ exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
             profile.provider,
             profile.id
         );
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-        });
+        const token = jwt.sign(
+            { userId: user.id, role: user.role },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h",
+            }
+        );
         done(null, { user, token });
     });
 };
@@ -145,7 +149,7 @@ exports.register = async (req, res) => {
 
         // generate access and refresh tokens
         const accessToken = jwt.sign(
-            { userId: newUser.id },
+            { userId: newUser.id, role: newUser.role },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
@@ -208,9 +212,13 @@ exports.login = async (req, res) => {
         }
 
         // generate access and refresh tokens
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-        });
+        const token = jwt.sign(
+            { userId: user.id, role: user.role },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h",
+            }
+        );
 
         // set HTTP-only cookie
         res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 }); // 1 hour
