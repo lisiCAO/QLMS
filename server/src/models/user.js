@@ -123,3 +123,9 @@ user.associate = function (models) {
         foreignKey: "user_id",
     });
 };
+
+user.associate = function (models) {
+    user.hasMany(models.lease, {
+        foreignKey: "tenant_user_id",
+    });
+};

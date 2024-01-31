@@ -27,7 +27,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 // Error and Format Middlewares
 app.use(sendSuccessResponse);
 app.use(sendErrorResponse);
@@ -60,6 +59,7 @@ db.sequelize
         const authRoutes = require("./routes/authRoutes");
         const propertyRoutes = require("./routes/propertyRoutes.js");
         const userRoutes = require("./routes/userRoutes.js");
+        const leaseRoutes = require("./routes/leaseRoutes.js");
         // Import other routes...
 
         // Use routes
@@ -69,6 +69,7 @@ db.sequelize
         app.use("/auth", authRoutes);
         app.use("/api/properties", propertyRoutes);
         app.use("/api/users", userRoutes);
+        app.use("/api/leases", leaseRoutes);
         // Use other routes...
 
         // Listen to port
