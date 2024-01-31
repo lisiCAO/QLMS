@@ -23,6 +23,15 @@ const ApiService = {
     });
     return handleResponse(response);
   },
+
+  async register(userData) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      body: JSON.stringify(userData),
+    });
+    const data = await handleResponse(response);
+    return data;
+  }
   // other APIs
 };
 

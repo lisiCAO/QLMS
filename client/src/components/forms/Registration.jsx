@@ -5,6 +5,7 @@ import { FaUser, FaBuilding, FaWrench } from 'react-icons/fa';
 import Card from "react-bootstrap/Card";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useNavigate } from "react-router-dom";
+import ApiService from "../../services/ApiService";
 import './RoleSelection.scss';
 
 const RoleSelection = ({ onSelectRole }) => {
@@ -50,44 +51,44 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // 前端验证
+    // Validate form data
     if (formData.password !== formData.confirmPassword) {
       setRegisterError("Passwords do not match.");
       return;
     }
   
-    // 密码复杂度验证（示例）
+    // Password complexity validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W]).{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setRegisterError("Password does not meet complexity requirements.");
       return;
     }
   
-    // 角色验证
+    // Role validation
     if (formData.role !== "landlord" && formData.role !== "tenant") {
       setRegisterError("Invalid role.");
       return;
     }
   
     try {
-      // 构建后端需要的数据对象
+      // Create user data object
       const userData = {
         email: formData.email,
         password: formData.password,
-        username: formData.firstName + " " + formData.lastName, // 示例：将名和姓组合为用户名
+        username: formData.firstName + " " + formData.lastName, // Combine first and last name
         role: formData.role,
       };
       console.log(userData);
-      // 调用注册方法
-      // const response = await ApiService.register(userData);
-      const response = await fetch('http://localhost:8000/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      console.log(response);
+      // Send user data to API
+      const response = await ApiService.register(userData);
+      // const response = await fetch('http://localhost:8000/auth/register', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(userData),
+      // });
+      // console.log(response);
       alert(response.message);
       // navigate('/'); // 注册成功后跳转到登录页面
     } catch (error) {
