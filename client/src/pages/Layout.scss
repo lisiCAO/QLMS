@@ -1,7 +1,6 @@
 // layout.scss
-$breakpoint-mobile: 768px;
-$breakpoint-tablet: 1024px;
-$sidebar-width: 250px;
+@import './../assets/variables.scss';
+
 
 @mixin for-mobile {
   @media (max-width: $breakpoint-mobile) {
@@ -58,7 +57,8 @@ body {
   }
 }
 
-// // 这是动态内容区域的样式
-// .dynamic-content {
-//   // 根据需要添加样式
-// }
+// 这是动态内容区域的样式
+.dynamic-content {
+  // 根据需要添加样式
+
+}

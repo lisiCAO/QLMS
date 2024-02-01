@@ -7,13 +7,13 @@ const ProfileImage = process.env.PUBLIC_URL + '/default_user.png';
 const Topbar = () => {
   return (
     <Navbar bg="white" expand="lg" className="topbar d-flex justify-content-around mb-4 static-top shadow px-3">
-      <Form inline className="mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search d-flex">
+      <Form inline="true" className="mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search d-flex">
         <FormControl type="text" placeholder="Search for..." className="mr-sm-2" />
-        <Button variant=""><FaSearch /></Button>
+        <Button variant='link'><FaSearch /></Button>
       </Form>
       <Navbar.Toggle aria-controls="basic-navbar-nav"><FaBars /></Navbar.Toggle>
       <Navbar.Collapse id="basic-navbar-nav">
-          <NavDropdown title="Douglas McGee" id="basic-nav-dropdown" alignRight>
+          <NavDropdown title="Douglas McGee" id="basic-nav-dropdown" >
             <NavDropdown.Item href="#profile"><FaUser className="text-gray-400" /> Profile</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#logout"><FaSignOutAlt className="text-gray-400" /> Logout</NavDropdown.Item>

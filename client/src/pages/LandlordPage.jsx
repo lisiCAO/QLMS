@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Sidebar from './../components/layout/Sidebar'; 
-import Topbar from './../components/layout/Topbar'; 
+import Sidebar from '../components/layout/Sidebar'; 
+import Topbar from '../components/layout/Topbar'; 
 import './Layout.scss'; 
 
 const LanlordPage = () => {

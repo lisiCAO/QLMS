@@ -5,7 +5,7 @@ import AuthPage from "./pages/AuthPage";
 import CreateProperty from "./components/properties/CreateProperty";
 import ListOfProperties from "./components/properties/ListOfProperties";
 import ProtectedRoute from "./services/ProtectedRoute"; // Import ProtectedRoute
-import Layout from "./pages/Layout";
+import LandlordPage from "./pages/LandlordPage";
 import "./App.css";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
 
               <Route path="/property/list" element={<ListOfProperties />} />
             </Route>
-            <Route path="/layout" element={<Layout />} />
+            <Route path="/landlord" element={<LandlordPage />} />
             {/* no Protected Routes */}
           </Routes>
         </Router>
