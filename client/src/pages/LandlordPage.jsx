@@ -4,8 +4,8 @@ import Topbar from '../components/layout/Topbar';
 import PropertiesList from '../components/properties/PropertiesList';
 import './Layout.scss'; 
 import CreateProperty from '../components/properties/CreateProperty';
-import TenantsList from '../components/tenants/TenantsList';
-import UpdateTenant from '../components/tenants/UpdateTenant';
+import TenantsList from '../components/landlord/tenants/TenantsList';
+import UpdateTenant from '../components/landlord/tenants/TenantUpdate';
 const LanlordPage = () => {
   const [selectedMenu, setSelectedMenu] = useState('overview');
 

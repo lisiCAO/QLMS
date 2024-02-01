@@ -17,7 +17,7 @@ const TenantDashboard = () => {
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
           <Navbar.Collapse className="justify-content-end">
             <Nav.Link href="/profile">{username}</Nav.Link>
-            <Button variant="outline-primary" onClick={/* handlelogout */}>Logout</Button>
+            <Button variant="outline-primary" onClick={()=>logout}>Logout</Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
