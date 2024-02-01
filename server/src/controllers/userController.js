@@ -1,6 +1,7 @@
 const userService = require("../services/userService");
 const { body, validationResult } = require("express-validator");
 const { user } = require("../models/index");
+const multer = require("multer");
 
 // Validate and sanitize fields using express-validator
 exports.userValidationRules = [
@@ -177,5 +178,28 @@ exports.getUserInfo = async (req, res) => {
         res.json(userInfo);
     } catch (err) {
         res.sendError("Error retrieving user information: " + err.message, 500);
+    }
+};
+
+exports.uploadProfileImage = async (req, res) => {
+    try {
+        const file = req.file;
+        const userdata = await user.findByPk(req.user.userId);
+
+        if (!userdata) {
+            res.sendError("User not found", 404);
+        }
+
+        if (!file) {
+            return res.sendError("No image file error: ", 400);
+        }
+
+        // call userService.uploadfileImage() to upload the file
+        const result = await userService.uploadfileImage(file, userdata);
+
+        // upload file successfully
+        res.sendSuccess(result, "Upload user profile image successfully");
+    } catch (err) {
+        res.sendError("Error upload user profile image: " + err.message, 500);
     }
 };
