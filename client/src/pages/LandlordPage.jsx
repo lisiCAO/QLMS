@@ -5,7 +5,7 @@ import PropertiesList from '../components/properties/PropertiesList';
 import './Layout.scss'; 
 import CreateProperty from '../components/properties/CreateProperty';
 import TenantsList from '../components/tenants/TenantsList';
-
+import UpdateTenant from '../components/tenants/UpdateTenant';
 const LanlordPage = () => {
   const [selectedMenu, setSelectedMenu] = useState('overview');
 
@@ -21,8 +21,8 @@ const LanlordPage = () => {
         return <CreateProperty />;
       case 'list-tenants':
         return <TenantsList />;
-      case 'register':
-        return <RegisterTenant />;
+      case 'update-tenant':
+        return <UpdateTenant />;
       default:
         return <div>Default Content</div>;
     }

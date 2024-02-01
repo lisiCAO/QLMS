@@ -49,7 +49,7 @@ const Sidebar = ( { onMenuSelect }) => {
           <Accordion.Header><People className="icon" /> Tenants</Accordion.Header>
           <Accordion.Body>
               <Nav.Link className="mb-3" onClick={() => onMenuSelect('list-tenants')}>List</Nav.Link>
-              <Nav.Link className="mb-3"  onClick={() => onMenuSelect('register')}>Register</Nav.Link>
+              <Nav.Link className="mb-3"  onClick={() => onMenuSelect('update-tenant')}>Update</Nav.Link>
           </Accordion.Body>
         </Accordion.Item>
 
