@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Accordion, Button } from "react-bootstrap";
 import { House, Briefcase, People, PlusCircle } from "react-bootstrap-icons";
+import { CreditCard, PersonCircle } from "react-bootstrap-icons";
+import Image from "react-bootstrap/Image";
 import "./Sidebar.scss";
 const LogoImage = process.env.PUBLIC_URL + "/logo.png";
 
-const Sidebar = ({ onMenuSelect }) => {
+const Sidebar = () => {
   return (
     <div className="sidebar d-flex flex-column justify-content-center align-">
       {/* Logo could be an image or an icon */}

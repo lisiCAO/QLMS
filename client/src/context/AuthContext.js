@@ -1,21 +1,25 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import ApiService from '../services/ApiService'; // 确保路径正确
+import ApiService from '../services/ApiService'; // Import the ApiService
 
 const AuthContext = createContext();
-
+/* TODO: fix with actual logic */
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   const initializeAuth = async () => {
-  //       const currentUser = await ApiService.fetchCurrentUser();
-  //       setUser(currentUser);
-  //   };
+  useEffect(() => {
+    const initializeAuth = async () => {
+      try {
+        const currentUser = await ApiService.fetchCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Failed to fetch current user:', error);
+      }
+    };
 
-  //   initializeAuth();
-  // }, []);
+    initializeAuth();
+  }, []);
 
   const login = async (credentials) => {
     try {
@@ -37,7 +41,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const value = { user, login, logout };
+
+  const isLoggedIn = user !== null;
+  const role = user?.role;
+
+  const value = { user, login, logout, isLoggedIn, role };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+

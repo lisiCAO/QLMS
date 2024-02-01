@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import PropertyList from "../components/landlord/PropertyList";
-import PropertyCreate from "../components/landlord/PropertyCreate";
-import PropertyEdit from "../components/landlord/PropertyEdit";
-import PropertyDelete from "../components/landlord/PropertyDelete";
+import PropertyList from "./../../.././components/landlord/properties/PropertyList";
+import PropertyCreate from "./../../.././components/landlord/properties/PropertyCreate";
+import PropertyEdit from "./../../.././components/landlord/properties/PropertyEdit";
+import PropertyDelete from "./../../.././components/landlord/properties/PropertyDelete";
 
 const PropertyPage = () => {
   return (

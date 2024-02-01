@@ -1,5 +1,5 @@
 import React from 'react';
-import TenantNavbar from '../../components/tenant/TenantNavbar'; // Import the TenantNavbar component
+import TenantNavbar from './../../components/layout/TenantNavbar'; // Import the TenantNavbar component
 import { Outlet } from 'react-router-dom';
 
 const TenantLayout = () => {

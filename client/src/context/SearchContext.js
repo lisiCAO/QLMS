@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-
+/* integrate into each table */
 const SearchContext = createContext();
 
 export const useSearch = () => useContext(SearchContext);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LeaseList from "../components/landlord/LeaseList";
-import LeaseCreate from "../components/landlord/LeaseCreate";
-import LeaseEdit from "../components/landlord/LeaseEdit";
-import LeaseDelete from "../components/landlord/LeaseDelete";
+import LeaseList from "./../../../components/landlord/leases/LeaseList";
+import LeaseCreate from "./../../../components/landlord/leases/LeaseCreate";
+// import LeaseEdit from "./../../../components/landlord/leases/LeaseEdit";
+import LeaseDelete from "./../../../components/landlord/leases/LeaseDelete";
 
 const LeasePage = () => {
   return (
@@ -11,8 +11,8 @@ const LeasePage = () => {
       <Routes>
         <Route index element={<LeaseList />} />
         <Route path="create" element={<LeaseCreate />} />
-        <Route path="edit/:id" element={<LeaseEdit />} />
-        <Route path="delete/:id" element={<LeaseDelete />} />
+        {/* <Route path="edit/:id" element={<LeaseEdit />} /> We would offer edit option */}
+        <Route path="delete/:id" element={<LeaseDelete />} /> 
       </Routes>
     </div>
   );

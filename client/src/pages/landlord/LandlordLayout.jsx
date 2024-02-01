@@ -1,6 +1,6 @@
 import React from 'react';
-import Sidebar from '../components/layout/Sidebar';
-import Topbar from '../components/layout/Topbar'; 
+import Sidebar from './../../components/layout/Sidebar';
+import Topbar from './../../components/layout/Topbar';
 import { Outlet } from 'react-router-dom';
 
 const LandlordLayout = () => {

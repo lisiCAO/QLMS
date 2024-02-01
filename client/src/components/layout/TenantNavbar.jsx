@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Navbar,
   Nav,
@@ -10,13 +10,16 @@ import {
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
-import { AuthContext } from "../../context/AuthContext"; // TODO: Import the AuthContext
+// import { AuthContext } from "./../../context/AuthContext"; // TODO: Import the AuthContext
 
 const TenantNavbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  const { hasLease, leasePropertyId } = useContext(AuthContext);
+  // const { hasLease, leasePropertyId } = useContext(AuthContext);
 
+  const hasLease = () => true;
+  const leasePropertyId = "123";
+  // TODO: Replace the above two lines with the commented line below
   const toggleLogoutModal = () => setShowLogoutModal(!showLogoutModal);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
