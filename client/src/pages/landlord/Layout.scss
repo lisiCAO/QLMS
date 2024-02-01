@@ -1,0 +1,60 @@
+@import './../assets/variables.scss';
+
+@mixin for-mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin for-tablet-up {
+  @media (min-width: calc(#{$breakpoint-mobile} + 1px)) {
+    @content;
+  }
+}
+
+@mixin for-desktop-up {
+  @media (min-width: calc(#{$breakpoint-tablet} + 1px)) {
+    @content;
+  }
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+
+  @include for-mobile {
+    flex-direction: column;
+  }
+}
+
+.sidebar {
+  width: $sidebar-width;
+  min-height: 100vh;
+  position: fixed;
+  overflow-y: auto;
+
+  @include for-mobile {
+    width: 100%;
+    position: static;
+    min-height: initial;
+  }
+}
+
+.content {
+  flex: 1;
+  margin-left: $sidebar-width;
+
+  @include for-mobile {
+    margin-left: 0;
+  }
+}
+
+.dynamic-content {
+  // TODO: Add styles here
+}

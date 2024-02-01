@@ -1,0 +1,55 @@
+@import '../../assets/variables.scss';
+
+.topbar {
+  background-color: $background-color;
+  color: $text-dark-color;
+  height: 60px;
+  width: 100%;
+  line-height: 60px;
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  border-bottom: 1px solid $border-color;
+  padding: 0 $spacing-base;
+  z-index: 1000;
+  font-family: $font-family-base;
+}
+
+.navbar-search {
+  button {
+    color: $primary-color;
+  }
+}
+
+.topbar-menu {
+  float: right;
+
+  .menu-item {
+    padding: 0 $spacing-base;
+    color: $text-dark-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $text-light-color;
+    }
+  }
+}
+
+.topbar-avatar {
+  float: right;
+  margin-right: $spacing-base;
+}
+
+.topbar-title {
+  float: left;
+  margin-left: $spacing-base;
+}
+
+.topbar-logo {
+  float: left;
+
+  img {
+    width: 100px;
+  }
+}

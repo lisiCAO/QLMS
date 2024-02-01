@@ -1,0 +1,61 @@
+@import '../../assets/variables.scss';
+
+.sidebar {
+  background-color: $primary-color;
+  color: $text-dark-color;
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 1px solid $border-color;
+  font-family: $font-family-base;
+}
+
+.sidebar-logo {
+  padding: $spacing-base;
+  text-align: center;
+
+  img {
+    width: 100px;
+  }
+
+  color: $text-light-color;
+}
+
+.sidebar-submenu {
+  padding: $spacing-base;
+}
+
+.create-new-btn {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  margin: $spacing-sm $spacing-base;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
+}
+
+.sidebar-menu {
+  padding: $spacing-base;
+
+  .menu-item {
+    padding: $spacing-sm;
+    color: $text-light-color;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: $spacing-base;
+  color: $text-light-color;
+  text-align: center;
+}

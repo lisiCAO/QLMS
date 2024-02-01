@@ -4,15 +4,15 @@ const ApiService = {
   /* Posts */
   createProperty: async (formData) => {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
-        method: 'POST',
-        body: formData,
-        // Do not set 'Content-Type': 'application/json' when sending FormData
-        // The browser will set the correct multipart/form-data boundary.
-        credentials: 'include', // if needed for cookies/CORS
+      method: 'POST',
+      body: formData,
+      // Do not set 'Content-Type': 'application/json' when sending FormData
+      // The browser will set the correct multipart/form-data boundary.
+      credentials: 'include', // if needed for cookies/CORS
     });
     const data = await handleResponse(response);
     return data;
-},
+  },
 
   /* Auth */
   async login(credentials) {
@@ -47,7 +47,7 @@ const ApiService = {
   // other APIs
 };
 
-  // Default Option
+// Default Option
 const fetchWithConfig = (url, options = {}) => {
   const defaultOptions = {
     headers: {

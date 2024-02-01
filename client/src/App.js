@@ -1,29 +1,45 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from './context/authContext'; // Import AuthProvider
+import { SearchProvider } from "./context/SearchContext";
+import { AuthProvider } from "./context/AuthContext";
+
 import AuthPage from "./pages/AuthPage";
-import CreateProperty from "./components/properties/CreateProperty";
-import ListOfProperties from "./components/properties/ListOfProperties";
-import ProtectedRoute from "./services/ProtectedRoute"; // Import ProtectedRoute
-import "./App.css";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import TenantLayout from "./layouts/TenantLayout";
+import TenantPage from "./pages/tenant/TenantPage";
+
+import LandlordLayout from "./layouts/LandlordLayout";
+import PropertyPage from "./pages/landlord/PropertyPage";
+import LeasePage from "./pages/landlord/LeasePage";
+import LandlordTenantPage from "./pages/landlord/LandlordTenantPage";
 
 function App() {
   return (
-    <AuthProvider> 
+    <AuthProvider> {/* Global user state management */}
+      <SearchProvider> {/* Global search state management */}
         <Router>
           <Routes>
+            {/* Auth routes */}
             <Route path="/" element={<AuthPage />} />
-            <Route path="/:view" element={<AuthPage />} /> {/* AuthPage as default */}
-            <Route path="/property/create" element={<CreateProperty />} />
-            {/* Protected Routes  */}
-            <Route element={<ProtectedRoute />}>
-
-              <Route path="/property/list" element={<ListOfProperties />} />
+            <Route path="/:view" element={<AuthPage />} />
+            {/* Tenant routes */}
+            <Route path="/tenant/*" element={
+              <ProtectedRoute>
+                <TenantLayout>
+                  <TenantPage />
+                </TenantLayout>
+              </ProtectedRoute>
+            } />
+            {/* Landlord routes */}
+            <Route path="/landlord/*" element={<ProtectedRoute><LandlordLayout /></ProtectedRoute>}>
+              <Route path="properties/*" element={<PropertyPage />} />
+              <Route path="leases/*" element={<LeasePage />} />
+              <Route path="tenants/*" element={<LandlordTenantPage />} />
             </Route>
-            
-            {/* no Protected Routes */}
           </Routes>
         </Router>
+      </SearchProvider>
     </AuthProvider>
   );
 }
