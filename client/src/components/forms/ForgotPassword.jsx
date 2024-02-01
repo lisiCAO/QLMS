@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ApiService from '../../services/ApiService';
+import ApiService from "../../services/ApiService";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     try {
       await ApiService.forgotPassword(email);
       // Handle success: Notify user to check their email
-      navigate('/login'); // Optionally redirect user to login page
+      navigate("/login"); // Optionally redirect user to login page
     } catch (error) {
       // Handle forgot password error
       console.error(error);
@@ -22,7 +22,9 @@ const ForgotPassword = () => {
   return (
     <Container>
       <Form className="form-forgot-password" onSubmit={handleResetPassword}>
-        <h1 className="h3 mb-3 font-weight-normal text-center">Forgot Password</h1>
+        <h1 className="h3 mb-3 font-weight-normal text-center">
+          Forgot Password
+        </h1>
         <Form.Group controlId="email" className="w-100 mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control

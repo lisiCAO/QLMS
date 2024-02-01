@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import ApiService from "../../services/ApiService";
-import { useUnloadMessage } from './../hooks/useUnloadMessage';
+import { useUnloadMessage } from "./../hooks/useUnloadMessage";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -42,8 +42,15 @@ const LoginForm = () => {
           placeholder="Password"
           className="w-100 mb-3"
         />
-        {message && <div className="alert alert-danger" role="alert">{message}</div>}
-        <Button type="submit" className="btn btn-lg btn-primary btn-block mb-3 w-100">
+        {message && (
+          <div className="alert alert-danger" role="alert">
+            {message}
+          </div>
+        )}
+        <Button
+          type="submit"
+          className="btn btn-lg btn-primary btn-block mb-3 w-100"
+        >
           Sign in
         </Button>
       </Form>
