@@ -7,6 +7,9 @@ const userController = require("../controllers/userController");
 // get all users
 router.get("/", userController.getAllUsers);
 
+// get userinfo by userId in token
+router.get("/userinfo", authenticateToken, userController.getUserInfo);
+
 // get single user
 router.get("/:id", userController.getSingleUser);
 
