@@ -11,4 +11,4 @@ const PropertyDetail = () => {
     );
 };
 
-export default PropertyGeneralList;
+export default PropertyDetail;

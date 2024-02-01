@@ -8,14 +8,18 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   const initializeAuth = async () => {
-  //       const currentUser = await ApiService.fetchCurrentUser();
-  //       setUser(currentUser);
-  //   };
+  useEffect(() => {
+    const initializeAuth = async () => {
+      try {
+        const currentUser = await ApiService.fetchCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Failed to fetch current user:', error);
+      }
+    };
 
-  //   initializeAuth();
-  // }, []);
+    initializeAuth();
+  }, []);
 
   const login = async (credentials) => {
     try {
@@ -37,7 +41,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const value = { user, login, logout };
+
+  const isLoggedIn = user !== null;
+  const role = user?.role;
+
+  const value = { user, login, logout, isLoggedIn, role };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+
