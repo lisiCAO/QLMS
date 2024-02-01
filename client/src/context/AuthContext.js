@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import ApiService from '../services/ApiService'; // Import the ApiService
 
 const AuthContext = createContext();
-
+/* TODO: fix with actual logic */
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
