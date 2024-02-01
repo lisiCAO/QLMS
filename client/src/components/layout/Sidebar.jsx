@@ -5,7 +5,7 @@ import { House, Briefcase, People, PlusCircle } from "react-bootstrap-icons";
 import "./Sidebar.scss";
 const LogoImage = process.env.PUBLIC_URL + "/logo.png";
 
-const Sidebar = ({ onMenuSelect }) => {
+const Sidebar = () => {
   return (
     <div className="sidebar d-flex flex-column justify-content-center align-">
       {/* Logo could be an image or an icon */}

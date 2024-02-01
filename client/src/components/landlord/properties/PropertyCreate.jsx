@@ -8,8 +8,8 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import { useUnloadMessage } from "./../hooks/useUnloadMessage";
-import ApiService from "./../../services/ApiService";
+import { useUnloadMessage } from "./../../hooks/useUnloadMessage";
+import ApiService from "./../../../services/ApiService";
 import "./PropertyCreate.scss";
 
 const propertyFormConfig = [
@@ -132,6 +132,7 @@ const PropertyCreate = () => {
     try {
       // Send the FormData object to the backend using the API service
       const response = await ApiService.createProperty(data);
+      // TODO: Handle the response
       setMessage(response.message);
       // Handle success
     } catch (error) {

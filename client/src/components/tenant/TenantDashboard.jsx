@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Container, Button } from "react-bootstrap";
-import { AuthContext } from "../context/AuthContext"; // TODO: Import the AuthContext
+// import { AuthContext } from "../context/AuthContext"; // TODO: Import the AuthContext
 
 const TenantDashboard = () => {
   const { username, nextPaymentAmount, nextPaymentDueDate } =

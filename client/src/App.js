@@ -4,15 +4,15 @@ import { SearchProvider } from "./context/SearchContext";
 import { AuthProvider } from "./context/AuthContext";
 
 import AuthPage from "./pages/AuthPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./services/ProtectedRoute";
 
-import TenantLayout from "./layouts/TenantLayout";
+import TenantLayout from "./pages/tenant/TenantLayout";
 import TenantPage from "./pages/tenant/TenantPage";
 
-import LandlordLayout from "./layouts/LandlordLayout";
-import PropertyPage from "./pages/landlord/PropertyPage";
-import LeasePage from "./pages/landlord/LeasePage";
-import LandlordTenantPage from "./pages/landlord/LandlordTenantPage";
+import LandlordLayout from "./pages/landlord/LandlordLayout";
+import PropertyPage from "./pages/landlord/property/PropertyPage";
+import LeasePage from "./pages/landlord/lease/LeasePage";
+import LandlordTenantPage from "./pages/landlord/tenant/LandlordTenantPage";
 
 function App() {
   return (

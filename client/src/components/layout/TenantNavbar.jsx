@@ -10,7 +10,7 @@ import {
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
-import { AuthContext } from "../../context/AuthContext"; // TODO: Import the AuthContext
+// import { AuthContext } from "./../../context/AuthContext"; // TODO: Import the AuthContext
 
 const TenantNavbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
