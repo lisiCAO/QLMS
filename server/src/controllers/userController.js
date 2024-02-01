@@ -1,7 +1,6 @@
 const userService = require("../services/userService");
 const { body, validationResult } = require("express-validator");
 const { user } = require("../models/index");
-const { Sequelize } = require("sequelize");
 
 // Validate and sanitize fields using express-validator
 exports.userValidationRules = [

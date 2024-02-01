@@ -31,6 +31,13 @@ router.post(
 // get all properties
 router.get("/", authRole("landlord"), propertyController.getAllProperties);
 
+//get user properties infonmation
+router.get(
+    "/userinfo",
+    authenticateToken,
+    propertyController.getUserPropertiesInfo
+);
+
 // get single property
 router.get("/:id", authRole("landlord"), propertyController.getSingleProperty);
 
