@@ -1,13 +1,13 @@
 @import '../../assets/variables.scss';
 .sidebar {
-  background-color: $primary-color;  // 使用variables中的主要颜色
-  color: $text-dark-color; // 使用variables中的暗色文字
-  width: 250px; // 或者使用一个变量来定义宽度
-  height: 100vh; // 使Sidebar从顶到底
+  background-color: $primary-color;  
+  color: $text-dark-color; 
+  width: 250px; 
+  height: 100vh; 
   position: fixed;
   top: 0;
   left: 0;
-  border-right: 1px solid $border-color; // 使用variables中的边框颜色
+  border-right: 1px solid $border-color; 
   font-family: $font-family-base;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .create-new-btn {
-  background-color: $primary-color; // 主按钮颜色
+  background-color: $primary-color; 
   border-color: $primary-color;
   margin: $spacing-sm $spacing-base;
   &:hover {
@@ -54,6 +54,3 @@
   text-align: center;
 }
 
-
-
-// 更多Sidebar样式...
