@@ -1,21 +1,18 @@
 import React from 'react';
-import Sidebar from '../components/layout/Sidebar';
-import Topbar from '../components/layout/Topbar'; 
+import TenantNavbar from '../../components/tenant/TenantNavbar'; // Import the TenantNavbar component
 import { Outlet } from 'react-router-dom';
 
 const TenantLayout = () => {
   return (
     <div className="tenant-layout">
-      <Sidebar />
+      <TenantNavbar /> 
       <div className="tenant-content">
-        <Topbar />
-        <div className="dynamic-content">
-          <Outlet /> {/* Tenant child route */}
-        </div>
+        <Outlet /> 
       </div>
     </div>
   );
 };
 
 export default TenantLayout;
+
 

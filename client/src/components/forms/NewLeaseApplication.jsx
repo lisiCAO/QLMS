@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
-import { Container, Form, Button, ProgressBar, Step, StepLabel, Stepper } from 'react-bootstrap';
+import React, { useState } from "react";
+import {
+  Container,
+  Form,
+  Button,
+  ProgressBar,
+  Step,
+  StepLabel,
+  Stepper,
+} from "react-bootstrap";
 
 const formSteps = [
-  { label: 'Property Details', fields: ['property_id', 'lease_start', 'lease_end'] },
-  { label: 'Rent Details', fields: ['rent_amount', 'payment_due_day'] },
-  { label: 'Utilities', fields: ['utility_by_owner', 'utility_by_tenant'] },
-  { label: 'Terms', fields: ['lease_clauses', 'renewal_term', 'early_terminate_con'] }
+  {
+    label: "Property Details",
+    fields: ["property_id", "lease_start", "lease_end"],
+  },
+  { label: "Rent Details", fields: ["rent_amount", "payment_due_day"] },
+  { label: "Utilities", fields: ["utility_by_owner", "utility_by_tenant"] },
+  {
+    label: "Terms",
+    fields: ["lease_clauses", "renewal_term", "early_terminate_con"],
+  },
 ];
 
 const NewLeaseApplication = () => {
@@ -16,7 +30,6 @@ const NewLeaseApplication = () => {
 
   const handleNext = () => {
     if (isLastStep) {
-
       submitForm();
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -36,7 +49,7 @@ const NewLeaseApplication = () => {
     console.log(leaseData);
   };
 
-  const progress = (activeStep + 1) / formSteps.length * 100;
+  const progress = ((activeStep + 1) / formSteps.length) * 100;
 
   return (
     <Container>
@@ -51,12 +64,12 @@ const NewLeaseApplication = () => {
       <Form>
         {formSteps[activeStep].fields.map((field) => (
           <Form.Group key={field}>
-            <Form.Label>{field.replace(/_/g, ' ')}</Form.Label>
+            <Form.Label>{field.replace(/_/g, " ")}</Form.Label>
             <Form.Control
               type="text"
-              placeholder={`Enter ${field.replace(/_/g, ' ')}`}
+              placeholder={`Enter ${field.replace(/_/g, " ")}`}
               name={field}
-              value={leaseData[field] || ''}
+              value={leaseData[field] || ""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -64,9 +77,7 @@ const NewLeaseApplication = () => {
         <Button disabled={activeStep === 0} onClick={handleBack}>
           Back
         </Button>
-        <Button onClick={handleNext}>
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
+        <Button onClick={handleNext}>{isLastStep ? "Submit" : "Next"}</Button>
       </Form>
     </Container>
   );

@@ -1,6 +1,5 @@
-import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import "./sb-admin-2.min.css";
+import React from "react";
+import { Modal, Button } from "react-bootstrap";
 const LogoutModal = ({ show, handleClose, handleLogout }) => {
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="modal-custom">
@@ -8,7 +7,9 @@ const LogoutModal = ({ show, handleClose, handleLogout }) => {
         <Modal.Title className="modal-title">Ready to Leave?</Modal.Title>
       </Modal.Header>
       <Modal.Body className="border-bottom border-light-gray">
-        <p>Select "Logout" below if you are ready to end your current session.</p>
+        <p>
+          Select "Logout" below if you are ready to end your current session.
+        </p>
       </Modal.Body>
       <Modal.Footer className="border-top border-light-gray">
         <Button variant="secondary" onClick={handleClose}>
@@ -23,4 +24,3 @@ const LogoutModal = ({ show, handleClose, handleLogout }) => {
 };
 
 export default LogoutModal;
-

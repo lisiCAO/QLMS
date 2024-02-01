@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button, InputGroup, FormControl } from 'react-bootstrap';
-import dayjs from 'dayjs'; 
+import React, { useState, useEffect } from "react";
+import { Table, Button, InputGroup, FormControl } from "react-bootstrap";
+import dayjs from "dayjs";
 
 const LeaseList = () => {
   const [leases, setLeases] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     // API call to fetch leases
@@ -13,7 +13,7 @@ const LeaseList = () => {
 
   // assume the following API methods are available
   const fetchLeases = async () => {
-    // const response = await ApiService.getLeases(); // 请实现真正的API调用
+    // const response = await ApiService.getLeases(); // TODO: replace with real API call
     // setLeases(response.data);
   };
 
@@ -25,15 +25,15 @@ const LeaseList = () => {
     // update the lease with the new end date
     const updatedLease = {
       ...lease,
-      end_date: newEndDate.format('YYYY-MM-DD')
+      end_date: newEndDate.format("YYYY-MM-DD"),
     };
 
     try {
-      // const response = await ApiService.updateLease(lease.lease_id, updatedLease); // 请实现真正的API调用
+      // const response = await ApiService.updateLease(lease.lease_id, updatedLease); // TODO: replace with real API call
       // console.log(response.data);
       // fetchLeases();
     } catch (error) {
-      console.error('Failed to renew lease:', error);
+      console.error("Failed to renew lease:", error);
     }
   };
 
@@ -41,9 +41,10 @@ const LeaseList = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredLeases = leases.filter(lease =>
-    lease.property_id.toString().includes(searchTerm) ||
-    lease.tenant_user_id.toString().includes(searchTerm)
+  const filteredLeases = leases.filter(
+    (lease) =>
+      lease.property_id.toString().includes(searchTerm) ||
+      lease.tenant_user_id.toString().includes(searchTerm)
   );
 
   return (
@@ -69,10 +70,12 @@ const LeaseList = () => {
           {filteredLeases.map((lease) => (
             <tr key={lease.lease_id}>
               <td>{lease.property_id}</td>
-              <td>{dayjs(lease.end_date).format('MM/DD/YYYY')}</td>
+              <td>{dayjs(lease.end_date).format("MM/DD/YYYY")}</td>
               <td>{lease.status}</td>
               <td>
-                <Button variant="primary" onClick={() => renewLease(lease)}>Renew Lease</Button>
+                <Button variant="primary" onClick={() => renewLease(lease)}>
+                  Renew Lease
+                </Button>
                 <Button variant="danger">End Lease</Button>
               </td>
             </tr>

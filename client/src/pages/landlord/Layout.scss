@@ -1,6 +1,4 @@
-// layout.scss
 @import './../assets/variables.scss';
-
 
 @mixin for-mobile {
   @media (max-width: $breakpoint-mobile) {
@@ -9,13 +7,13 @@
 }
 
 @mixin for-tablet-up {
-  @media (min-width: $breakpoint-mobile + 1) {
+  @media (min-width: calc(#{$breakpoint-mobile} + 1px)) {
     @content;
   }
 }
 
 @mixin for-desktop-up {
-  @media (min-width: $breakpoint-tablet + 1) {
+  @media (min-width: calc(#{$breakpoint-tablet} + 1px)) {
     @content;
   }
 }
@@ -57,8 +55,6 @@ body {
   }
 }
 
-// 这是动态内容区域的样式
 .dynamic-content {
-  // 根据需要添加样式
-
+  // TODO: Add styles here
 }

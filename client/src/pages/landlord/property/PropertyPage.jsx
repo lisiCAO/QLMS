@@ -14,7 +14,7 @@ const PropertyPage = () => {
         <Route path="edit/:id" element={<PropertyEdit />} />
         <Route path="delete/:id" element={<PropertyDelete />} />
       </Routes>
-      <Outlet /> {/* 用于可能的进一步嵌套 */}
+      <Outlet /> {/* Render the nested child routes */}
     </div>
   );
 };
