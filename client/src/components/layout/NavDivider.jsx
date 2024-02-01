@@ -1,6 +1,6 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-
+import "./sb-admin-2.min.css";
 // Define a custom component for the nav divider
 function NavDivider() {
   return (

@@ -1,7 +1,7 @@
 // Footer.jsx
 import React from 'react';
 
-import "../../css/sb-admin-2.min.css";
+import "./sb-admin-2.min.css";
 
 
 

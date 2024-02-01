@@ -1,0 +1,64 @@
+// layout.scss
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+$sidebar-width: 250px;
+
+@mixin for-mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin for-tablet-up {
+  @media (min-width: $breakpoint-mobile + 1) {
+    @content;
+  }
+}
+
+@mixin for-desktop-up {
+  @media (min-width: $breakpoint-tablet + 1) {
+    @content;
+  }
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+
+  @include for-mobile {
+    flex-direction: column;
+  }
+}
+
+.sidebar {
+  width: $sidebar-width;
+  min-height: 100vh;
+  position: fixed;
+  overflow-y: auto;
+
+  @include for-mobile {
+    width: 100%;
+    position: static;
+    min-height: initial;
+  }
+}
+
+.content {
+  flex: 1;
+  margin-left: $sidebar-width;
+
+  @include for-mobile {
+    margin-left: 0;
+  }
+}
+
+// // 这是动态内容区域的样式
+// .dynamic-content {
+//   // 根据需要添加样式
+// }

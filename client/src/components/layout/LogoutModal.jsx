@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-
+import "./sb-admin-2.min.css";
 const LogoutModal = ({ show, handleClose, handleLogout }) => {
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="modal-custom">

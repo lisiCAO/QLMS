@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
-import Topbar from './../components/layout/Topbar';
-import NavDivider from './../components/layout/NavDivider';
-import Sidebar from './../components/layout/Sidebar';
-import LogoutModal from './../components/layout/LogoutModal';
+import Sidebar from './../components/layout/Sidebar'; 
+import Topbar from './../components/layout/Topbar'; 
+import './Layout.scss'; 
 
-const Layout = () => {
-    const [showModal, setShowModal] = useState(false);
+const LanlordPage = () => {
+  const [selectedMenu, setSelectedMenu] = useState('overview');
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
-  const handleLogout = () => {
-    // Implement your logout logic here
-    console.log('User logged out');
-    handleClose();
+  const handleMenuSelect = (menuKey) => {
+    setSelectedMenu(menuKey);
   };
-    return (
-        <>
+
+  const renderContent = () => {
+    switch (selectedMenu) {
+      case 'overview':
+        return <div>Overview Content</div>;
+      case 'others':
+        return <div>Others Content</div>;
+      // 添加更多case以处理其他菜单项
+      default:
+        return <div>Default Content</div>;
+    }
+  };
+
+  return (
+    <div className="main-container">
+      <Sidebar onMenuSelect={handleMenuSelect} />
+      <div className="content">
         <Topbar />
-        <NavDivider />
-        <Sidebar />
-        <button onClick={handleShow}>Show Logout Modal</button>
-         <LogoutModal show={showModal} handleClose={handleClose} handleLogout={handleLogout} />
-        </>
-    )
+        <div className="dynamic-content">
+          {renderContent()}
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Layout;
+export default LanlordPage;
