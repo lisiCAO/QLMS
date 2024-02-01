@@ -30,7 +30,7 @@ const Sidebar = ( { onMenuSelect }) => {
           <Accordion.Header><House className="icon" />Properties</Accordion.Header>
           <Accordion.Body>
               <Nav.Link className="mb-3" onClick={() => onMenuSelect('overview')}>Overview</Nav.Link>
-              <Nav.Link className="mb-3"  onClick={() => onMenuSelect('others')}>Others</Nav.Link>
+              <Nav.Link className="mb-3"  onClick={() => onMenuSelect('create')}>Create</Nav.Link>
             {/* Submenu items for Properties */}
             {/* You can further nest another Accordion here if needed */}
           </Accordion.Body>
@@ -48,7 +48,8 @@ const Sidebar = ( { onMenuSelect }) => {
         <Accordion.Item eventKey="2">
           <Accordion.Header><People className="icon" /> Tenants</Accordion.Header>
           <Accordion.Body>
-            {/* Submenu items for Tenants */}
+              <Nav.Link className="mb-3" onClick={() => onMenuSelect('list-tenants')}>List</Nav.Link>
+              <Nav.Link className="mb-3"  onClick={() => onMenuSelect('register')}>Register</Nav.Link>
           </Accordion.Body>
         </Accordion.Item>
 

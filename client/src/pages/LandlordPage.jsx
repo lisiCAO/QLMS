@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/layout/Sidebar'; 
 import Topbar from '../components/layout/Topbar'; 
+import PropertiesList from '../components/properties/PropertiesList';
 import './Layout.scss'; 
+import CreateProperty from '../components/properties/CreateProperty';
+import TenantsList from '../components/tenants/TenantsList';
 
 const LanlordPage = () => {
   const [selectedMenu, setSelectedMenu] = useState('overview');
@@ -13,10 +16,13 @@ const LanlordPage = () => {
   const renderContent = () => {
     switch (selectedMenu) {
       case 'overview':
-        return <div>Overview Content</div>;
-      case 'others':
-        return <div>Others Content</div>;
-      // 添加更多case以处理其他菜单项
+        return <PropertiesList />;
+      case 'create':
+        return <CreateProperty />;
+      case 'list-tenants':
+        return <TenantsList />;
+      case 'register':
+        return <RegisterTenant />;
       default:
         return <div>Default Content</div>;
     }
