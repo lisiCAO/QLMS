@@ -43,6 +43,14 @@ const ApiService = {
     });
     const data = await handleResponse(response);
     return data;
+  },
+
+  async fetchProperties() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
   }
   // other APIs
 };

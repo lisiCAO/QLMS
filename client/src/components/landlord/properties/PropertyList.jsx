@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import './PropertyList.scss';
+import ApiService from '../../../services/ApiService';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
@@ -10,47 +11,56 @@ const PropertyList = () => {
   
   useEffect(() => {
 
-    const properties = [
-        {
-          property_id: 1,
-          address: '123 Main St, San Francisco, CA 94101',
-          property_type: 'Apartment',
-          size_in_sq_ft: 1000,
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
-          number_of_units: 10,
-          year_built: 2010,
-          rental_price: 2000,
-          amenities: 'Swimming pool, gym, parking',
-          status: 'available',
-          lease_terms: '1 year'
-        },
-        {
-          property_id: 2,
-          address: '456 Elm St, San Francisco, CA 94101',
-          property_type: 'Condo',
-          size_in_sq_ft: 1500,
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
-          number_of_units: 5,
-          year_built: 2015,
-          rental_price: 3000,
-          amenities: 'Swimming pool, gym, parking',
-          status: 'available',
-          lease_terms: '1 year'
-        },
-        {
-          property_id: 3,
-          address: '789 Oak St, San Francisco, CA 94101',
-          property_type: 'House',
-          size_in_sq_ft: 2000,
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
-          number_of_units: 1,
-          year_built: 2020,
-          rental_price: 4000,
-          amenities: 'Swimming pool, gym, parking',
-          status: 'available',
-          lease_terms: '1 year'
-        }
-      ];
+    // const properties = [
+        // {
+        //   property_id: 1,
+        //   address: '123 Main St, San Francisco, CA 94101',
+        //   property_type: 'Apartment',
+        //   size_in_sq_ft: 1000,
+        //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
+        //   number_of_units: 10,
+        //   year_built: 2010,
+        //   rental_price: 2000,
+        //   amenities: 'Swimming pool, gym, parking',
+        //   status: 'available',
+        //   lease_terms: '1 year'
+        // },
+        // {
+        //   property_id: 2,
+        //   address: '456 Elm St, San Francisco, CA 94101',
+        //   property_type: 'Condo',
+        //   size_in_sq_ft: 1500,
+        //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
+        //   number_of_units: 5,
+        //   year_built: 2015,
+        //   rental_price: 3000,
+        //   amenities: 'Swimming pool, gym, parking',
+        //   status: 'available',
+        //   lease_terms: '1 year'
+        // },
+        // {
+        //   property_id: 3,
+        //   address: '789 Oak St, San Francisco, CA 94101',
+        //   property_type: 'House',
+        //   size_in_sq_ft: 2000,
+        //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
+        //   number_of_units: 1,
+        //   year_built: 2020,
+        //   rental_price: 4000,
+        //   amenities: 'Swimming pool, gym, parking',
+        //   status: 'available',
+        //   lease_terms: '1 year'
+        // }
+        ApiService.fetchProperties() 
+            .then((data) => {
+                setProperties(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching properties:', error);
+            });
+   
+
+      
 
         setProperties(properties);
         setLoading(false);
