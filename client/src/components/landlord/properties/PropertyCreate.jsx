@@ -91,8 +91,9 @@ const PropertyCreate = () => {
   const [formData, setFormData] = useState({});
   const [files, setFiles] = useState({});
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  useUnloadMessage(setMessage); // Display a message if the user tries to leave the page with unsaved changes
+  useUnloadMessage(setMessage, setSuccess); // Display a message if the user tries to leave the page with unsaved changes
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -112,6 +113,7 @@ const PropertyCreate = () => {
   const handlePreviousStep = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+      console.log("currentStep:", currentStep);
     }
   };
 
@@ -202,14 +204,14 @@ const PropertyCreate = () => {
         <Row>
           <Col>
             {currentStep > 0 && (
-              <Button variant="secondary" onClick={handlePreviousStep}>
+              <Button variant="secondary" type="button" onClick={handlePreviousStep}>
                 Previous
               </Button>
             )}
           </Col>
           <Col>
             {currentStep < steps.length - 1 ? (
-              <Button variant="secondary" onClick={handleNextStep}>
+              <Button variant="secondary" type="button" onClick={handleNextStep}>
                 Next
               </Button>
             ) : (
