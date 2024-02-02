@@ -5,10 +5,10 @@ const PropertyComponent = ({ id }) => {
     const handleDelete = () => {
         ApiService.deleteProperty(id)
             .then(() => {
-                // 处理删除成功后的逻辑
+                console.log('Property deleted');
             })
             .catch((error) => {
-                // 处理删除失败后的逻辑
+                console.error('Error deleting property:', error);
             });
     };
 
