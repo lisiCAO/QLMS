@@ -68,7 +68,7 @@ const propertyFormConfig = [
     type: "text",
   },
   {
-    name: "image",
+    name: "images",
     label: "Image",
     type: "file",
   },
@@ -83,7 +83,7 @@ const propertyFormConfig = [
 const steps = [
   ["address", "number_of_units", "property_type"],
   ["size_in_sq_ft", "year_built", "rental_price"],
-  ["amenities", "status", "lease_terms", "image", "description"],
+  ["amenities", "status", "lease_terms", "images", "description"],
 ];
 
 const PropertyCreate = () => {
@@ -119,10 +119,14 @@ const PropertyCreate = () => {
     e.preventDefault();
     const data = new FormData();
 
+    console.log("formdata:", formData);
+
     // Append text fields to the FormData object
     for (const key in formData) {
       data.append(key, formData[key]);
     }
+
+    console.log("data:", data);
 
     // Append files to the FormData object
     for (const key in files) {
@@ -133,9 +137,11 @@ const PropertyCreate = () => {
       // Send the FormData object to the backend using the API service
       const response = await ApiService.createProperty(data);
       // TODO: Handle the response
-      setMessage(response.message);
+      console.log("response:", response);
+      //setMessage(response.message);
       // Handle success
     } catch (error) {
+      console.error("Error:", error);
       setMessage(error.message);
     }
   };
@@ -148,6 +154,10 @@ const PropertyCreate = () => {
       <Form onSubmit={handleSubmit}>
         {steps[currentStep].map((fieldName) => {
           const field = propertyFormConfig.find((f) => f.name === fieldName);
+          if (!field) {
+                        console.error(`Field not found: ${fieldName}`);
+                        return null; 
+                      }
           return (
             // Added return statement here
             <Form.Group key={field.name} controlId={field.name}>

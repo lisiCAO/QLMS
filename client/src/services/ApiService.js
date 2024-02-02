@@ -6,11 +6,11 @@ const ApiService = {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
       method: 'POST',
       body: formData,
-      // Do not set 'Content-Type': 'application/json' when sending FormData
-      // The browser will set the correct multipart/form-data boundary.
-      credentials: 'include', // if needed for cookies/CORS
+      credentials: 'include',
     });
+    console.log('Create property response:', response);
     const data = await handleResponse(response);
+    console.log('Create property data:', data);
     return data;
   },
 
