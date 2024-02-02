@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import  ArrowRightIcon  from "@heroicons/react/24/solid/ArrowRightIcon";
+import ArrowRightIcon from "@heroicons/react/24/solid/ArrowRightIcon";
 import {
   Box,
   Button,
@@ -14,31 +14,20 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import ApiService from "../../../services/ApiService";
 
 export const DashboardPropertiesList = (props) => {
-  const [property, setProperty] = useState({
-    id: "1",
-    tenant_name: "John Doe",
-    address: "1234 Main St",
-    lease_endDate: "2023-12-31",
-  });
-  // Add more sample data as needed
+  const [properties, setProperties] = useState([]);
 
-  // useEffect(() => {
-  //   // Replace 'your-api-endpoint' with the actual API endpoint to fetch user data
-  //   ApiService.fetchPropertyData('your-user-id')
-  //     .then((data) => {
-  //       setProperty({
-  //         id: data.id,
-  //         tenant_name: data.tenant_name,
-  //         address: data.address,
-  //         lease_endDate: data.lease_endDate,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching user data:', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    ApiService.fetchLandlordDashboard()
+      .then((data) => {
+        setProperties(data.propertiesResult);
+      })
+      .catch((error) => {
+        console.error('Error fetching DashboardPropertiesList:', error);
+      });
+  }, []);
 
   return (
     <Card>
@@ -55,12 +44,14 @@ export const DashboardPropertiesList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow hover key={property.id}>
-              <TableCell>{property.id}</TableCell>
-              <TableCell>{property.tenant_name}</TableCell>
-              <TableCell>{property.address}</TableCell>
-              <TableCell>{property.lease_endDate}</TableCell>
-            </TableRow>
+            {properties.map((property) => (
+              <TableRow key={property.property_id}>
+                <TableCell>{property.property_id}</TableCell>
+                <TableCell>{property.tenant_name}</TableCell>
+                <TableCell>{property.address}</TableCell>
+                <TableCell>{property.lease_endDate}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </Box>
@@ -69,11 +60,7 @@ export const DashboardPropertiesList = (props) => {
       <CardActions sx={{ justifyContent: "flex-end" }}>
         <Button
           color="inherit"
-          endIcon={
-            <SvgIcon fontSize="small">
-              <ArrowRightIcon />
-            </SvgIcon>
-          }
+          endIcon={<SvgIcon fontSize="small"><ArrowRightIcon /></SvgIcon>}
           size="small"
           variant="text"
         >

@@ -19,11 +19,6 @@ const LeaseList = () => {
     });
   }, []);
 
-  // // assume the following API methods are available
-  // const fetchLeases = async () => {
-  //   // const response = await ApiService.getLeases(); // TODO: replace with real API call
-  //   // setLeases(response.data);
-  // };
 
   const renewLease = async (lease) => {
     const startDate = dayjs(lease.start_date);

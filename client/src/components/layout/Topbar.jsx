@@ -20,7 +20,7 @@ const Topbar = () => {
   return (
     <>
       <Navbar bg="light" expand="lg" className="d-flex align-items-center justify-content-between p-3" style={{ height: '60px' }}> 
-        <Navbar.Brand as={Link} to="/landlord/dashboard">
+        <Navbar.Brand as={Link} to="/landlord">
           Dashboard
         </Navbar.Brand>
         <Form inline={`${true}`} className="ml-auto d-flex align-items-center">
@@ -31,7 +31,7 @@ const Topbar = () => {
         </Form>
         <Nav >
           <div className="d-flex align-items-center">
-          <Nav.Link as={Link} to="/landlord/dashboard">
+          <Nav.Link as={Link} to="/landlord">
             {user?.username}
           </Nav.Link>
           <Button variant="link" onClick={handleShowLogoutModal} >
