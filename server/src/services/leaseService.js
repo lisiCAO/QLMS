@@ -1,0 +1,51 @@
+const { lease } = require("../models");
+const { sequelize } = require("../models/index");
+
+exports.getAllLeases = async () => {
+    try {
+        return await lease.findAll();
+    } catch (error) {
+        throw error;
+    }
+};
+
+exports.getSingleLease = async (leaseId) => {
+    try {
+        return await lease.findByPk(leaseId);
+    } catch (error) {
+        throw error;
+    }
+};
+
+exports.createLease = async (leaseData) => {
+    try {
+        return await lease.create(leaseData);
+    } catch (error) {
+        throw error;
+    }
+};
+
+exports.updateLease = async (leaseId, leaseData) => {
+    try {
+        const leaseToUpdate = await lease.findByPk(leaseId);
+        if (leaseToUpdate) {
+            return await leaseToUpdate.update(leaseData);
+        }
+        return null;
+    } catch (error) {
+        throw error;
+    }
+};
+
+exports.deleteLease = async (leaseId) => {
+    try {
+        const leaseToDelete = await lease.findByPk(leaseId);
+        if (leaseToDelete) {
+            await leaseToDelete.destroy();
+            return true;
+        }
+        return false;
+    } catch (error) {
+        throw error;
+    }
+};

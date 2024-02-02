@@ -2,6 +2,7 @@
 const { user } = require("../models"); // import user mddel
 const { sequelize } = require("../models/index");
 const bcrypt = require("bcryptjs");
+const { containerClient } = require("./userImageService");
 
 exports.getAllUsers = async () => {
     return await user.findAll();
@@ -55,4 +56,22 @@ exports.deleteUser = async (userId) => {
 
     await userToDelete.destroy();
     return true;
+};
+
+exports.uploadfileImage = async (file, userdata) => {
+    const blobName = `user_image/${Date.now()}_${file.originalname}`;
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+    await blockBlobClient.uploadData(file.buffer, {
+        blobHTTPHeaders: { blobContentType: file.mimetype },
+    });
+
+    // file upolad successfully,
+    const fileUrl = blockBlobClient.url;
+    //const updatedUser = await user.update(
+    //    { profile_picture_url: fileUrl },
+    //    { where: { id: userdata.id } }
+    //);
+
+    return { fileUrl };
 };

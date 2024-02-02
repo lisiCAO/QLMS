@@ -1,5 +1,7 @@
 const userService = require("../services/userService");
 const { body, validationResult } = require("express-validator");
+const { user } = require("../models/index");
+const multer = require("multer");
 
 // Validate and sanitize fields using express-validator
 exports.userValidationRules = [
@@ -113,5 +115,91 @@ exports.deleteUser = async (req, res) => {
         }
     } catch (error) {
         res.sendError("Failed to delete user: " + error.message, 500);
+    }
+};
+
+//get user information
+exports.getUserInfo = async (req, res) => {
+    try {
+        const userdata = await user.findByPk(req.user.userId);
+        if (!userdata) {
+            res.sendError("User not found", 404);
+        }
+
+        let userInfo = {};
+
+        if (userdata.role === "tenant") {
+            userInfo = {
+                id: userdata.id,
+                username: userdata.username,
+                email: userdata.email,
+                role: userdata.role,
+                first_name: userdata.first_name,
+                last_name: userdata.last_name,
+                street_number: userdata.street_number,
+                street_name: userdata.street_name,
+                city_name: userdata.city_name,
+                postcode: userdata.postcode,
+                province: userdata.province,
+                phone_number: userdata.phone_number,
+                profile_picture_url: userdata.profile_picture_url,
+                date_of_birth: userdata.date_of_birth,
+                emerge_contact_name: userdata.emerge_contact_name,
+                emerge_contact_number: userdata.emerge_contact_number,
+                national_id: userdata.national_id,
+                employer_info: userdata.employer_info,
+                bank_info: userdata.bank_info,
+                reference_url: userdata.reference_url,
+                is_verified: userdata.is_verified,
+                createdAt: userdata.createdAt,
+                updatedAt: userdata.updatedAt,
+            };
+        } else if (userdata.role === "landlord") {
+            userInfo = {
+                id: userdata.id,
+                username: userdata.username,
+                email: userdata.email,
+                role: userdata.role,
+                first_name: userdata.first_name,
+                last_name: userdata.last_name,
+                street_number: userdata.street_number,
+                street_name: userdata.street_name,
+                city_name: userdata.city_name,
+                postcode: userdata.postcode,
+                province: userdata.province,
+                phone_number: userdata.phone_number,
+                profile_picture_url: userdata.profile_picture_url,
+                date_of_birth: userdata.date_of_birth,
+                createdAt: userdata.createdAt,
+                updatedAt: userdata.updatedAt,
+            };
+        }
+
+        res.json(userInfo);
+    } catch (err) {
+        res.sendError("Error retrieving user information: " + err.message, 500);
+    }
+};
+
+exports.uploadProfileImage = async (req, res) => {
+    try {
+        const file = req.file;
+        const userdata = await user.findByPk(req.user.userId);
+
+        if (!userdata) {
+            res.sendError("User not found", 404);
+        }
+
+        if (!file) {
+            return res.sendError("No image file error: ", 400);
+        }
+
+        // call userService.uploadfileImage() to upload the file
+        const result = await userService.uploadfileImage(file, userdata);
+
+        // upload file successfully
+        res.sendSuccess(result, "Upload user profile image successfully");
+    } catch (err) {
+        res.sendError("Error upload user profile image: " + err.message, 500);
     }
 };

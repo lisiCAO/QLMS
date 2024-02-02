@@ -173,7 +173,11 @@ exports.register = async (req, res) => {
 
         // send response
         res.sendSuccess(
-            { userId: newUser.id, username: newUser.username },
+            {
+                userId: newUser.id,
+                username: newUser.username,
+                role: newUser.role,
+            },
             "User registered successfully"
         );
     } catch (error) {
@@ -225,8 +229,8 @@ exports.login = async (req, res) => {
 
         // send response
         res.sendSuccess(
-            { userId: user.id, username: user.username },
-            "User registered successfully"
+            { userId: user.id, username: user.username, role: user.role },
+            "User Logged in successfully"
         );
     } catch (error) {
         res.sendError("Login failed: " + error.message, 500);

@@ -4,8 +4,27 @@ const router = express.Router();
 const authenticateToken = require("./../middleWares/authenticateToken");
 const userController = require("../controllers/userController");
 
+const multer = require("multer");
+
+// config multer
+const storage = multer.memoryStorage();
+
+// initialize multer
+const upload = multer({ storage: storage });
+
+// uploade user profile image
+router.post(
+    "/uploadimage",
+    authenticateToken,
+    upload.single("imagefile"),
+    userController.uploadProfileImage
+);
+
 // get all users
 router.get("/", userController.getAllUsers);
+
+// get userinfo by userId in token
+router.get("/userinfo", authenticateToken, userController.getUserInfo);
 
 // get single user
 router.get("/:id", userController.getSingleUser);
