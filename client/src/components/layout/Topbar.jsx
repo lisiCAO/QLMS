@@ -23,7 +23,7 @@ const Topbar = () => {
         <Navbar.Brand as={Link} to="/landlord/dashboard">
           Dashboard
         </Navbar.Brand>
-        <Form inline className="ml-auto d-flex align-items-center">
+        <Form inline={`${true}`} className="ml-auto d-flex align-items-center">
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="link" className="d-flex align-items-center">
             <FaSearch />

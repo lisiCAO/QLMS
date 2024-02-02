@@ -157,9 +157,9 @@ const PropertyCreate = () => {
         {steps[currentStep].map((fieldName) => {
           const field = propertyFormConfig.find((f) => f.name === fieldName);
           if (!field) {
-                        console.error(`Field not found: ${fieldName}`);
-                        return null; 
-                      }
+            console.error(`Field not found: ${fieldName}`);
+            return null;
+          }
           return (
             // Added return statement here
             <Form.Group key={field.name} controlId={field.name}>
@@ -204,14 +204,22 @@ const PropertyCreate = () => {
         <Row>
           <Col>
             {currentStep > 0 && (
-              <Button variant="secondary" type="button" onClick={handlePreviousStep}>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={handlePreviousStep}
+              >
                 Previous
               </Button>
             )}
           </Col>
           <Col>
             {currentStep < steps.length - 1 ? (
-              <Button variant="secondary" type="button" onClick={handleNextStep}>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={handleNextStep}
+              >
                 Next
               </Button>
             ) : (

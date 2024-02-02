@@ -2,8 +2,8 @@ const API_BASE_URL = "http://localhost:8000";
 
 const ApiService = {
   /* Posts */
-  createProperty: async (formData) => {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
+  async createProperty(formData) {
+    const response = await fetch(`${API_BASE_URL}/api/properties`, {
       method: 'POST',
       body: formData,
       credentials: 'include',
