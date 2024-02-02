@@ -1,4 +1,5 @@
 import React from 'react';
+import UserProfile from '../../components/account/UserProfile';
 
 const LandlordProfile = () => {
     // TODO: Implement LandlordProfile component logic here
@@ -6,7 +7,7 @@ const LandlordProfile = () => {
     return (
         <div>
             {/* TODO: Add LandlordProfile component content here */}
-            <h1>LandlordProfile Page</h1>
+            <UserProfile />
         </div>
     );
 };
