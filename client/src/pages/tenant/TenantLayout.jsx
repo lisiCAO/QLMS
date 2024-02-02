@@ -21,5 +21,3 @@ const TenantLayout = () => {
 };
 
 export default TenantLayout;
-
-
