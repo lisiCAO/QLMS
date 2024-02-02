@@ -137,11 +137,11 @@ exports.getUserPropertiesInfo = async (req, res) => {
         console.log("userId: ", userId);
 
         // get all properties owned by the user
-        let sql = `SELECT u.username AS tenant_name, p.id AS property_id, p.address, l.id AS lease_id, l.end_date AS lease_endDate 
+        let sql = `SELECT u.id AS tenant_id, u.username AS tenant_name, p.id AS property_id, p.address, p.property_type as type, l.id AS lease_id, l.start_date AS lease_startDate, l.end_date AS lease_endDate, l.rent_amount AS monthly_rent
                    FROM lease l JOIN property p ON l.property_id = p.id JOIN user u ON l.tenant_user_id = u.id
                    WHERE
                    p.owner_user_id = ${userId}
-                   ORDER BY l.end_date DESC LIMIT 3;`;
+                   ORDER BY l.end_date ASC;`;
 
         const propertiesResult = await sequelize.query(sql, {
             type: Sequelize.QueryTypes.SELECT,
