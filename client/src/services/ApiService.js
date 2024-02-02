@@ -55,7 +55,7 @@ const ApiService = {
   },
 
   async fetchLeases() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases`, {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/landlord`, {
       method: "GET"
     });
     const data = await handleResponse(response);
