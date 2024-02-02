@@ -57,6 +57,14 @@ const ApiService = {
     });
     const data = await handleResponse(response);
     return data;
+  },
+
+  async fetchTenants() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/tenants`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
   }
   // other APIs
 };
