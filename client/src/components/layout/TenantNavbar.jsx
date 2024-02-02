@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Navbar,
   Nav,
@@ -6,47 +6,57 @@ import {
   Form,
   FormControl,
   Offcanvas,
+  Modal,
 } from "react-bootstrap";
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
-// import { AuthContext } from "./../../context/AuthContext"; // TODO: Import the AuthContext
+import { useAuth } from "./../../context/AuthContext";
 
 const TenantNavbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  // const { hasLease, leasePropertyId } = useContext(AuthContext);
+  const { user, logout } = useAuth();
+  const [message, setMessage] = useState(null);
 
-  const hasLease = () => true;
   const leasePropertyId = "123";
   // TODO: Replace the above two lines with the commented line below
   const toggleLogoutModal = () => setShowLogoutModal(!showLogoutModal);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      setMessage("Error logging out");
+    }
+  };
 
   return (
     <>
-      <Navbar bg="light" expand={false} className="mb-4">
-        <Navbar.Brand as={Link} to="/tenant/dashboard">
-          Tenant Portal
-        </Navbar.Brand>
+      <Navbar bg="light" expand={false} className="mb-4 p-3">
         <Navbar.Toggle
           aria-controls="offcanvasNavbar"
           onClick={handleShowOffcanvas}
         />
-        <Form inline className="ml-auto">
+        <Navbar.Brand as={Link} to="/tenant/dashboard">
+          Tenant Portal
+        </Navbar.Brand>
+        <Form inline className="ml-auto d-flex">
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">
+          <Button variant="link">
             <FaSearch />
           </Button>
         </Form>
         <Nav>
-          <Nav.Link as={Link} to="/tenant/profile">
-            Username
-          </Nav.Link>
-          <Button variant="outline-primary" onClick={toggleLogoutModal}>
-            <FaSignOutAlt />
-          </Button>
+          <div className="d-flex align-items-center">
+            <Nav.Link as={Link} to="/tenant/profile">
+              {user?.username}
+            </Nav.Link>
+            <Button variant="link" onClick={toggleLogoutModal}>
+              <FaSignOutAlt />
+            </Button>
+          </div>
         </Nav>
       </Navbar>
 
@@ -56,7 +66,7 @@ const TenantNavbar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="justify-content-end flex-grow-1 pe-3">
-            {hasLease() ? (
+            {user?.isLease ? (
               <>
                 <Link
                   to={`/tenant/properties/${leasePropertyId}`}
@@ -76,8 +86,20 @@ const TenantNavbar = () => {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
+      <Modal show={message} onHide={() => setMessage(null)}>
+        <Modal.Body>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setMessage(null)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-      <LogoutModal show={showLogoutModal} handleClose={toggleLogoutModal} />
+      <LogoutModal
+        show={showLogoutModal}
+        handleClose={toggleLogoutModal}
+        handleLogout={handleLogout}
+      />
     </>
   );
 };
