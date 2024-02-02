@@ -6,7 +6,7 @@ import {
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 import DashboardPropertiesCount from "./../../components/landlord/dashboard/DashboardPropertiesCount";
-import DashboardPropertiesList from "./../../components/landlord/DashboardPropertiesList";
+import DashboardPropertiesList from "./../../components/landlord/dashboard/DashboardPropertiesList";
 
 // Dashboard page, presumably displaying user account information
 const Dashboard = () => {

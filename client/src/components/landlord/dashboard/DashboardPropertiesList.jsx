@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ArrowRightIcon from "@heroicons/react/24/solid/ArrowRightIcon";
+import  ArrowRightIcon  from "@heroicons/react/24/solid/ArrowRightIcon";
 import {
   Box,
   Button,
