@@ -1,35 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Accordion, Button } from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
 import { House, Briefcase, People, PlusCircle } from "react-bootstrap-icons";
-import { CreditCard, PersonCircle } from "react-bootstrap-icons";
+import { PersonCircle } from "react-bootstrap-icons";
 import Image from "react-bootstrap/Image";
 import "./Sidebar.scss";
 const LogoImage = process.env.PUBLIC_URL + "/logo.png";
 
 const Sidebar = () => {
   return (
-    <div className="sidebar d-flex flex-column justify-content-center align-">
-      {/* Logo could be an image or an icon */}
+    <div
+      className="sidebar d-flex flex-column align-items-center justify-content-center"
+    >
+      <div className="d-flex flex-column align-items-center justify-content-center">
       <div className="sidebar-logo my-3">
-        {/* Replace with your logo */}
         <Image
           src={LogoImage}
-          className="my-3 "
-          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
-        />{" "}
-        {/* Logo */}
+          roundedCircle
+          style={{ width: "100px", height: "100px" }}
+        />
       </div>
-
-      {/* Create New Button */}
-      <Button variant="primary" className="mb-3 create-new-btn">
+      <Button variant="primary" className="mb-3">
         <PlusCircle className="me-2" />
         Create New
       </Button>
-
       <hr />
-      {/* Accordion Menu */}
-      <Accordion defaultActiveKey="0">
+
+      </div>
+      <Accordion defaultActiveKey="0" className="w-100">
         {/* Properties */}
         <Accordion.Item eventKey="0">
           <Accordion.Header>
@@ -37,8 +36,18 @@ const Sidebar = () => {
             Properties
           </Accordion.Header>
           <Accordion.Body>
-            <Link to="/landlord/properties">Overview</Link>
-            <Link to="/landlord/properties/create">Create</Link>
+            <Nav className="flex-column">
+              <Nav.Link as={Link} to="/landlord/properties" className="d-block">
+                Overview
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/landlord/properties/create"
+                className="d-block"
+              >
+                Create
+              </Nav.Link>
+            </Nav>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -48,9 +57,18 @@ const Sidebar = () => {
             <Briefcase className="icon" /> Leases
           </Accordion.Header>
           <Accordion.Body>
-            <Link to="/landlord/leases">Overview</Link>
-            <Link to="/landlord/leases/create">Create</Link>
-            {/* Submenu items for Leases */}
+            <Nav className="flex-column">
+              <Nav.Link as={Link} to="/landlord/leases" className="d-block">
+                Overview
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/landlord/leases/create"
+                className="d-block"
+              >
+                Create
+              </Nav.Link>
+            </Nav>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -60,24 +78,28 @@ const Sidebar = () => {
             <People className="icon" /> Tenants
           </Accordion.Header>
           <Accordion.Body>
-            <Link to="/landlord/tenants/list">List</Link>
-            <Link to="/landlord/tenants/update">Update</Link>
-          </Accordion.Body>
-        </Accordion.Item>
-
-        {/* Transactions */}
-        <Accordion.Item eventKey="3">
-          <Accordion.Header>
-            <CreditCard className="icon" /> Transactions
-          </Accordion.Header>
-          <Accordion.Body>
-            {/* Submenu items for Transactions */}
+            <Nav className="flex-column">
+              <Nav.Link
+                as={Link}
+                to="/landlord/tenants/list"
+                className="d-block"
+              >
+                List
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/landlord/tenants/update"
+                className="d-block"
+              >
+                Update
+              </Nav.Link>
+            </Nav>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
 
       {/* User Information at the Bottom */}
-      <div className="sidebar-footer mt-auto mb-3 ">
+      <div className="sidebar-footer mt-auto mb-3 text-center">
         <PersonCircle size={50} className="user-icon" />
         <div className="user-name">John Doe</div>
       </div>

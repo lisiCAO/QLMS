@@ -3,36 +3,38 @@ import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
-const Topbar = () => {
-  const [showLogoutModal, setShowLogoutModal] = useState(false); // Control the visibility of the LogoutModal
 
-  const handleShowLogoutModal = () => setShowLogoutModal(true); // Show LogoutModal
-  const handleCloseLogoutModal = () => setShowLogoutModal(false); // Hide LogoutModal
+const Topbar = () => {
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleShowLogoutModal = () => setShowLogoutModal(true);
+  const handleCloseLogoutModal = () => setShowLogoutModal(false);
 
   const handleLogout = () => {
-    // TODO: Implement logout logic
     handleCloseLogoutModal();
   };
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" className="d-flex align-items-center justify-content-between p-3" style={{ height: '60px' }}> 
         <Navbar.Brand as={Link} to="/landlord/dashboard">
           Landlord Dashboard
         </Navbar.Brand>
-        <Form inline>
+        <Form inline className="ml-auto d-flex align-items-center">
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">
+          <Button variant="link" className="d-flex align-items-center">
             <FaSearch />
           </Button>
         </Form>
-        <Nav className="ml-auto">
+        <Nav >
+          <div className="d-flex align-items-center">
           <Nav.Link as={Link} to="/landlord/dashboard">
             Username
           </Nav.Link>
-          <Button variant="link" onClick={handleShowLogoutModal}>
+          <Button variant="link" onClick={handleShowLogoutModal} >
             <FaSignOutAlt />
           </Button>
+          </div>
         </Nav>
       </Navbar>
       <LogoutModal
@@ -45,3 +47,4 @@ const Topbar = () => {
 };
 
 export default Topbar;
+

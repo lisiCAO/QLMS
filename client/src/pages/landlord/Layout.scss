@@ -1,60 +1,16 @@
-@import './../assets/variables.scss';
-
-@mixin for-mobile {
-  @media (max-width: $breakpoint-mobile) {
-    @content;
-  }
+/* Layout.scss */
+.landlord-layout {
+  display: flex; /* 设置Flexbox布局 */
+  height: 100vh; /* 整个布局占满视口高度 */
 }
 
-@mixin for-tablet-up {
-  @media (min-width: calc(#{$breakpoint-mobile} + 1px)) {
-    @content;
-  }
-}
-
-@mixin for-desktop-up {
-  @media (min-width: calc(#{$breakpoint-tablet} + 1px)) {
-    @content;
-  }
-}
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main-container {
-  display: flex;
-  flex: 1;
-
-  @include for-mobile {
-    flex-direction: column;
-  }
-}
-
-.sidebar {
-  width: $sidebar-width;
-  min-height: 100vh;
-  position: fixed;
-  overflow-y: auto;
-
-  @include for-mobile {
-    width: 100%;
-    position: static;
-    min-height: initial;
-  }
-}
-
-.content {
-  flex: 1;
-  margin-left: $sidebar-width;
-
-  @include for-mobile {
-    margin-left: 0;
-  }
+.landlord-content {
+  flex-grow: 1; /* 占据剩余空间 */
+  display: flex; /* 设置Flexbox布局 */
+  flex-direction: column; /* 子元素垂直排列 */
 }
 
 .dynamic-content {
-  // TODO: Add styles here
+  flex-grow: 1; /* 填充剩余空间 */
+  overflow-y: auto; /* 如果内容超出高度，允许滚动 */
 }
