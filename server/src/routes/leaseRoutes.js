@@ -7,6 +7,9 @@ const authRole = require("../middleWares/authRole");
 //get all leases
 router.get("/", leaseController.getAllLeases);
 
+//get all leases by landlord
+router.get("/landlord", authenticateToken, leaseController.getLeasesByLandlord);
+
 //get single lease
 router.get("/:id", leaseController.getSingleLease);
 
