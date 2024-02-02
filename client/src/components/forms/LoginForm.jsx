@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import ApiService from "../../services/ApiService";
+import { useAuth } from "./../../context/AuthContext";
 import { useUnloadMessage } from "./../hooks/useUnloadMessage";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const { login } = useAuth();
 
   useUnloadMessage(setMessage);
 
@@ -14,13 +16,10 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const credentials = { email, password };
-      console.log(credentials);
-      const response = await ApiService.login(credentials);
-
-      console.log(response);
-      setMessage(response.message);
+      await login(credentials);
+      setSuccess("Logged in successfully");
     } catch (error) {
-      setMessage(error.message);
+      setMessage("Credentials are incorrect. Please try again!");
     }
   };
 
@@ -45,6 +44,11 @@ const LoginForm = () => {
         {message && (
           <div className="alert alert-danger" role="alert">
             {message}
+          </div>
+        )}
+        {success && (
+          <div className="alert alert-success" role="alert">
+            {success}
           </div>
         )}
         <Button
