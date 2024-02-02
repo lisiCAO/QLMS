@@ -17,30 +17,30 @@ export const AuthProvider = ({ children }) => {
         console.error('Failed to fetch current user:', error);
       }
     };
-
     initializeAuth();
   }, []);
 
   const login = async (credentials) => {
     try {
-      const userData = await ApiService.login(credentials);
-      setUser(userData);
+      const response = await ApiService.login(credentials);
+      console.log('Login response:', response);
+      setUser(response);
+      return response;
     } catch (error) {
-      console.error('Login failed:', error);
       throw error;
     }
   };
 
   const logout = async () => {
     try {
-      await ApiService.logout();
+      const response = await ApiService.logout();
       setUser(null);
+      return response;
     } catch (error) {
       console.error('Logout failed:', error);
       throw error;
     }
   };
-
 
   const isLoggedIn = user !== null;
   const role = user?.role;
@@ -49,5 +49,3 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-

@@ -25,14 +25,12 @@ const ApiService = {
   },
 
   async fetchCurrentUser() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/user`);
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/userinfo`);
     return handleResponse(response);
   },
 
   async logout() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/logout`, {
-      method: "POST",
-    });
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`);
     return handleResponse(response);
   },
 
