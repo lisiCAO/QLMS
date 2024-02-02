@@ -1,5 +1,6 @@
 const { lease } = require("../models");
-const { sequelize } = require("../models/index");
+const { sequelize, Sequelize } = require("../models/index");
+const { property } = require("../models/index");
 
 exports.getAllLeases = async () => {
     try {
@@ -45,6 +46,21 @@ exports.deleteLease = async (leaseId) => {
             return true;
         }
         return false;
+    } catch (error) {
+        throw error;
+    }
+};
+
+exports.getLeasesByLandlord = async (userId) => {
+    try {
+        // get all properties owned by the user
+        let sql = `SELECT l.* FROM lease l JOIN property p ON l.property_id = p.id WHERE p.owner_user_id = ${userId} ORDER BY l.end_date;`;
+
+        const leasesResult = await sequelize.query(sql, {
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        console.log("leasesResult= ", leasesResult);
+        return leasesResult;
     } catch (error) {
         throw error;
     }
