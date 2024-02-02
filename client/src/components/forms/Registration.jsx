@@ -53,8 +53,9 @@ const Registration = () => {
     role: "",
   });
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  useUnloadMessage(setMessage);
+  useUnloadMessage(setMessage, setSuccess);
 
   const navigate = useNavigate();
 

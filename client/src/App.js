@@ -18,12 +18,17 @@ import LeasePage from "./pages/landlord/lease/LeasePage";
 import LandlordTenantPage from "./pages/landlord/tenant/LandlordTenantPage";
 import CheckAuth from "./services/CheckAuth";
 
+import AboutUs from "./pages/AboutUsPage";
+import LandlordDashBoard from "./pages/landlord/LandlordDashboard";
+
+
 function App() {
   return (
     <Router>
       <Routes>
         {/* Auth routes */}
         <Route path="/" element={<CheckAuth />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/:view" element={<AuthPage />} />
         {/* Tenant routes */}
 
@@ -40,11 +45,13 @@ function App() {
         {/* Landlord routes */}
         <Route element={<ProtectedRoute role="landlord" />}>
           <Route path="/landlord/*" element={<LandlordLayout />}>
+            <Route index element={<LandlordDashBoard />} />
             <Route path="properties/*" element={<PropertyPage />} />
             <Route path="leases/*" element={<LeasePage />} />
             <Route path="tenants/*" element={<LandlordTenantPage />} />
           </Route>
         </Route>
+        <Route path="/about-us" element={ <AboutUs />} />
         {/* Catch all route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

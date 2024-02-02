@@ -2,15 +2,15 @@ const API_BASE_URL = "http://localhost:8000";
 
 const ApiService = {
   /* Posts */
-  createProperty: async (formData) => {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
+  async createProperty(formData) {
+    const response = await fetch(`${API_BASE_URL}/api/properties`, {
       method: 'POST',
       body: formData,
-      // Do not set 'Content-Type': 'application/json' when sending FormData
-      // The browser will set the correct multipart/form-data boundary.
-      credentials: 'include', // if needed for cookies/CORS
+      credentials: 'include',
     });
+    console.log('Create property response:', response);
     const data = await handleResponse(response);
+    console.log('Create property data:', data);
     return data;
   },
 
@@ -30,14 +30,41 @@ const ApiService = {
   },
 
   async logout() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`);
-    return handleResponse(response);
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`, {
+      method: "POST", 
+    });
+    const data = await handleResponse(response); 
+    return data;
   },
 
   async register(userData) {
     const response = await fetchWithConfig(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       body: JSON.stringify(userData),
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  async fetchProperties() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  async fetchLeases() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  async fetchTenants() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/tenants`, {
+      method: "GET"
     });
     const data = await handleResponse(response);
     return data;

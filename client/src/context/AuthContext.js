@@ -7,6 +7,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthInitialized, setIsAuthInitialized] = useState(false);
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -15,10 +16,13 @@ export const AuthProvider = ({ children }) => {
         setUser(currentUser);
       } catch (error) {
         console.error('Failed to fetch current user:', error);
+      } finally {
+        setIsAuthInitialized(true);
       }
     };
     initializeAuth();
   }, []);
+
 
   const login = async (credentials) => {
     try {
@@ -45,7 +49,7 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = user !== null;
   const role = user?.role;
 
-  const value = { user, login, logout, isLoggedIn, role };
+  const value = { user, login, logout, isLoggedIn, role, isAuthInitialized};
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -7,7 +7,8 @@ const ProtectedRoute = ({ role }) => {
 
   if (!user) {
 
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth" replace />;
+
   } else if (user.role !== role) {
     const redirectTo = user.role === 'tenant' ? '/tenant' : '/landlord';
     return <Navigate to={redirectTo} replace />;

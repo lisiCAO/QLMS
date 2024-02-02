@@ -68,7 +68,7 @@ const propertyFormConfig = [
     type: "text",
   },
   {
-    name: "image",
+    name: "images",
     label: "Image",
     type: "file",
   },
@@ -83,7 +83,7 @@ const propertyFormConfig = [
 const steps = [
   ["address", "number_of_units", "property_type"],
   ["size_in_sq_ft", "year_built", "rental_price"],
-  ["amenities", "status", "lease_terms", "image", "description"],
+  ["amenities", "status", "lease_terms", "images", "description"],
 ];
 
 const PropertyCreate = () => {
@@ -91,8 +91,9 @@ const PropertyCreate = () => {
   const [formData, setFormData] = useState({});
   const [files, setFiles] = useState({});
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  useUnloadMessage(setMessage); // Display a message if the user tries to leave the page with unsaved changes
+  useUnloadMessage(setMessage, setSuccess); // Display a message if the user tries to leave the page with unsaved changes
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -112,6 +113,7 @@ const PropertyCreate = () => {
   const handlePreviousStep = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+      console.log("currentStep:", currentStep);
     }
   };
 
@@ -119,10 +121,14 @@ const PropertyCreate = () => {
     e.preventDefault();
     const data = new FormData();
 
+    console.log("formdata:", formData);
+
     // Append text fields to the FormData object
     for (const key in formData) {
       data.append(key, formData[key]);
     }
+
+    console.log("data:", data);
 
     // Append files to the FormData object
     for (const key in files) {
@@ -133,9 +139,11 @@ const PropertyCreate = () => {
       // Send the FormData object to the backend using the API service
       const response = await ApiService.createProperty(data);
       // TODO: Handle the response
-      setMessage(response.message);
+      console.log("response:", response);
+      //setMessage(response.message);
       // Handle success
     } catch (error) {
+      console.error("Error:", error);
       setMessage(error.message);
     }
   };
@@ -148,6 +156,10 @@ const PropertyCreate = () => {
       <Form onSubmit={handleSubmit}>
         {steps[currentStep].map((fieldName) => {
           const field = propertyFormConfig.find((f) => f.name === fieldName);
+          if (!field) {
+            console.error(`Field not found: ${fieldName}`);
+            return null;
+          }
           return (
             // Added return statement here
             <Form.Group key={field.name} controlId={field.name}>
@@ -192,14 +204,22 @@ const PropertyCreate = () => {
         <Row>
           <Col>
             {currentStep > 0 && (
-              <Button variant="secondary" onClick={handlePreviousStep}>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={handlePreviousStep}
+              >
                 Previous
               </Button>
             )}
           </Col>
           <Col>
             {currentStep < steps.length - 1 ? (
-              <Button variant="secondary" onClick={handleNextStep}>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={handleNextStep}
+              >
                 Next
               </Button>
             ) : (
