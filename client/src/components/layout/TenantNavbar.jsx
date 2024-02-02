@@ -41,7 +41,7 @@ const TenantNavbar = () => {
           </Button>
         </Form>
         <Nav>
-          <Nav.Link as={Link} to="/tenant/dashboard">
+          <Nav.Link as={Link} to="/tenant/profile">
             Username
           </Nav.Link>
           <Button variant="outline-primary" onClick={toggleLogoutModal}>
