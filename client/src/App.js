@@ -25,7 +25,9 @@ function App() {
             <Route path="/" element={<AuthPage />} />
             <Route path="/:view" element={<AuthPage />} />
             {/* Tenant routes */}
-            <Route path="/tenant/*" element={<TenantLayout />}>
+
+            <Route path="/tenant/*" element={<ProtectedRoute><TenantLayout /></ProtectedRoute>}>
+
               
               <Route index element={<TenantDashboard />} />
               <Route path="properties" element={<PropertyGeneralList />} />
@@ -36,7 +38,7 @@ function App() {
               
             </Route>
             {/* Landlord routes */}
-            <Route path="/landlord/*" element={<ProtectedRoute><LandlordLayout /></ProtectedRoute>}>
+            <Route path="/landlord/*" element={<LandlordLayout />}>
               <Route path="properties/*" element={<PropertyPage />} />
               <Route path="leases/*" element={<LeasePage />} />
               <Route path="tenants/*" element={<LandlordTenantPage />} />

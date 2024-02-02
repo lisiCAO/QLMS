@@ -10,6 +10,7 @@ import "./Sidebar.scss";
 const LogoImage = process.env.PUBLIC_URL + "/logo.png";
 
 const Sidebar = () => {
+
   const { user } = useAuth();
   const [username, setUsername] = useState("Guest");
   const [profileImage, setProfileImage] = useState("");
@@ -118,6 +119,7 @@ const Sidebar = () => {
 
       {/* User Information at the Bottom */}
       <div className="sidebar-footer mt-auto mb-3 text-center">
+
         {profileImage ? (
           <Image
             src={profileImage}

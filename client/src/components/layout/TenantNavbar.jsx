@@ -49,6 +49,7 @@ const TenantNavbar = () => {
           </Button>
         </Form>
         <Nav>
+
           <div className="d-flex align-items-center">
             <Nav.Link as={Link} to="/tenant/profile">
               {user?.username}
