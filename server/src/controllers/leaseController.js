@@ -65,9 +65,13 @@ const handleValidationErrors = (req, res, message) => {
 exports.getAllLeases = async (req, res) => {
     try {
         const leases = await leaseService.getAllLeases();
-        res.json({ success: true, data: leases });
+        if (leases) {
+            res.sendSuccess(leases, "Leases retrieved successfully");
+        } else {
+            res.sendError("Leases not found", 404);
+        }
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.sendError("Failed to retrieve leases: " + error.message, 500);
     }
 };
 
@@ -75,33 +79,30 @@ exports.getSingleLease = async (req, res) => {
     try {
         const lease = await leaseService.getSingleLease(req.params.id);
         if (lease) {
-            res.json({ success: true, data: lease });
+            res.sendSuccess(lease, "Lease retrieved successfully");
         } else {
-            res.status(404).json({
-                success: false,
-                message: "Lease not found",
-            });
+            res.sendError("Lease not found", 404);
         }
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.sendError("Failed to retrieve lease: " + error.message, 500);
     }
 };
 
 exports.createLease = async (req, res) => {
     // Check if there are validation errors
-    handleValidationErrors(req, res, "Create a new lease failed: ");
+    handleValidationErrors(req, res, "Create lease validation failed: ");
 
     try {
         const newLease = await leaseService.createLease(req.body);
-        res.status(201).json({ success: true, data: newLease });
+        res.sendSuccess(newLease, "Lease created successfully");
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.sendError("Failed to create lease: " + error.message, 500);
     }
 };
 
 exports.updateLease = async (req, res) => {
     // Check if there are validation errors
-    handleValidationErrors(req, res, "Update lease failed: ");
+    handleValidationErrors(req, res, "Update lease validation failed: ");
 
     try {
         const updatedLease = await leaseService.updateLease(
@@ -109,15 +110,12 @@ exports.updateLease = async (req, res) => {
             req.body
         );
         if (updatedLease) {
-            res.json({ success: true, data: updatedLease });
+            res.sendSuccess(updatedLease, "Lease updated successfully");
         } else {
-            res.status(404).json({
-                success: false,
-                message: "Lease not found",
-            });
+            res.sendError("Lease not found", 404);
         }
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.sendError("Failed to update lease: " + error.message, 500);
     }
 };
 
@@ -125,14 +123,33 @@ exports.deleteLease = async (req, res) => {
     try {
         const deleted = await leaseService.deleteLease(req.params.id);
         if (deleted) {
-            res.json({ success: true, message: "Lease deleted successfully" });
+            res.sendSuccess(deleted, "Lease deleted successfully");
         } else {
-            res.status(404).json({
-                success: false,
-                message: "Lease not found",
-            });
+            res.sendError("Lease not found", 404);
         }
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.sendError("Failed to delete lease: " + error.message, 500);
+    }
+};
+
+exports.getLeasesByLandlord = async (req, res) => {
+    try {
+        const userId = req.user.userId; // get the user ID from the token
+        console.log("userId: ", userId);
+
+        const leases = await leaseService.getLeasesByLandlord(userId);
+        if (leases) {
+            res.sendSuccess(
+                leases,
+                "Current landlord leases retrieved successfully"
+            );
+        } else {
+            res.sendError("Current landlord leases", 404);
+        }
+    } catch (error) {
+        res.sendError(
+            "Failed to current landlord leases: " + error.message,
+            500
+        );
     }
 };
