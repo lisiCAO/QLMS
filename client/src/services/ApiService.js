@@ -30,13 +30,11 @@ const ApiService = {
   },
 
   async logout() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`);
-    const data = await response.json();
-    if (data.success) {
-      return data.message;
-    } else {
-      throw new Error(data.message || "An error occurred");
-    }
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`, {
+      method: "POST", 
+    });
+    const data = await handleResponse(response); 
+    return data;
   },
 
   async register(userData) {
