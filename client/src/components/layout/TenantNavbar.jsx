@@ -66,7 +66,7 @@ const TenantNavbar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="justify-content-end flex-grow-1 pe-3">
-            {user?.isLease ? (
+            {user?.hasLease ? (
               <>
                 <Link
                   to={`/tenant/properties/${leasePropertyId}`}
