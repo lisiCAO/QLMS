@@ -1,10 +1,19 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // TODO: Import the useAuth hook from the AuthContext
+import { useAuth } from '../context/AuthContext';
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ role }) => {
   const { user } = useAuth();
-  return user ? <Outlet /> : <Navigate to="/" replace />;
+
+  if (!user) {
+
+    return <Navigate to="/" replace />;
+  } else if (user.role !== role) {
+    const redirectTo = user.role === 'tenant' ? '/tenant' : '/landlord';
+    return <Navigate to={redirectTo} replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
