@@ -26,7 +26,7 @@ function App() {
             <Route path="/:view" element={<AuthPage />} />
             {/* Tenant routes */}
 
-            <Route path="/tenant/*" element={<ProtectedRoute><TenantLayout /></ProtectedRoute>}>
+            <Route path="/tenant/*" element={<TenantLayout />}>
 
               
               <Route index element={<TenantDashboard />} />
