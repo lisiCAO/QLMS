@@ -42,7 +42,7 @@ const TenantNavbar = () => {
         <Navbar.Brand as={Link} to="/tenant/dashboard">
           Tenant Portal
         </Navbar.Brand>
-        <Form inline className="ml-auto d-flex">
+        <Form inline={`${true}`} className="ml-auto d-flex">
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="link">
             <FaSearch />
