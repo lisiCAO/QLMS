@@ -19,8 +19,7 @@ import LandlordTenantPage from "./pages/landlord/tenant/LandlordTenantPage";
 import CheckAuth from "./services/CheckAuth";
 
 import AboutUs from "./pages/AboutUsPage";
-import LandlordDashBoard from "./pages/landlord/LandlordDashboard";
-
+import LandlordDashBoard from "./pages/landlord/LandlordDashboard"
 
 function App() {
   return (
@@ -31,7 +30,6 @@ function App() {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/:view" element={<AuthPage />} />
         {/* Tenant routes */}
-
         <Route element={<ProtectedRoute role="tenant" />}>
           <Route path="/tenant/*" element={<TenantLayout />}>
             <Route index element={<TenantDashboard />} />
@@ -51,7 +49,9 @@ function App() {
             <Route path="tenants/*" element={<LandlordTenantPage />} />
           </Route>
         </Route>
-        <Route path="/about-us" element={ <AboutUs />} />
+        <Route path="/about-us" element={<AboutUs />} />
+      
+       
         {/* Catch all route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

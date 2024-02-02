@@ -9,7 +9,7 @@ import DashboardPropertiesCount from "./../../components/landlord/dashboard/Dash
 import DashboardPropertiesList from "./../../components/landlord/dashboard/DashboardPropertiesList";
 
 // Dashboard page, presumably displaying user account information
-const Dashboard = () => {
+const LandlordDashboard = () => {
   return (
     <>
       <title>Dashboard</title>
@@ -43,4 +43,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default LandlordDashboard;
