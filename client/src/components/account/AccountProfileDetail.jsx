@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -10,8 +10,11 @@ import {
   TextField,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
+import ApiService from "../../services/ApiService";
 
-const AccountProfileDetails = () => {
+const AccountProfileDetails = ({ userData}) => {
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
   const [values, setValues] = useState({
     firstName: "Micheal",
     lastName: "Scott",
@@ -20,6 +23,22 @@ const AccountProfileDetails = () => {
     province: "Montreal",
     country: "Quebec",
   });
+
+  useEffect(() => {
+    if (userData) {
+      setValues({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        province: userData.province,
+        country: userData.country,
+      });
+    }
+  }
+  , [userData]);
+
+
   // Sample data
 
   // useEffect(() => {
@@ -47,17 +66,20 @@ const AccountProfileDetails = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((event) => {
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
 
-    // // Update user details on the backend
-    // ApiService.updateUserData('your-user-id', values)
-    // .then((updatedData) => {
-    //   console.log('User details updated successfully:', updatedData);
-    // })
-    // .catch((error) => {
-    //   console.error('Error updating user details:', error);
-    // });
+
+
+    try{
+      const response = await ApiService.updateUserData('your-user-id', values);
+      console.log(response);
+      setSuccess('User data updated successfully');
+    } catch (error) {
+      setMessage(error.message || 'Failed to update user data');
+    }
+
+
   }, []);
 
   return (
@@ -132,7 +154,18 @@ const AccountProfileDetails = () => {
           </Box>
         </CardContent>
         <Divider />
+        {message && (
+          <div className="alert alert-danger" role="alert">
+            {message}
+          </div>
+        )}
+        {success && (
+          <div className="alert alert-success" role="alert">
+            {success}
+          </div>
+        )}
         <CardActions sx={{ justifyContent: "flex-end" }}>
+          
           <Button variant="contained">Save details</Button>
         </CardActions>
       </Card>

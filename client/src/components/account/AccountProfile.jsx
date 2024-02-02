@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const AccountProfile = () => {
+const AccountProfile = ({userData}) => {
   const [user, setUser] = useState({
     avatar: "user.profile_picture",
     city: "Montreal",
@@ -18,24 +18,20 @@ const AccountProfile = () => {
     role: "landlord",
     name: "Michael Scott",
   });
-  // Add more sample data as needed
-
-  // useEffect(() => {
-  //   // Replace 'your-api-endpoint' with the actual API endpoint to fetch user data
-  //   ApiService.fetchUserData('your-user-id')
-  //     .then((data) => {
-  //       setUser({
-  //         avatar: data.profile_picture,
-  //         city: data.city,
-  //         country: data.country,
-  //         role: data.jobTitle,
-  //         name: data.name,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching user data:', error);
-  //     });
-  // }, []);
+  
+  useEffect(() => {
+    if (userData) {
+      setUser({
+        avatar: userData.profile_picture,
+        city: userData.city,
+        country: userData.country,
+        role: userData.jobTitle,
+        name: userData.name,
+      });
+    }
+  }
+  , [userData]);
+  
 
   return (
     <Card>
