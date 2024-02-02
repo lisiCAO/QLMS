@@ -17,7 +17,7 @@ import PropertyPage from "./pages/landlord/property/PropertyPage";
 import LeasePage from "./pages/landlord/lease/LeasePage";
 import LandlordTenantPage from "./pages/landlord/tenant/LandlordTenantPage";
 import CheckAuth from "./services/CheckAuth";
-import AboutUs from "./pages/AboutUs";
+import AboutUs from "./pages/AboutUsPage";
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
       <Routes>
         {/* Auth routes */}
         <Route path="/" element={<CheckAuth />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/:view" element={<AuthPage />} />
         {/* Tenant routes */}
 

@@ -6,7 +6,7 @@ const CheckAuth = () => {
   const { user, isLoggedIn } = useAuth();
 
   if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth" replace />;
   }
 
   const redirectTo = user.role === 'tenant' ? '/tenant/' : '/landlord/';
