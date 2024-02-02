@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, InputGroup, FormControl } from "react-bootstrap";
 import dayjs from "dayjs";
+import ApiService from "../../../services/ApiService";
 
 const LeaseList = () => {
   const [leases, setLeases] = useState([]);
@@ -9,13 +10,20 @@ const LeaseList = () => {
   useEffect(() => {
     // API call to fetch leases
     // fetchLeases();
+    ApiService.fetchLeases() 
+    .then((data) => {
+        setLeases(data);
+    })
+    .catch((error) => {
+        console.error('Error fetching Leases:', error);
+    });
   }, []);
 
-  // assume the following API methods are available
-  const fetchLeases = async () => {
-    // const response = await ApiService.getLeases(); // TODO: replace with real API call
-    // setLeases(response.data);
-  };
+  // // assume the following API methods are available
+  // const fetchLeases = async () => {
+  //   // const response = await ApiService.getLeases(); // TODO: replace with real API call
+  //   // setLeases(response.data);
+  // };
 
   const renewLease = async (lease) => {
     const startDate = dayjs(lease.start_date);

@@ -49,6 +49,14 @@ const ApiService = {
     });
     const data = await handleResponse(response);
     return data;
+  },
+
+  async fetchLeases() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
   }
   // other APIs
 };
