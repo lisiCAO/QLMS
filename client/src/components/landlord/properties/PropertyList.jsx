@@ -74,7 +74,7 @@ const PropertyList = () => {
     <div className="properties-list">
       {properties.map(property => (
         <Card key={property.property_id} className="property-card mb-3">
-          <Card.Img variant="top" src={property.image_urls ? property.image_urls[0] : 'default-image-url'} />
+          <Card.Img variant="top" src={property.photos_url ? property.photos_url.split(',')[0] : 'default-image-url'} />
             {/* Assuming photos_url contains a comma-separated list of URLs */}
           <Card.Body>
             <Card.Title>{property.address}</Card.Title>

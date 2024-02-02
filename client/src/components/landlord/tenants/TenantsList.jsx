@@ -1,60 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
+import ApiService from '../../../services/ApiService';
 
 
-const tenantsData = [
-    {
-        tenant_id: 1,
-        name: 'John Doe',
-        unit: '2B',
-        lease_start: '2024-01-01',
-        lease_end: '2024-12-31',
-        monthly_rent: 1200.00,
-        status: 'active',  
+// const tenantsData = [
+//     {
+//         tenant_id: 1,
+//         name: 'John Doe',
+//         unit: '2B',
+//         lease_start: '2024-01-01',
+//         lease_end: '2024-12-31',
+//         monthly_rent: 1200.00,
+//         status: 'active',  
         
-    },
-    {
-        tenant_id: 2,
-        name: 'Jane Smith',
-        unit: '3A',
-        lease_start: '2024-01-01',
-        lease_end: '2024-12-31',
-        monthly_rent: 1500.00,
-        status: 'active',
-    },
-    {
-        tenant_id: 3,
-        name: 'Tom Brown',
-        unit: '1C',
-        lease_start: '2024-01-01',
-        lease_end: '2024-12-31',
-        monthly_rent: 1000.00,
-        status: 'active',
-    },
-    {
-        tenant_id: 4,
-        name: 'Alice Johnson',
-        unit: '4B',
-        lease_start: '2024-01-01',
-        lease_end: '2024-12-31',
-        monthly_rent: 1800.00,
-        status: 'active',
-    },
-];
+//     },
+//     {
+//         tenant_id: 2,
+//         name: 'Jane Smith',
+//         unit: '3A',
+//         lease_start: '2024-01-01',
+//         lease_end: '2024-12-31',
+//         monthly_rent: 1500.00,
+//         status: 'active',
+//     },
+//     {
+//         tenant_id: 3,
+//         name: 'Tom Brown',
+//         unit: '1C',
+//         lease_start: '2024-01-01',
+//         lease_end: '2024-12-31',
+//         monthly_rent: 1000.00,
+//         status: 'active',
+//     },
+//     {
+//         tenant_id: 4,
+//         name: 'Alice Johnson',
+//         unit: '4B',
+//         lease_start: '2024-01-01',
+//         lease_end: '2024-12-31',
+//         monthly_rent: 1800.00,
+//         status: 'active',
+//     },
+// ];
 
 const TenantsList = () => {
-    const [tenants, setTenants] = useState(tenantsData); // Replace with API call
+    const [tenants, setTenants] = useState([]);  // Replace with API call
 
-    // useEffect(() => {
-    //     // Replace 'your-api-endpoint' with the actual API endpoint to fetch tenants
-    //     ApiService.fetchTenantsByPropertyId('your-property-id')
-    //         .then((data) => {
-    //             setTenants(data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error fetching tenants:', error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        // API call to fetch tenants
+        // fetchTenants();
+        ApiService.fetchTenants() 
+        .then((data) => {
+            setTenants(data);
+        })
+        .catch((error) => {
+            console.error('Error fetching Tenants:', error);
+        });
+      }, []);
 
     return (
         <Container fluid>
