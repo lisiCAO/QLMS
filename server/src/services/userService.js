@@ -66,12 +66,12 @@ exports.uploadfileImage = async (file, userdata) => {
         blobHTTPHeaders: { blobContentType: file.mimetype },
     });
 
-    // file upolad successfully, save image url to user table
+    // file upolad successfully,
     const fileUrl = blockBlobClient.url;
-    const updatedUser = await user.update(
-        { profile_picture_url: fileUrl },
-        { where: { id: userdata.id } }
-    );
+    //const updatedUser = await user.update(
+    //    { profile_picture_url: fileUrl },
+    //    { where: { id: userdata.id } }
+    //);
 
-    return { updatedUser };
+    return { fileUrl };
 };
