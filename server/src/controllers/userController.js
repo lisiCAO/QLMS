@@ -175,7 +175,7 @@ exports.getUserInfo = async (req, res) => {
             };
         }
 
-        res.json(userInfo);
+        res.sendSuccess(userInfo, "Retrieving user information successfully");
     } catch (err) {
         res.sendError("Error retrieving user information: " + err.message, 500);
     }
