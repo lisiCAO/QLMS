@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useUnloadMessage(setMessage, setSuccess) {
+export function useUnloadMessage(setMessage, setSuccess = null) {
   useEffect(() => {
     const handleUnload = () => {
       setMessage(null);
