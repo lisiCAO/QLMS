@@ -68,10 +68,10 @@ exports.uploadfileImage = async (file, userdata) => {
 
     // file upolad successfully,
     const fileUrl = blockBlobClient.url;
-    //const updatedUser = await user.update(
-    //    { profile_picture_url: fileUrl },
-    //    { where: { id: userdata.id } }
-    //);
+    const updatedUser = await user.update(
+        { profile_picture_url: fileUrl },
+        { where: { id: userdata.id } }
+    );
 
     return { fileUrl };
 };
