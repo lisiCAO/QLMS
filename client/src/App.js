@@ -17,6 +17,7 @@ import PropertyPage from "./pages/landlord/property/PropertyPage";
 import LeasePage from "./pages/landlord/lease/LeasePage";
 import LandlordTenantPage from "./pages/landlord/tenant/LandlordTenantPage";
 import CheckAuth from "./services/CheckAuth";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
             <Route path="tenants/*" element={<LandlordTenantPage />} />
           </Route>
         </Route>
+
+        <Route path="/about-us" element={ <AboutUs />} />
         {/* Catch all route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
