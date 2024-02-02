@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useAuth } from "./../../context/AuthContext";
 import { useUnloadMessage } from "./../hooks/useUnloadMessage";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [success, setSuccess] = useState(false);
-  const { login } = useAuth();
+  const navigate = useNavigate(); 
 
-  useUnloadMessage(setMessage);
+  const { login, user } = useAuth();
+
+
+  useUnloadMessage(setMessage, setSuccess);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,6 +22,17 @@ const LoginForm = () => {
       const credentials = { email, password };
       await login(credentials);
       setSuccess("Logged in successfully");
+      setTimeout(() => {
+        setSuccess(false);
+        if (user.role === 'landlord') {
+          navigate('/landlord/properties'); 
+        } else if (user.role === 'tenant') {
+          navigate('/tenant/dashboard'); 
+        } else {
+          navigate('/');
+        }
+      }
+      , 2000);
     } catch (error) {
       setMessage("Credentials are incorrect. Please try again!");
     }
