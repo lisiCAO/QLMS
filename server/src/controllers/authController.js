@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const { oauth_token, user } = require("../models/index");
+const { oauth_token, user, lease } = require("../models/index");
 const OAuthToken = oauth_token;
 const bcrypt = require("bcryptjs");
-const { Sequelize } = require("sequelize");
+const { sequelize, Sequelize } = require("../models");
 const { body, validationResult } = require("express-validator");
 
 const User = user;
@@ -224,12 +224,17 @@ exports.login = async (req, res) => {
             }
         );
 
+        // check if user has a lease
+        const leaseCheckSql = `SELECT EXISTS(SELECT 1 FROM lease WHERE tenant_user_id = ${user.id}) AS hasLease;`;
+        const leaseCheckResult = await sequelize.query(leaseCheckSql, { type: Sequelize.QueryTypes.SELECT });
+        const hasLease = leaseCheckResult[0].hasLease;
+
         // set HTTP-only cookie
         res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 }); // 1 hour
 
         // send response
         res.sendSuccess(
-            { userId: user.id, username: user.username, role: user.role },
+            { userId: user.id, username: user.username, role: user.role, profilePictureUrl: user.profile_picture_url, hasLease: hasLease },
             "User Logged in successfully"
         );
     } catch (error) {
