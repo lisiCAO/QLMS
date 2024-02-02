@@ -20,6 +20,7 @@ import CheckAuth from "./services/CheckAuth";
 
 import AboutUs from "./pages/AboutUsPage";
 import LandlordDashBoard from "./pages/landlord/LandlordDashboard"
+import LandlordProfile from "./pages/landlord/LandlordProfile";
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
             <Route path="properties/*" element={<PropertyPage />} />
             <Route path="leases/*" element={<LeasePage />} />
             <Route path="tenants/*" element={<LandlordTenantPage />} />
+            <Route path="profile" element={<LandlordProfile />} />
+            <Route path="*" element={<h1>Not Found</h1>} />
           </Route>
         </Route>
         <Route path="/about-us" element={<AboutUs />} />
