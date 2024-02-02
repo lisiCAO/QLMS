@@ -30,8 +30,11 @@ const ApiService = {
   },
 
   async logout() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`);
-    return handleResponse(response);
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/logout`, {
+      method: "POST", 
+    });
+    const data = await handleResponse(response); 
+    return data;
   },
 
   async register(userData) {
