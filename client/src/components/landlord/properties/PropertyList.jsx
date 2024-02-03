@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "./PropertyList.scss";
 import ApiService from "../../../services/ApiService";
+import PropertyDetailModal from "./PropertyDetailModal";
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
