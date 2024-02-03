@@ -8,9 +8,7 @@ const ApiService = {
       body: formData,
       credentials: 'include',
     });
-    console.log('Create property response:', response);
     const data = await handleResponse(response);
-    console.log('Create property data:', data);
     return data;
   },
 
@@ -81,7 +79,25 @@ const ApiService = {
     return data;
   },
 
-  /* Single User */
+  /* Profiles */
+  async fetchProfile() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/userinfo`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  async updateProfile(userId, profile) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
+      method: "PUT",
+      body: JSON.stringify(profile),
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  /* Users */
   async fetchUser(userId) {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
       method: "GET"
@@ -97,13 +113,23 @@ const ApiService = {
       body: JSON.stringify(lease),
       credentials: 'include',
     });
-    console.log('Create lease response:', response);
     const data = await handleResponse(response);
-    console.log('Create lease data:', data);
+    return data;
+  },
+
+  /* Upload Image */
+  async uploadImage(formData) {
+    const response = await fetch(`${API_BASE_URL}/api/users/uploadimage`, {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    });
+    const data = await handleResponse(response);
     return data;
   },
 
   // other APIs
+
 };
 
 // Default Option

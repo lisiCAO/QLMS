@@ -1,8 +1,8 @@
 import React from 'react';
 import UserProfile from '../../components/account/UserProfile';
 
+
 const TenantProfile = () => {
-    // TODO: Implement LandlordProfile component logic here
 
     return (
         <div>
