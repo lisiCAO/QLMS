@@ -174,3 +174,56 @@ exports.getUserPropertiesInfo = async (req, res) => {
         );
     }
 };
+
+exports.getAvailableProperties = async (req, res) => {
+    try {
+        const properties = await propertyService.getAvailableProperties();
+        res.sendSuccess(
+            properties,
+            "Available properties retrieved successfully"
+        );
+    } catch (error) {
+        res.sendError(
+            "Failed to retrieve available properties: " + error.message,
+            500
+        );
+    }
+};
+
+exports.getTenantPropertiesInfo = async (req, res) => {
+    try {
+        const userId = req.user.userId; // get the user ID from the token
+        console.log("userId: ", userId);
+
+        // get all properties rented by the user
+        let sql = `SELECT p.id AS property_id, p.address, p.number_of_units, p.property_type as type, p.size_in_sq_ft, 
+                   p.year_built, p.rental_price, p.amenities,p.lease_terms,p.description
+                   FROM lease l JOIN property p ON l.property_id = p.id
+                   WHERE
+                   l.tenant_user_id = ${userId}
+                   ORDER BY l.end_date ASC;`;
+
+        const propertiesResult = await sequelize.query(sql, {
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        console.log("propertiesResult= ", propertiesResult);
+
+        //for each property, get all images
+        for (const property of propertiesResult) {
+            const imageSql = `SELECT image_url FROM image WHERE property_id = ${property.property_id};`;
+            const imagesResult = await sequelize.query(imageSql, {
+                type: Sequelize.QueryTypes.SELECT,
+            });
+            property.image_urls = imagesResult.map((image) => image.image_url);
+        }
+
+        const responseData = { propertiesResult };
+
+        res.sendSuccess(responseData, "Tenant property retrieved successfully");
+    } catch (error) {
+        res.sendError(
+            "Error retrieving tenant property: " + error.message,
+            500
+        );
+    }
+};

@@ -143,3 +143,23 @@ exports.deleteProperty = async (propertyId) => {
     await propertyToDelete.destroy();
     return true;
 };
+
+exports.getAvailableProperties = async () => {
+    const sql = `SELECT * FROM property where status = 'available';`; // get all properties where status is 'available'
+
+    const propertiesResult = await sequelize.query(sql, {
+        type: Sequelize.QueryTypes.SELECT,
+    });
+    console.log("propertiesResult= ", propertiesResult);
+
+    //for each property, get all images
+    for (const property of propertiesResult) {
+        const imageSql = `SELECT property_id, image_url, description, uploaded_at, is_primary FROM image WHERE property_id = ${property.id};`;
+        const imagesResult = await sequelize.query(imageSql, {
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        property.image_urls = imagesResult.map((image) => image.image_url);
+    }
+
+    return propertiesResult;
+};
