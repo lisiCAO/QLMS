@@ -23,6 +23,7 @@ const LeaseList = () => {
   }, []);
 
   const handleLeaseClick = (lease) => {
+
     setSelectedLease(lease);
     setShowDetailModal(true);
   };

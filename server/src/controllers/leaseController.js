@@ -51,7 +51,7 @@ const handleValidationErrors = (req, res, message) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.sendError(
+        res.sendError(
             message +
                 errors
                     .array()
@@ -59,7 +59,11 @@ const handleValidationErrors = (req, res, message) => {
                     .join(", "),
             422
         );
+
+        return false; // validation failed
     }
+
+    return true; // validation passed
 };
 
 exports.getAllLeases = async (req, res) => {
@@ -90,8 +94,17 @@ exports.getSingleLease = async (req, res) => {
 
 exports.createLease = async (req, res) => {
     // Check if there are validation errors
-    console.log("createLease:" + req.body);
-    handleValidationErrors(req, res, "Create lease validation failed: ");
+
+    const isValid = handleValidationErrors(
+        req,
+        res,
+        "Create lease validation failed: "
+    );
+    if (!isValid) {
+        // validation failed
+        return;
+    }
+
 
     try {
         const newLease = await leaseService.createLease(req.body);
@@ -103,7 +116,15 @@ exports.createLease = async (req, res) => {
 
 exports.updateLease = async (req, res) => {
     // Check if there are validation errors
-    handleValidationErrors(req, res, "Update lease validation failed: ");
+    const isvalid = handleValidationErrors(
+        req,
+        res,
+        "Update lease validation failed: "
+    );
+    if (!isValid) {
+        // validation failed
+        return;
+    }
 
     try {
         const updatedLease = await leaseService.updateLease(
@@ -145,12 +166,31 @@ exports.getLeasesByLandlord = async (req, res) => {
                 "Current landlord leases retrieved successfully"
             );
         } else {
-            res.sendError("Current landlord leases", 404);
+            res.sendError("Current landlord leases error", 404);
         }
     } catch (error) {
         res.sendError(
             "Failed to current landlord leases: " + error.message,
             500
         );
+    }
+};
+
+exports.getLeasesByTenant = async (req, res) => {
+    try {
+        const userId = req.user.userId; // get the user ID from the token
+        console.log("userId: ", userId);
+
+        const leases = await leaseService.getLeasesByTenant(userId);
+        if (leases) {
+            res.sendSuccess(
+                leases,
+                "Current tenant leases retrieved successfully"
+            );
+        } else {
+            res.sendError("Current tenant leases error", 404);
+        }
+    } catch (error) {
+        res.sendError("Failed to current tenant leases: " + error.message, 500);
     }
 };

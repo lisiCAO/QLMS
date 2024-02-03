@@ -19,4 +19,3 @@ const AboutUsNavbar = () => (
 );
 
 export default AboutUsNavbar;
-

@@ -38,6 +38,7 @@ const PropertyList = () => {
         console.error("Error fetching properties:", error);
         if (isMounted) {
           setMessage("Failed to fetch properties.");
+
           setLoading(false);
         }
       });
@@ -86,7 +87,7 @@ const PropertyList = () => {
             >
               Apply For Leasing
             </Button>
-            {/* Removed View Details Button */}
+            {/* Removed View Details Button */
           </Card.Body>
         </Card>
       ))}

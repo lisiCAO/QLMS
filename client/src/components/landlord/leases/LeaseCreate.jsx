@@ -21,7 +21,6 @@ const LeaseCreate = () => {
   const [dateError, setDateError] = useState('');
   const [validated, setValidated] = useState(false);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLease(prevState => ({
@@ -50,7 +49,6 @@ const LeaseCreate = () => {
     e.preventDefault();
 
     setValidated(true);
-   
 
     if (form.checkValidity() === false || dateError) {
       e.stopPropagation();
@@ -58,7 +56,6 @@ const LeaseCreate = () => {
       console.log(lease);
       // Submit logic here
     }
-    
 
     try {
       // Send the FormData object to the backend using the API service
@@ -71,6 +68,7 @@ const LeaseCreate = () => {
       console.error("Error:", error);
       
     }
+
   };
   return (
     <Container fluid>
@@ -95,7 +93,6 @@ const LeaseCreate = () => {
             <Form.Label>Tenant User ID</Form.Label>
             <Form.Control
               required
-             
               name="tenant_user_id"
               value={lease.tenant_user_id}
               onChange={handleChange}
@@ -126,6 +123,7 @@ const LeaseCreate = () => {
           />
         </Col>
       </Row>
+
         {/* Rent Amount  */}
         <Form.Group className="mb-3" controlId="rent_amount">
           <Form.Label>Rent Amount</Form.Label>

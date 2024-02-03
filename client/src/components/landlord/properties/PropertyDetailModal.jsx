@@ -30,6 +30,7 @@ const PropertyDetailModal = ({ show, onHide, property }) => {
       <Modal.Body>
         {property ? (
           <>
+
             {photos.length > 0 ? (
               <Carousel>
                 {photos.map((photo, index) => (
@@ -48,7 +49,6 @@ const PropertyDetailModal = ({ show, onHide, property }) => {
             ) : (
               <p>No photos available</p>
             )}
-
 
             <Table responsive="sm">
               <tbody>

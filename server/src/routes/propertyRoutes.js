@@ -38,6 +38,16 @@ router.get(
     propertyController.getUserPropertiesInfo
 );
 
+//get user properties informantion which status is available
+router.get("/available", propertyController.getAvailableProperties);
+
+//get tenant properties infomation
+router.get(
+    "/tenantinfo",
+    authenticateToken,
+    propertyController.getTenantPropertiesInfo
+);
+
 // get single property
 router.get("/:id", authRole("landlord"), propertyController.getSingleProperty);
 

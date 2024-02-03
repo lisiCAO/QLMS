@@ -98,6 +98,7 @@ const ApiService = {
   },
 
   /* Users */
+
   async fetchUser(userId) {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
       method: "GET"
