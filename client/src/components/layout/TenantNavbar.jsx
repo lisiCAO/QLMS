@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Nav,
@@ -49,7 +49,6 @@ const TenantNavbar = () => {
           </Button>
         </Form>
         <Nav>
-
           <div className="d-flex align-items-center">
             <Nav.Link as={Link} to="/tenant/profile">
               {user?.username}
@@ -61,26 +60,42 @@ const TenantNavbar = () => {
         </Nav>
       </Navbar>
 
-      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
+      <Offcanvas
+        show={showOffcanvas}
+        onHide={handleCloseOffcanvas}
+        style={{ backgroundColor: "rgba(0, 51, 102, 0.9)" }}
+      >
+        <Offcanvas.Header
+          closeButton
+          style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.2)" }}
+        >
+          <Offcanvas.Title style={{ color: "white" }}>Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <Nav className="justify-content-end flex-grow-1 pe-3">
+          <Nav className="flex-column">
             {user?.hasLease ? (
               <>
                 <Link
                   to={`/tenant/properties/${leasePropertyId}`}
                   className="nav-link"
+                  style={{ color: "#fff", marginBottom: "10px" }}
                 >
                   View Your Property
                 </Link>
-                <Link to="/tenant/lease" className="nav-link">
+                <Link
+                  to="/tenant/lease"
+                  className="nav-link"
+                  style={{ color: "#fff", marginBottom: "10px" }}
+                >
                   Lease
                 </Link>
               </>
             ) : (
-              <Link to="/tenant/properties" className="nav-link">
+              <Link
+                to="/tenant/properties"
+                className="nav-link"
+                style={{ color: "#fff", marginBottom: "10px" }}
+              >
                 View Available Properties
               </Link>
             )}

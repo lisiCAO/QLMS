@@ -8,25 +8,21 @@ import {
   Typography,
 } from "@mui/material";
 import ListBulletIcon from "@heroicons/react/24/solid/ListBulletIcon";
+import ApiService from "../../../services/ApiService";
 
 const DashboardPropertiesCount = () => {
-  const [value, setValue] = useState({
-    value: " 4 ",
-  });
-  // Add more sample data as needed
+  const [value, setValue] = useState([]);
+  
+  useEffect(() => {
+    ApiService.fetchLandlordDashboard() 
+      .then((data) => {
+        setValue(data.propertiesCount[0].propertiesCount);
+      })
+      .catch((error) => {
+        console.error('Error fetching DashboardPropertiesCount:', error);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   // Replace 'your-api-endpoint' with the actual API endpoint to fetch user data
-  //   ApiService.fetchUserData('your-user-id')
-  //     .then((data) => {
-  //       setUser({
-  //         value: data.propertiesCount,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching user data:', error);
-  //     });
-  // }, []);
 
   return (
     <Card>
@@ -41,7 +37,7 @@ const DashboardPropertiesCount = () => {
             <Typography color="text.secondary" variant="overline">
               Properties Count
             </Typography>
-            <Typography variant="h4">{value.value}</Typography>
+            <Typography variant="h4">{value}</Typography>
           </Stack>
           <Avatar
             sx={{

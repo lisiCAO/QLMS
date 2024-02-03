@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, InputGroup, FormControl } from "react-bootstrap";
+import { Table, Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 import dayjs from "dayjs";
 import ApiService from "../../../services/ApiService";
 
 const LeaseList = () => {
   const [leases, setLeases] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedLease, setSelectedLease] = useState(null);
 
   useEffect(() => {
     // API call to fetch leases
@@ -19,11 +21,14 @@ const LeaseList = () => {
     });
   }, []);
 
-  // // assume the following API methods are available
-  // const fetchLeases = async () => {
-  //   // const response = await ApiService.getLeases(); // TODO: replace with real API call
-  //   // setLeases(response.data);
-  // };
+  const handleShowDetailModal = (lease) => {
+    setSelectedLease(lease);
+    setShowDetailModal(true);
+  };
+
+  const handleCloseDetailModal = () => {
+    setShowDetailModal(false);
+  };
 
   const renewLease = async (lease) => {
     const startDate = dayjs(lease.start_date);
@@ -90,6 +95,29 @@ const LeaseList = () => {
           ))}
         </tbody>
       </Table>
+      {/* Show lease detail modal */}
+      <Modal show={showDetailModal} onHide={handleCloseDetailModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Lease Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedLease ? (
+            <div>
+              <p><strong>Lease ID:</strong> {selectedLease.lease_id}</p>
+              <p><strong>Property ID:</strong> {selectedLease.property_id}</p>
+              <p><strong>Tenant User ID:</strong> {selectedLease.tenant_user_id}</p>
+              <p><strong>Start Date:</strong> {dayjs(selectedLease.start_date).format("MM/DD/YYYY")}</p>
+              <p><strong>End Date:</strong> {dayjs(selectedLease.end_date).format("MM/DD/YYYY")}</p>
+              {/* Add more lease details here */}
+            </div>
+          ) : <p>No lease selected</p>}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDetailModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

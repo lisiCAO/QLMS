@@ -5,11 +5,27 @@ const bcrypt = require("bcryptjs");
 const { containerClient } = require("./userImageService");
 
 exports.getAllUsers = async () => {
-    return await user.findAll();
+    const userInstances = await user.findAll();
+    const results = userInstances.map((instance) => {
+        const user = instance.get({ plain: true });
+
+        delete user.password_hash;
+
+        return user;
+    });
+
+    return results;
 };
 
 exports.getSingleUser = async (userId) => {
-    return await user.findByPk(userId);
+    const userData = await user.findByPk(userId);
+    if (userData) {
+        const result = userData.get({ plain: true });
+
+        //delete sensitive data
+        delete result.password_hash;
+        return result;
+    }
 };
 
 exports.createUser = async (userData) => {

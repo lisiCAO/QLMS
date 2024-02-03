@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useAuth } from "./../../context/AuthContext";
 import { useUnloadMessage } from "./../hooks/useUnloadMessage";
@@ -24,19 +24,24 @@ const LoginForm = () => {
       setSuccess("Logged in successfully");
       setTimeout(() => {
         setSuccess(false);
-        if (user.role === 'landlord') {
-          navigate('/landlord/properties'); 
-        } else if (user.role === 'tenant') {
-          navigate('/tenant/dashboard'); 
-        } else {
-          navigate('/');
-        }
       }
       , 2000);
     } catch (error) {
       setMessage("Credentials are incorrect. Please try again!");
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'landlord') {
+        navigate('/landlord/properties');
+      } else if (user.role === 'tenant') {
+        navigate('/tenant/dashboard');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [user]); 
 
   return (
     <div className="container">

@@ -46,6 +46,7 @@ const ApiService = {
     return data;
   },
 
+  /* Properties */
   async fetchProperties() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
       method: "GET"
@@ -53,22 +54,42 @@ const ApiService = {
     const data = await handleResponse(response);
     return data;
   },
-
+  /* Leases */
   async fetchLeases() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases`, {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/landlord`, {
       method: "GET"
     });
     const data = await handleResponse(response);
     return data;
   },
 
+  /* Tenants */
   async fetchTenants() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/tenants`, {
       method: "GET"
     });
     const data = await handleResponse(response);
     return data;
-  }
+  },
+
+  /* Landlord Dashboard */
+  async fetchLandlordDashboard() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/userinfo  `, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  /* Single User */
+  async fetchUser(userId) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   // other APIs
 };
 

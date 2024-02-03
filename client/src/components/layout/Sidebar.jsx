@@ -100,10 +100,10 @@ const Sidebar = () => {
             <Nav className="flex-column">
               <Nav.Link
                 as={Link}
-                to="/landlord/tenants/list"
+                to="/landlord/tenants"
                 className="d-block"
               >
-                List
+                Overview
               </Nav.Link>
               <Nav.Link
                 as={Link}

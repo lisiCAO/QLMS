@@ -10,6 +10,9 @@ router.get("/", leaseController.getAllLeases);
 //get all leases by landlord
 router.get("/landlord", authenticateToken, leaseController.getLeasesByLandlord);
 
+//get lease by tenant
+router.get("/tenant", authenticateToken, leaseController.getLeasesByTenant);
+
 //get single lease
 router.get("/:id", leaseController.getSingleLease);
 

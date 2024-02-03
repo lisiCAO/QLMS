@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import ApiService from '../services/ApiService'; // Import the ApiService
 
 const AuthContext = createContext();
-/* TODO: fix with actual logic */
+
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         setUser(currentUser);
       } catch (error) {
         console.error('Failed to fetch current user:', error);
+        setUser(null);
       } finally {
         setIsAuthInitialized(true);
       }
@@ -23,8 +24,10 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
-
-  const login = async (credentials) => {
+  const value = useMemo(() => ({
+    user,
+    isAuthInitialized,
+    login: async (credentials) => {
     try {
       const response = await ApiService.login(credentials);
       console.log('Login response:', response);
@@ -33,9 +36,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       throw error;
     }
-  };
-
-  const logout = async () => {
+  }, 
+  logout: async () => {
     try {
       const response = await ApiService.logout();
       setUser(null);
@@ -44,12 +46,9 @@ export const AuthProvider = ({ children }) => {
       console.error('Logout failed:', error);
       throw error;
     }
-  };
-
-  const isLoggedIn = user !== null;
-  const role = user?.role;
-
-  const value = { user, login, logout, isLoggedIn, role, isAuthInitialized};
+  },
+  isLoggedIn: !!user,
+  }), [user, isAuthInitialized]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
