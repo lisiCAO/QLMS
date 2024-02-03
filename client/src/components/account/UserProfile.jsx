@@ -1,67 +1,32 @@
-import React, { useEffect } from "react";
-import {
-  Box,
-  Container,
-  Stack,
-  Typography,
-  Unstable_Grid2 as Grid,
-} from "@mui/material";
-import { useAuth } from "./../../context/AuthContext";
-import ApiService from "./../../services/ApiService";
+import React from "react";
+import { Box, Container, Stack, Typography, Grid } from "@mui/material";
 import AccountProfile from "./AccountProfile";
-import AccountProfileDetails from "./AccountProfileDetail";
-const UserProfile = () => {
-  const { user } = useAuth();
-  const [userData, setUserData] = React.useState(null);
+import AccountProfileDetails from "./AccountProfileDetails"; // 确保路径正确
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user?.userId) return;
-      try {
-        console.log("User ID:", user.userId);
-        const userData = await ApiService.fetchUser(user.userId);
-        console.log("User data:", userData);
-        setUserData(userData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchUserData();
-  }, [user?.userId]);
-  
-
+const UserProfile = ({ userData }) => {
   return (
-    <>
-      <title>Account</title>
-
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-        <Container maxWidth="lg">
-          <Stack spacing={3}>
-            <div>
-              <Typography variant="h4">Account</Typography>
-            </div>
-            <div>
-              <Grid container spacing={3}>
-                <Grid xs={12} md={6} lg={4}>
-                  {/* AccountProfile component, presumably displaying user profile information */}
-                  <AccountProfile user={userData} />
-                </Grid>
-                <Grid xs={12} md={6} lg={8}>
-                  {/* AccountProfileDetails component, presumably displaying additional details about the user's account */}
-                  <AccountProfileDetails user={userData}/>
-                </Grid>
-              </Grid>
-            </div>
-          </Stack>
-        </Container>
-      </Box>
-    </>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8,
+      }}
+    >
+      <Container maxWidth="lg ">
+        <Stack spacing={3}>
+          <Typography variant="h4">Account</Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={4}>
+              <AccountProfile userData={userData} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={8}>
+              <AccountProfileDetails userData={userData} />
+            </Grid>
+          </Grid>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
+
 export default UserProfile;
