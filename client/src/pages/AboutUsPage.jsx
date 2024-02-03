@@ -2,15 +2,17 @@ import React from 'react';
 import AboutUsSection from './aboutUs/AboutUsSection';
 import FeaturesSection from './aboutUs/FeatureSection';
 import ContactUsSection from './aboutUs/ContactUsSection';
-import { Navbar } from 'react-bootstrap';
+import AboutUsNavbar from './aboutUs/AboutUsNavbar';
 import Footer from './aboutUs/AboutUsFooter';
+import DesignerSection from './aboutUs/DesignerSection';
 
 function AboutUs() {
   return (
     <div>
-      <Navbar bg="dark" variant="dark" expand="lg" />
+      <AboutUsNavbar />
       <AboutUsSection />
       <FeaturesSection />
+      <DesignerSection />
       <ContactUsSection />
       <Footer />
     </div>
