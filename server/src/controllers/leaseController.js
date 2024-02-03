@@ -164,12 +164,31 @@ exports.getLeasesByLandlord = async (req, res) => {
                 "Current landlord leases retrieved successfully"
             );
         } else {
-            res.sendError("Current landlord leases", 404);
+            res.sendError("Current landlord leases error", 404);
         }
     } catch (error) {
         res.sendError(
             "Failed to current landlord leases: " + error.message,
             500
         );
+    }
+};
+
+exports.getLeasesByTenant = async (req, res) => {
+    try {
+        const userId = req.user.userId; // get the user ID from the token
+        console.log("userId: ", userId);
+
+        const leases = await leaseService.getLeasesByTenant(userId);
+        if (leases) {
+            res.sendSuccess(
+                leases,
+                "Current tenant leases retrieved successfully"
+            );
+        } else {
+            res.sendError("Current tenant leases error", 404);
+        }
+    } catch (error) {
+        res.sendError("Failed to current tenant leases: " + error.message, 500);
     }
 };

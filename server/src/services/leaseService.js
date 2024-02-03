@@ -65,3 +65,18 @@ exports.getLeasesByLandlord = async (userId) => {
         throw error;
     }
 };
+
+exports.getLeasesByTenant = async (userId) => {
+    try {
+        // get the lease of one tenant
+        let sql = `SELECT l.* FROM lease l WHERE l.tenant_user_id = ${userId}`;
+
+        const leasesResult = await sequelize.query(sql, {
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        console.log("leasesResult= ", leasesResult);
+        return leasesResult;
+    } catch (error) {
+        throw error;
+    }
+};
