@@ -94,6 +94,7 @@ exports.getSingleLease = async (req, res) => {
 
 exports.createLease = async (req, res) => {
     // Check if there are validation errors
+
     const isValid = handleValidationErrors(
         req,
         res,
@@ -103,6 +104,7 @@ exports.createLease = async (req, res) => {
         // validation failed
         return;
     }
+
 
     try {
         const newLease = await leaseService.createLease(req.body);

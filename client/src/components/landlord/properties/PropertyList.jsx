@@ -14,7 +14,14 @@ const PropertyList = () => {
 
   const handlePropertyClick = (property) => {
     setSelectedProperty(property);
+    console.log("Selected Property:", property);
     setShowDetailModal(true);
+  };
+
+  const handleApplyClick = (e, property) => {
+    e.stopPropagation(); // Stop event propagation to prevent triggering the card click event
+    // Add logic for applying for leasing here, if needed
+    console.log("Apply for leasing:", property);
   };
 
   useEffect(() => {
@@ -24,21 +31,22 @@ const PropertyList = () => {
       .then((data) => {
         if (isMounted) {
           setProperties(data);
-          setLoading(false); // Ensure loading state is updated even if no properties are found
+          setLoading(false);
         }
       })
       .catch((error) => {
         console.error("Error fetching properties:", error);
         if (isMounted) {
           setMessage("Failed to fetch properties.");
-          setLoading(false); // Ensure loading state is updated even if an error occurs
+
+          setLoading(false);
         }
       });
 
     return () => {
       isMounted = false; // Component is unmounted
     };
-  }, []); // Empty dependency array ensures effect is only run on mount and unmount
+  }, []);
 
   if (loading) return <div>Loading properties...</div>;
   if (message) return <div>Error fetching properties: {message}</div>;
@@ -46,7 +54,7 @@ const PropertyList = () => {
   return (
     <div className="properties-list">
       {properties.map((property) => (
-        <Card key={property.id} className="property-card mb-3">
+        <Card key={property.id} className={`property-card mb-3 ${selectedProperty?.id === property.id ? "selected-card" : ""}`} onClick={() => handlePropertyClick(property)}>
           <Card.Img
             variant="top"
             src={
@@ -75,15 +83,11 @@ const PropertyList = () => {
             <Button
               variant="primary"
               disabled={property.status !== "available"}
+              onClick={(e) => handleApplyClick(e, property)}
             >
               Apply For Leasing
             </Button>
-            <Button
-              variant="info"
-              onClick={() => handlePropertyClick(property)}
-            >
-              View Details
-            </Button>
+            {/* Removed View Details Button */
           </Card.Body>
         </Card>
       ))}

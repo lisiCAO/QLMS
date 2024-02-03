@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Container, Row, Col } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import LoginForm from "./../components/forms/LoginForm";
 import Registration from "./../components/forms/Registration";
 import ForgotPassword from "../components/forms/ForgotPassword";
@@ -91,7 +91,7 @@ const AuthPage = () => {
             Search our tutorials and view our most frequently asked questions
             and support articles.
           </p>
-          <Button variant="outline-primary" className="btn-custom">
+          <Button variant="outline-primary" className="btn-custom" as={Link} to="/about-us">
             Visit The Help Center
           </Button>
         </Col>
