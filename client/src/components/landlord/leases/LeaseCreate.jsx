@@ -21,6 +21,7 @@ const LeaseCreate = () => {
   const [dateError, setDateError] = useState('');
   const [validated, setValidated] = useState(false);
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLease(prevState => ({
