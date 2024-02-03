@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, ProgressBar, Row, Col, Image } from 'react-bootstrap';
+import { Container, Form, Button, ProgressBar, Row, Col } from 'react-bootstrap';
 import { PersonCircle, GeoAlt, Telephone, CardChecklist } from 'react-bootstrap-icons';
 
 
@@ -49,7 +49,7 @@ const UpdateUserForm = ({ userData }) => {
   const toFriendlyLabel = (label) => {
     return label
       .split('_') // Split the string into an array of words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // 将每个单词的首字母大写
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
       .join(' '); // Join the words back into a string
   };
   

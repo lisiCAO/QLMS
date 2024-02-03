@@ -5,12 +5,12 @@ const ContactInfo = [
   {
     title: "Call Us",
     details: ["1 (514) 567-891", "1 (450) 987-654"],
-    icon: "/phone.webp", // Updated icon path
+    icon: "/phone.webp", 
   },
   {
     title: "Location",
     details: ["121 Rock Street, 21 Avenue", "New York, NY 92103-9000"],
-    icon: "/location.webp", // Updated icon path
+    icon: "/location.webp", 
   },
   {
     title: "Hours",

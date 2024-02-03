@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  Box,
+Box,
   Button,
   Card,
   CardActions,
@@ -71,13 +71,13 @@ const AccountProfileDetails = ({ userData }) => {
     event.preventDefault();
 
     try {
-      const response = await ApiService.updateProfile(userData.id, values); // 使用实际的用户ID
+      const response = await ApiService.updateProfile(userData.id, values); // Update the user data
       console.log(response);
       setSuccess("User data updated successfully");
     } catch (error) {
       setMessage(error.message || "Failed to update user data");
     }
-  }, [values, userData.user_id]);
+  }, [values, userData.id]);
 
   // Display different fields based on user role
   const fieldsConfig = userData.role === 'tenant' ? tenantFields : landlordFields;
