@@ -12,27 +12,27 @@ import {
 
 const AccountProfile = ({userData}) => {
   const [user, setUser] = useState({
-    avatar: "user.profile_picture",
-    city: "Montreal",
-    country: "Canada",
-    role: "landlord",
-    name: "Michael Scott",
+    avatar: "",
+    city: "",
+    country: "",
+    jobTitle: "",
+    name: "",
   });
   
   useEffect(() => {
+    console.log(userData);
     if (userData) {
       setUser({
-        avatar: userData.profile_picture,
-        city: userData.city,
-        country: userData.country,
-        role: userData.jobTitle,
-        name: userData.name,
+        avatar: userData.profile_picture_url,
+        city: userData.city_name,
+        country: userData.province,
+        jobTitle: userData.role,
+        name: userData.username,
       });
     }
   }
   , [userData]);
   
-
   return (
     <Card>
       <CardContent>
