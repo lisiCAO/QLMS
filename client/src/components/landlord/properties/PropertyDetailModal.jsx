@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Carousel, Table, Badge } from 'react-bootstrap';
+import { Modal, Carousel, Table, Badge, Button } from 'react-bootstrap';
 
 const PropertyDetailModal = ({ show, onHide, property }) => {
   return (
