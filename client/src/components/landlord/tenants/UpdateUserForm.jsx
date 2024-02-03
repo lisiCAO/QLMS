@@ -1,58 +1,74 @@
-import React, { useState } from 'react';
-import { Container, Form, Button, ProgressBar, Row, Col } from 'react-bootstrap';
-import { PersonCircle, GeoAlt, Telephone, CardChecklist } from 'react-bootstrap-icons';
+import React, { useState } from "react";
+import {
+  Container,
+  Form,
+  Button,
+  ProgressBar,
+  Row,
+  Col,
+} from "react-bootstrap";
+import {
+  PersonCircle,
+  GeoAlt,
+  Telephone,
+  CardChecklist,
+} from "react-bootstrap-icons";
 
-
-  
 const steps = [
   {
-    label: 'Contact Information',
-    fields: ['first_name', 'last_name', 'phone_number'],
-    icon: <Telephone />
+    label: "Contact Information",
+    fields: ["first_name", "last_name", "phone_number"],
+    icon: <Telephone />,
   },
   {
-    label: 'Address',
-    fields: ['street_number', 'street_name', 'city_name', 'postcode', 'province'],
-    icon: <GeoAlt />
+    label: "Address",
+    fields: [
+      "street_number",
+      "street_name",
+      "city_name",
+      "postcode",
+      "province",
+    ],
+    icon: <GeoAlt />,
   },
   {
-    label: 'Personal Details',
-    fields: ['date_of_birth', 'profile_picture_url', 'national_id'],
-    icon: <PersonCircle />
+    label: "Personal Details",
+    fields: ["date_of_birth", "profile_picture_url", "national_id"],
+    icon: <PersonCircle />,
   },
   {
-    label: 'Additional Information',
-    fields: ['employer_info', 'bank_info', 'reference_url'],
-    icon: <CardChecklist />
-  }
+    label: "Additional Information",
+    fields: ["employer_info", "bank_info", "reference_url"],
+    icon: <CardChecklist />,
+  },
 ];
 
 const UpdateUserForm = ({ userData }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    phone_number: '',
-    street_number: '',
-    street_name: '',
-    city_name: '',
-    postcode: '',
-    province: '',
-    date_of_birth: '',
-    profile_picture_url: '',
-    national_id: '',
-    employer_info: '',
-    bank_info: '',
-    reference_url: '',
-    ...userData 
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    street_number: "",
+    street_name: "",
+    city_name: "",
+    postcode: "",
+    province: "",
+    date_of_birth: "",
+    profile_picture_url: "",
+    national_id: "",
+    employer_info: "",
+    bank_info: "",
+    reference_url: "",
+    ...userData,
   });
   const toFriendlyLabel = (label) => {
     return label
-      .split('_') // Split the string into an array of words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
-      .join(' '); // Join the words back into a string
+      .split("_") // Split the string into an array of words
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+      .join(" "); // Join the words back into a string
   };
-  
+
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -71,7 +87,7 @@ const UpdateUserForm = ({ userData }) => {
     // Update user logic...
   };
 
-  const progress = (currentStep + 1) / steps.length * 100;
+  const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
     <Container>
@@ -81,7 +97,9 @@ const UpdateUserForm = ({ userData }) => {
         {steps[currentStep].icon}
         {steps[currentStep].fields.map((field) => (
           <Form.Group as={Row} controlId={field} key={field}>
-            <Form.Label column sm={2}>{toFriendlyLabel(field)}</Form.Label>
+            <Form.Label column sm={2}>
+              {toFriendlyLabel(field)}
+            </Form.Label>
             <Col sm={10}>
               <Form.Control
                 type="text"

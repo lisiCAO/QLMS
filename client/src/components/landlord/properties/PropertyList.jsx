@@ -54,7 +54,13 @@ const PropertyList = () => {
   return (
     <div className="properties-list">
       {properties.map((property) => (
-        <Card key={property.id} className={`property-card mb-3 ${selectedProperty?.id === property.id ? "selected-card" : ""}`} onClick={() => handlePropertyClick(property)}>
+        <Card
+          key={property.id}
+          className={`property-card mb-3 ${
+            selectedProperty?.id === property.id ? "selected-card" : ""
+          }`}
+          onClick={() => handlePropertyClick(property)}
+        >
           <Card.Img
             variant="top"
             src={
