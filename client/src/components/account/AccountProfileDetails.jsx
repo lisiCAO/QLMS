@@ -13,49 +13,23 @@ import {
 import ApiService from "../../services/ApiService";
 
 const AccountProfileDetails = ({ userData }) => {
+  console.log(userData);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
-  const [values, setValues] = useState({
-    firstName: "Micheal",
-    lastName: "Scott",
-    email: "demo@devias.io",
-    phone: "",
-    province: "Montreal",
-    country: "Quebec",
-  });
+  const [values, setValues] = useState({});
 
   useEffect(() => {
     if (userData) {
       setValues({
-        firstName: userData.firstName,
-        lastName: userData.lastName,
+        firstName: userData.first_name,
+        lastName: userData.last_name,
         email: userData.email,
-        phone: userData.phone,
+        phone: userData.phone_number,
         province: userData.province,
         country: userData.country,
       });
     }
   }, [userData]);
-
-  // Sample data
-
-  // useEffect(() => {
-  //   // Fetch user details from the backend when the component mounts
-  //   ApiService.fetchUserData('your-user-id')
-  //     .then((data) => {
-  //       setValues({
-  //         firstName: data.firstName,
-  //         lastName: data.lastName,
-  //         email: data.email,
-  //         phone: data.phone,
-  //         province: data.province,
-  //         country: data.country,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching user data:', error);
-  //     });
-  // }, []);
 
   const handleChange = useCallback((event) => {
     setValues((prevState) => ({
@@ -124,7 +98,7 @@ const AccountProfileDetails = ({ userData }) => {
                   value={values.phone}
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              {/* <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Country"
@@ -133,7 +107,7 @@ const AccountProfileDetails = ({ userData }) => {
                   required
                   value={values.country}
                 />
-              </Grid>
+              </Grid> */}
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
