@@ -52,7 +52,7 @@ const UserProfile = () => {
               <AccountProfile userData={userData} refreshUserData={refreshUserData} />
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              <AccountProfileDetails userData={userData} />
+              <AccountProfileDetails userData={currentUser} />
             </Grid>
           </Grid>
         </Stack>

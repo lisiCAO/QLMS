@@ -49,6 +49,7 @@ const landlordFields = [
 ];
 
 const AccountProfileDetails = ({ userData }) => {
+  console.log(userData);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [values, setValues] = useState({});
