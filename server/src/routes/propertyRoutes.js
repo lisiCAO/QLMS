@@ -38,7 +38,7 @@ router.get(
     propertyController.getUserPropertiesInfo
 );
 
-//get user properties informantion which status is available
+//get user properties information which status is available
 router.get("/available", propertyController.getAvailableProperties);
 
 //get tenant properties infomation
