@@ -79,7 +79,16 @@ const ApiService = {
     });
     const data = await handleResponse(response);
     return data;
-  }
+  },
+
+  /* Single User */
+  async fetchUser(userId) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
 
   // other APIs
 };
