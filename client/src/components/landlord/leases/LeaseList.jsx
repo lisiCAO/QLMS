@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 import dayjs from "dayjs";
 import ApiService from "../../../services/ApiService";
+import "./LeaseList.scss";
 
 const LeaseList = () => {
   const [leases, setLeases] = useState([]);
@@ -21,7 +22,7 @@ const LeaseList = () => {
     });
   }, []);
 
-  const  handleLeaseClick = (lease) => {
+  const handleLeaseClick = (lease) => {
     setSelectedLease(lease);
     setShowDetailModal(true);
   };
@@ -30,23 +31,31 @@ const LeaseList = () => {
     setShowDetailModal(false);
   };
 
-  const renewLease = async (lease) => {
+  const renewLease = async (e, lease) => {
+    e.stopPropagation(); 
+  
+    // Calculate new end date
     const startDate = dayjs(lease.start_date);
     const endDate = dayjs(lease.end_date);
-    const newEndDate = endDate.add(endDate.diff(startDate));
-
-    // update the lease with the new end date
+    const leaseDuration = endDate.diff(startDate);
+    const newEndDate = endDate.add(leaseDuration, 'millisecond');
+  
+    // Create updated lease object
     const updatedLease = {
       ...lease,
       end_date: newEndDate.format("YYYY-MM-DD"),
     };
-
+  
     try {
-      // const response = await ApiService.updateLease(lease.lease_id, updatedLease); // TODO: replace with real API call
-      // console.log(response.data);
+      // Call API to update lease
+      const response = await ApiService.updateLease(lease.lease_id, updatedLease);
+      console.log("Lease renewed successfully", response.data);
+  
+      // Update leases state
       // fetchLeases();
     } catch (error) {
       console.error("Failed to renew lease:", error);
+      // Show error message
     }
   };
 
@@ -70,7 +79,7 @@ const LeaseList = () => {
           onChange={handleSearchChange}
         />
       </InputGroup>
-      <Table striped bordered hover>
+      <Table striped bordered hover className="lease-table">
         <thead>
           <tr>
             <th>Lease</th>
@@ -84,23 +93,19 @@ const LeaseList = () => {
         </thead>
         <tbody>
           {filteredLeases.map((lease) => (
-            <tr key={lease.lease_id}>
+            <tr key={lease.lease_id} onClick={() => handleLeaseClick(lease)}>
               <td>{lease.property_id}</td>
               <td>{dayjs(lease.start_date).format("MM/DD/YYYY")}</td>
               <td>{dayjs(lease.end_date).format("MM/DD/YYYY")}</td>
               <td>{lease.rent_amount}</td>
               <td>{lease.payment_due_day}</td>
               <td>
-              <Button
-              variant="info"
-              onClick={() => handleLeaseClick(lease)}
-            >
-              View Details
+            <Button variant="primary" onClick={(e) => { e.stopPropagation(); renewLease(lease); }}>
+              Renew Lease
             </Button>
-                <Button variant="primary" onClick={() => renewLease(lease)}>
-                  Renew Lease
-                </Button>
-                <Button variant="danger">End Lease</Button>
+            <Button variant="danger" onClick={(e) => e.stopPropagation()}>
+              End Lease
+            </Button>
               </td>
             </tr>
           ))}
