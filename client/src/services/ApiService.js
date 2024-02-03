@@ -90,6 +90,19 @@ const ApiService = {
     return data;
   },
 
+  /* Leases */
+  async createLease(lease) {
+    const response = await fetch(`${API_BASE_URL}/api/leases`, {
+      method: 'POST',
+      body: JSON.stringify(lease),
+      credentials: 'include',
+    });
+    console.log('Create lease response:', response);
+    const data = await handleResponse(response);
+    console.log('Create lease data:', data);
+    return data;
+  },
+
   // other APIs
 };
 
