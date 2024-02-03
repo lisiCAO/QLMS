@@ -11,7 +11,7 @@ const LeasePage = () => {
       <Routes>
         <Route index element={<LeaseList />} />
         <Route path="create" element={<LeaseCreate />} />
-        {/* <Route path="edit/:id" element={<LeaseEdit />} /> We would offer edit option */}
+        {/* <Route path="edit/:id" element={<LeaseEdit />} /> We would not offer edit option */}
         <Route path="delete/:id" element={<LeaseDelete />} /> 
       </Routes>
     </div>
