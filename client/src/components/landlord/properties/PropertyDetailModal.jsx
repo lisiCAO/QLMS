@@ -1,7 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Carousel, Table, Badge, Button } from 'react-bootstrap';
 
 const PropertyDetailModal = ({ show, onHide, property }) => {
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const response = await fetch(`${property.photos_url}`);
+        const data = await response.json();
+        setPhotos(data);
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+    };
+
+    if (property && property.photos_url) {
+      fetchPhotos();
+    }
+  }, [property]);
+
   return (
     <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -12,20 +30,26 @@ const PropertyDetailModal = ({ show, onHide, property }) => {
       <Modal.Body>
         {property ? (
           <>
-            <Carousel>
-              {property.photos_url.map((photo, index) => (
-                <Carousel.Item key={index}>
-                  <img
-                    className="d-block w-100"
-                    src={photo.image_url}
-                    alt={photo.description}
-                  />
-                  <Carousel.Caption>
-                    <p>{photo.description}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              ))}
-            </Carousel>
+            {photos.length > 0 ? (
+              <Carousel>
+                {photos.map((photo, index) => (
+                  <Carousel.Item key={index}>
+                    <img
+                      className="d-block w-100"
+                      src={photo.image_url}
+                      alt={photo.description}
+                    />
+                    <Carousel.Caption>
+                      <p>{photo.description}</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            ) : (
+              <p>No photos available</p>
+            )}
+
+
             <Table responsive="sm">
               <tbody>
                 <tr>
