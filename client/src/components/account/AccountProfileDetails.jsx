@@ -71,7 +71,7 @@ const AccountProfileDetails = ({ userData }) => {
     event.preventDefault();
 
     try {
-      const response = await ApiService.updateUserData(userData.user_id, values); // 使用实际的用户ID
+      const response = await ApiService.updateProfile(userData.id, values); // 使用实际的用户ID
       console.log(response);
       setSuccess("User data updated successfully");
     } catch (error) {
