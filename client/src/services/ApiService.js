@@ -92,7 +92,7 @@ const ApiService = {
 
   /* Leases */
   async createLease(lease) {
-    const response = await fetch(`${API_BASE_URL}/api/leases`, {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases`, {
       method: 'POST',
       body: JSON.stringify(lease),
       credentials: 'include',
