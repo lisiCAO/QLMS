@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useLocation } from "react-router-dom";
 import ApiService from "../../../services/ApiService";
 
 const LeaseCreate = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const propertyId = searchParams.get("propertyId") || "";  // 如果没有propertyId，则默认为空字符串
   const [lease, setLease] = useState({
-    property_id: "",
+    property_id: propertyId,  // 使用propertyId初始化，即使它是空字符串
     tenant_user_id: "",
     start_date: new Date(),
     end_date: new Date(),
@@ -47,7 +51,6 @@ const LeaseCreate = () => {
   const handleSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
-
     setValidated(true);
 
     if (form.checkValidity() === false || dateError) {
