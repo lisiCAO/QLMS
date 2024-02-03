@@ -90,6 +90,7 @@ exports.getSingleLease = async (req, res) => {
 
 exports.createLease = async (req, res) => {
     // Check if there are validation errors
+    console.log("createLease:" + req.body);
     handleValidationErrors(req, res, "Create lease validation failed: ");
 
     try {

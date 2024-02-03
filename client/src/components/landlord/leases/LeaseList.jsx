@@ -74,17 +74,22 @@ const LeaseList = () => {
         <thead>
           <tr>
             <th>Lease</th>
-            <th>End date</th>
-            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Rent Amount</th>
+            <th>Payment Due Day</th>
             <th>Next Steps</th>
+            
           </tr>
         </thead>
         <tbody>
           {filteredLeases.map((lease) => (
             <tr key={lease.lease_id}>
               <td>{lease.property_id}</td>
+              <td>{dayjs(lease.start_date).format("MM/DD/YYYY")}</td>
               <td>{dayjs(lease.end_date).format("MM/DD/YYYY")}</td>
-              <td>{lease.status}</td>
+              <td>{lease.rent_amount}</td>
+              <td>{lease.payment_due_day}</td>
               <td>
                 <Button variant="primary" onClick={() => renewLease(lease)}>
                   Renew Lease
