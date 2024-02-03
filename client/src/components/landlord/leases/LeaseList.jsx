@@ -21,7 +21,7 @@ const LeaseList = () => {
     });
   }, []);
 
-  const handleShowDetailModal = (lease) => {
+  const  handleLeaseClick = (lease) => {
     setSelectedLease(lease);
     setShowDetailModal(true);
   };
@@ -91,6 +91,12 @@ const LeaseList = () => {
               <td>{lease.rent_amount}</td>
               <td>{lease.payment_due_day}</td>
               <td>
+              <Button
+              variant="info"
+              onClick={() => handleLeaseClick(lease)}
+            >
+              View Details
+            </Button>
                 <Button variant="primary" onClick={() => renewLease(lease)}>
                   Renew Lease
                 </Button>
@@ -107,14 +113,23 @@ const LeaseList = () => {
         </Modal.Header>
         <Modal.Body>
           {selectedLease ? (
-            <div>
-              <p><strong>Lease ID:</strong> {selectedLease.lease_id}</p>
-              <p><strong>Property ID:</strong> {selectedLease.property_id}</p>
-              <p><strong>Tenant User ID:</strong> {selectedLease.tenant_user_id}</p>
-              <p><strong>Start Date:</strong> {dayjs(selectedLease.start_date).format("MM/DD/YYYY")}</p>
-              <p><strong>End Date:</strong> {dayjs(selectedLease.end_date).format("MM/DD/YYYY")}</p>
-              {/* Add more lease details here */}
-            </div>
+           <div>
+           <p><strong>Lease ID:</strong> {selectedLease.id}</p>
+           <p><strong>Property ID:</strong> {selectedLease.property_id}</p>
+           <p><strong>Tenant User ID:</strong> {selectedLease.tenant_user_id}</p>
+           <p><strong>Start Date:</strong> {dayjs(selectedLease.start_date).format("MM/DD/YYYY")}</p>
+           <p><strong>End Date:</strong> {dayjs(selectedLease.end_date).format("MM/DD/YYYY")}</p>
+           <p><strong>Rent Amount:</strong> ${parseFloat(selectedLease.rent_amount).toFixed(2)}</p>
+           <p><strong>Lease Clauses:</strong> {selectedLease.lease_clauses}</p>
+           <p><strong>Payment Due Day:</strong> {selectedLease.payment_due_day}</p>
+           <p><strong>Utility by Owner:</strong> {selectedLease.utility_by_owner}</p>
+           <p><strong>Utility by Tenant:</strong> {selectedLease.utility_by_tenant}</p>
+           <p><strong>Renewal Term:</strong> {selectedLease.renewal_term}</p>
+           <p><strong>Early Termination Conditions:</strong> {selectedLease.early_terminate_con}</p>
+           <p><strong>Created At:</strong> {dayjs(selectedLease.createdAt).format("MM/DD/YYYY HH:mm:ss")}</p>
+           <p><strong>Updated At:</strong> {dayjs(selectedLease.updatedAt).format("MM/DD/YYYY HH:mm:ss")}</p>
+           {/* Add more lease details as needed */}
+         </div>
           ) : <p>No lease selected</p>}
         </Modal.Body>
         <Modal.Footer>
