@@ -16,16 +16,19 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      if (!user?.userId) return;
       try {
-        const userData = await ApiService.fetchUserData(user.uid);
+        console.log("User ID:", user.userId);
+        const userData = await ApiService.fetchUser(user.userId);
+        console.log("User data:", userData);
         setUserData(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
-    }
+    };
     fetchUserData();
-  }
-  , [user.userId]);
+  }, [user?.userId]);
+  
 
   return (
     <>

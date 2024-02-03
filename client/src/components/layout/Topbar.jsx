@@ -31,7 +31,7 @@ const Topbar = () => {
         </Form>
         <Nav >
           <div className="d-flex align-items-center">
-          <Nav.Link as={Link} to="/landlord">
+          <Nav.Link as={Link} to="/landlord/profile">
             {user?.username}
           </Nav.Link>
           <Button variant="link" onClick={handleShowLogoutModal} >

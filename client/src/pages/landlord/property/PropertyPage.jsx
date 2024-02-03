@@ -13,7 +13,6 @@ const PropertyPage = () => {
         <Route path="create" element={<PropertyCreate />} />
         <Route path="edit/:id" element={<PropertyEdit />} />
         <Route path="delete/:id" element={<PropertyDelete />} />
-        
       </Routes>
       <Outlet /> {/* Render the nested child routes */}
     </div>

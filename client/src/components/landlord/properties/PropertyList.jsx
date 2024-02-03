@@ -8,74 +8,38 @@ const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
-  
+
   useEffect(() => {
+    let isMounted = true; // Component is mounted
 
-    // const properties = [
-        // {
-        //   property_id: 1,
-        //   address: '123 Main St, San Francisco, CA 94101',
-        //   property_type: 'Apartment',
-        //   size_in_sq_ft: 1000,
-        //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
-        //   number_of_units: 10,
-        //   year_built: 2010,
-        //   rental_price: 2000,
-        //   amenities: 'Swimming pool, gym, parking',
-        //   status: 'available',
-        //   lease_terms: '1 year'
-        // },
-        // {
-        //   property_id: 2,
-        //   address: '456 Elm St, San Francisco, CA 94101',
-        //   property_type: 'Condo',
-        //   size_in_sq_ft: 1500,
-        //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
-        //   number_of_units: 5,
-        //   year_built: 2015,
-        //   rental_price: 3000,
-        //   amenities: 'Swimming pool, gym, parking',
-        //   status: 'available',
-        //   lease_terms: '1 year'
-        // },
-        // {
-        //   property_id: 3,
-        //   address: '789 Oak St, San Francisco, CA 94101',
-        //   property_type: 'House',
-        //   size_in_sq_ft: 2000,
-        //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.',
-        //   number_of_units: 1,
-        //   year_built: 2020,
-        //   rental_price: 4000,
-        //   amenities: 'Swimming pool, gym, parking',
-        //   status: 'available',
-        //   lease_terms: '1 year'
-        // }
-        ApiService.fetchProperties() 
-            .then((data) => {
-                setProperties(data);
-            })
-            .catch((error) => {
-                console.error('Error fetching properties:', error);
-            });
-   
+    ApiService.fetchProperties()
+      .then((data) => {
+        if (isMounted) {
+          setProperties(data);
+          setLoading(false); // Ensure loading state is updated even if no properties are found
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching properties:', error);
+        if (isMounted) {
+          setMessage('Failed to fetch properties.');
+          setLoading(false); // Ensure loading state is updated even if an error occurs
+        }
+      });
 
-      
-
-        setProperties(properties);
-        setLoading(false);
-
-    }, []);
+    return () => {
+      isMounted = false; // Component is unmounted
+    };
+  }, []); // Empty dependency array ensures effect is only run on mount and unmount
 
   if (loading) return <div>Loading properties...</div>;
   if (message) return <div>Error fetching properties: {message}</div>;
 
   return (
     <div className="properties-list">
-      {properties.map(property => (
-        <Card key={property.property_id} className="property-card mb-3">
+      {properties.map((property) => (
+        <Card key={property.id} className="property-card mb-3">
           <Card.Img variant="top" src={property.image_urls ? property.image_urls[0] : 'default-image-url'} />
-            {/* Assuming photos_url contains a comma-separated list of URLs */}
           <Card.Body>
             <Card.Title>{property.address}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{property.property_type} - {property.size_in_sq_ft} sq ft</Card.Subtitle>
