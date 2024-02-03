@@ -36,10 +36,12 @@ const TenantDashboard = () => {
         ></div>
         <div style={{ position: "relative", zIndex: 1 }}>
           <h1 style={{ textAlign: "center", fontWeight: "bold" }}>
+            {/* TODO: replace with tenant name */}
             Welcome, John Doe
           </h1>
+          {/* TODO: replace with rental amount and payment due day, if tenant has a lease, otherwise, d-none */}
           <p style={{ textAlign: "center" }}>
-            Your next payment of $1000 is due on 01/01/2022
+            Your next payment of $1000 is due on 01/01/2022 
           </p>
         </div>
       </Container>
@@ -63,6 +65,7 @@ const TenantDashboard = () => {
           >
             <FaMoneyBillWave size={30} />
             <br />
+            {/* replace with a placeholder -coming soon */}
             Pay
           </Button>
         </Col>
@@ -81,6 +84,7 @@ const TenantDashboard = () => {
           >
             <FaBan size={30} />
             <br />
+            {/* Delete lease */}
             Terminate
           </Button>
         </Col>
@@ -120,6 +124,7 @@ const TenantDashboard = () => {
         </Modal.Body>
       </Modal>
 
+      {/* TODO:Upload files  */}
       <Modal show={showUploadModal} onHide={toggleUploadModal}>
         <Modal.Header closeButton>
           <Modal.Title>Upload Files</Modal.Title>
