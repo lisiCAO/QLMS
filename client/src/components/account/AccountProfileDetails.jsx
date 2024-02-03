@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import ApiService from "../../services/ApiService";
 
-const AccountProfileDetails = ({ userData}) => {
+const AccountProfileDetails = ({ userData }) => {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [values, setValues] = useState({
@@ -35,9 +35,7 @@ const AccountProfileDetails = ({ userData}) => {
         country: userData.country,
       });
     }
-  }
-  , [userData]);
-
+  }, [userData]);
 
   // Sample data
 
@@ -69,17 +67,13 @@ const AccountProfileDetails = ({ userData}) => {
   const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
 
-
-
-    try{
-      const response = await ApiService.updateUserData('your-user-id', values);
+    try {
+      const response = await ApiService.updateUserData("your-user-id", values);
       console.log(response);
-      setSuccess('User data updated successfully');
+      setSuccess("User data updated successfully");
     } catch (error) {
-      setMessage(error.message || 'Failed to update user data');
+      setMessage(error.message || "Failed to update user data");
     }
-
-
   }, []);
 
   return (
@@ -165,7 +159,6 @@ const AccountProfileDetails = ({ userData}) => {
           </div>
         )}
         <CardActions sx={{ justifyContent: "flex-end" }}>
-          
           <Button variant="contained">Save details</Button>
         </CardActions>
       </Card>

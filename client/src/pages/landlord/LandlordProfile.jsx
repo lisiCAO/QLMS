@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import UserProfile from '../../components/account/UserProfile';
-import ApiService from '../../path/to/ApiService';  
+import ApiService from '../../services/ApiService';
 
 const LandlordProfile = () => {
     const [userData, setUserData] = useState(null);
