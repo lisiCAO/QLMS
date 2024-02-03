@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Col, Row, Container, InputGroup, Alert } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import ApiService from '../../../services/ApiService';
 
 const LeaseCreate = () => {
   const [lease, setLease] = useState({
@@ -19,6 +20,7 @@ const LeaseCreate = () => {
   });
   const [dateError, setDateError] = useState('');
   const [validated, setValidated] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,16 +45,32 @@ const LeaseCreate = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     const form = e.currentTarget;
     e.preventDefault();
+
+    setValidated(true);
+   
+
     if (form.checkValidity() === false || dateError) {
       e.stopPropagation();
     } else {
       console.log(lease);
       // Submit logic here
     }
-    setValidated(true);
+    
+
+    try {
+      // Send the FormData object to the backend using the API service
+      const response = await ApiService.createLease(lease);
+      // TODO: Handle the response
+      console.log("response:", response);
+      //setMessage(response.message);
+      // Handle success
+    } catch (error) {
+      console.error("Error:", error);
+      
+    }
   };
   return (
     <Container fluid>
@@ -77,7 +95,7 @@ const LeaseCreate = () => {
             <Form.Label>Tenant User ID</Form.Label>
             <Form.Control
               required
-              type="number"
+             
               name="tenant_user_id"
               value={lease.tenant_user_id}
               onChange={handleChange}
@@ -108,7 +126,23 @@ const LeaseCreate = () => {
           />
         </Col>
       </Row>
-        {/* Rent Amount and Lease Clauses */}
+        {/* Rent Amount  */}
+        <Form.Group className="mb-3" controlId="rent_amount">
+          <Form.Label>Rent Amount</Form.Label>
+          <Form.Control
+            required
+            
+            name="rent_amount"
+            value={lease.rent_amount}
+            onChange={handleChange}
+            min="1"
+            max="31"
+          />
+          <Form.Control.Feedback type="invalid">
+          Rent amount must be a decimal number.
+          </Form.Control.Feedback>
+        </Form.Group>
+        
         {/* Payment Due Day */}
         <Form.Group className="mb-3" controlId="payment_due_day">
           <Form.Label>Payment Due Day</Form.Label>
