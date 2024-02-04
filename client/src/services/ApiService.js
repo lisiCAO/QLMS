@@ -59,14 +59,6 @@ const ApiService = {
     return data;
   },
 
-  /* Leases */
-  async fetchLeases() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/landlord`, {
-      method: "GET"
-    });
-    const data = await handleResponse(response);
-    return data;
-  },
 
   async createProperty(formData) {
     const response = await fetch(`${API_BASE_URL}/api/properties`, {
@@ -106,14 +98,6 @@ const ApiService = {
     return data;
   },
 
-  /* Profiles */
-  async fetchProfile() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/userinfo`, {
-      method: "GET"
-    });
-    const data = await handleResponse(response);
-    return data;
-  },
 
   async updateProfile(userId, profile) {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
