@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import ApiService from '../../../services/ApiService';
-
+import { Link } from 'react-router-dom';
 
 // const tenantsData = [
 //     {
@@ -91,6 +91,11 @@ const TenantsList = () => {
                                     <td>{tenant.lease_end}</td>
                                     <td>${tenant.monthly_rent}</td>
                                     <td>{tenant.status}</td>
+                                    <td>
+                                        <Link to={`/edit/${tenant.tenant_id}`} className="btn btn-primary">
+                                        Edit
+                                        </Link>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

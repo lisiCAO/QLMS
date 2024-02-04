@@ -39,7 +39,7 @@ const TenantNavbar = () => {
           aria-controls="offcanvasNavbar"
           onClick={handleShowOffcanvas}
         />
-        <Navbar.Brand as={Link} to="/tenant/dashboard">
+        <Navbar.Brand as={Link} to="/tenant/">
           Tenant Portal
         </Navbar.Brand>
         <Form inline={`${true}`} className="ml-auto d-flex">

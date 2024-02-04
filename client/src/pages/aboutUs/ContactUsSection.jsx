@@ -5,17 +5,17 @@ const ContactInfo = [
   {
     title: "Call Us",
     details: ["1 (514) 567-891", "1 (450) 987-654"],
-    icon: "images/phone-icon.png", // Replace with actual icon path
+    icon: "/phone.webp", // Updated icon path
   },
   {
     title: "Location",
     details: ["121 Rock Street, 21 Avenue", "New York, NY 92103-9000"],
-    icon: "images/location-icon.png", // Replace with actual icon path
+    icon: "/location.webp", // Updated icon path
   },
   {
     title: "Hours",
-    details: ["Mon – Fri: 11 am – 8 pm", "Sat, Sun: 6 am – 8 pm"],
-    icon: "images/time-icon.png", // Replace with actual icon path
+    details: ["Mon - Fri: 11 am - 8 pm", "Sat, Sun: 6 am - 8 pm"],
+    icon: "/hour-icon.webp", 
   },
 ];
 

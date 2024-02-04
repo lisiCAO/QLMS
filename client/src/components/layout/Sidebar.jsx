@@ -107,10 +107,10 @@ const Sidebar = () => {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to="/landlord/tenants/update"
+                to="/landlord/tenants/create"
                 className="d-block"
               >
-                Update
+                Coming soon
               </Nav.Link>
             </Nav>
           </Accordion.Body>
