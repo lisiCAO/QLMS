@@ -64,6 +64,11 @@ const ApiService = {
       method: 'POST',
       body: formData,
       credentials: 'include',
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   async fetchLeaseByTenant() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/tenant`, {
       method: "GET"
