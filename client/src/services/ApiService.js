@@ -42,6 +42,32 @@ const ApiService = {
     return data;
   },
 
+  async fetchPropertiesAvailable() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/available`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  async fetchPropertiesTenant() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/tenantinfo`, {
+      method: "GET",
+      credentials: 'include',
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  /* Leases */
+  async fetchLeases() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/landlord`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   async createProperty(formData) {
     const response = await fetch(`${API_BASE_URL}/api/properties`, {
       method: 'POST',
@@ -52,9 +78,28 @@ const ApiService = {
     return data;
   },
 
-  /* Landlord Dashboard */
-  async fetchLandlordDashboard() {
-    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/userinfo  `, {
+  async fetchLeaseByTenant() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/tenant`, {
+      method: "GET",
+      credentials: 'include',
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+
+  /* Tenants */
+  async fetchTenants() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/tenants`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  /* Profiles */
+  async fetchProfile() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/userinfo`, {
       method: "GET"
     });
     const data = await handleResponse(response);
