@@ -18,17 +18,3 @@ services:
         ports:
           - "3000:3000"
 
-    qlms-db:
-        image: mysql:8.0.36
-        ports:
-            - "3310:3306"
-        environment:
-            MYSQL_ROOT_PASSWORD: password
-            MYSQL_DATABASE: qlmsdb
-            MYSQL_PASSWORD: password
-            MYSQL_NAME: qlmsuser
-        volumes:
-            - qlms-db-data:/var/lib/mysql
-
-volumes:
-    qlms-db-data:
