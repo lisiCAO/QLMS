@@ -4,8 +4,10 @@ import Button from "react-bootstrap/Button";
 import "../landlord/properties/PropertyList.scss";
 import ApiService from "../../services/ApiService";
 import PropertyDetailModal from "../landlord/properties/PropertyDetailModal";
+import { useNavigate } from "react-router-dom";
 
 const PropertyGeneralList = () => {
+  const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
@@ -21,7 +23,7 @@ const PropertyGeneralList = () => {
   const handleApplyClick = (e, property) => {
     e.stopPropagation(); // Stop event propagation to prevent triggering the card click event
     // Add logic for applying for leasing here, if needed
-    console.log("Apply for leasing:", property);
+    navigate(`/tenant/apply-lease?propertyId=${property.id}`);
   };
 
   useEffect(() => {

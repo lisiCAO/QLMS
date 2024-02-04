@@ -50,6 +50,14 @@ const ApiService = {
     return data;
   },
 
+  async fetchPropertiesTenant() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/tenantinfo`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   /* Leases */
   async fetchLeases() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/landlord`, {
