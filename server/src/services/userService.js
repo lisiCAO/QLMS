@@ -40,7 +40,6 @@ exports.createUser = async (userData) => {
 
         return newUser;
     } catch (error) {
-        console.log(error);
         throw error;
     }
 };

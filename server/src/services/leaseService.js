@@ -59,7 +59,6 @@ exports.getLeasesByLandlord = async (userId) => {
         const leasesResult = await sequelize.query(sql, {
             type: Sequelize.QueryTypes.SELECT,
         });
-        console.log("leasesResult= ", leasesResult);
         return leasesResult;
     } catch (error) {
         throw error;
@@ -74,7 +73,6 @@ exports.getLeasesByTenant = async (userId) => {
         const leasesResult = await sequelize.query(sql, {
             type: Sequelize.QueryTypes.SELECT,
         });
-        console.log("leasesResult= ", leasesResult);
         return leasesResult;
     } catch (error) {
         throw error;

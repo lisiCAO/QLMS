@@ -27,8 +27,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 // Error and Format Middlewares
 app.use(sendSuccessResponse);
@@ -56,8 +56,6 @@ passport.use(
 db.sequelize
     .sync({ force: false }) // force: true will drop the table if it already exists, default value is false, Production environment should set it to false
     .then(() => {
-        console.log("Database synced");
-
         // Do not do  anything before database sync
         const authRoutes = require("./routes/authRoutes");
         const propertyRoutes = require("./routes/propertyRoutes.js");
@@ -82,4 +80,5 @@ db.sequelize
     })
     .catch((error) => {
         console.error("Error syncing database: ", error);
+        throw error;
     });
