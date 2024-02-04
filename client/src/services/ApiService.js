@@ -42,11 +42,41 @@ const ApiService = {
     return data;
   },
 
+  async fetchPropertiesAvailable() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/available`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  /* Leases */
+  async fetchLeases() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/landlord`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   async createProperty(formData) {
     const response = await fetch(`${API_BASE_URL}/api/properties`, {
       method: 'POST',
       body: formData,
       credentials: 'include',
+  async fetchLeaseByTenant() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/tenant`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+
+  /* Tenants */
+  async fetchTenants() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/tenants`, {
+      method: "GET"
     });
     const data = await handleResponse(response);
     return data;
