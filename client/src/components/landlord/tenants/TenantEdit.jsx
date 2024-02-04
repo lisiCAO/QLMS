@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 const TenantEdit = () => {
   const { id } = useParams(); 
-  const [selectedTenant, setSelectedTenant] = useState(null); 
+  const [selectedTenant, setSelectedTenant] = useState({}); 
   const [isLoading, setIsLoading] = useState(true); 
   const [error, setError] = useState(""); 
 
@@ -17,7 +17,6 @@ const TenantEdit = () => {
         setIsLoading(false); 
       })
       .catch((error) => {
-        console.error("Error fetching Tenant:", error);
         setError("Failed to fetch tenant data"); 
         setIsLoading(false); 
       });

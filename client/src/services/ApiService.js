@@ -89,14 +89,21 @@ const ApiService = {
     return data;
   },
 
+  async updateUser(userId, user) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
+      method: "PUT",
+      body: JSON.stringify(user),
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   /* Tenants */
   async fetchTenants() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/userinfo`, {
       method: "GET"
     });
-
     const data = await handleResponse(response);
-    console.log(data);
     return data;
   },
 

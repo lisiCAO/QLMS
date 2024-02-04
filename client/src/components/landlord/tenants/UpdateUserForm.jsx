@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button, ProgressBar, Row, Col } from "react-bootstrap";
 import { PersonCircle, GeoAlt, Telephone, CardChecklist } from "react-bootstrap-icons";
+import ApiService from "../../../services/ApiService";
+
 
 const steps = [
   {
     label: "Contact Information",
-    fields: ["first_name", "last_name", "phone_number"],
+    fields: ["first_name", "last_name", "phone_number", "email"],
     icon: <Telephone />,
   },
   {
     label: "Address",
-    fields: [
-      "street_number",
-      "street_name",
-      "city_name",
-      "postcode",
-      "province",
-    ],
+    fields: ["street_number", "street_name", "city_name", "postcode", "province"],
     icon: <GeoAlt />,
   },
   {
@@ -31,57 +27,54 @@ const steps = [
   },
 ];
 
+const FormField = ({ field, formData, handleChange, disabled }) => (
+  <Form.Group as={Row} controlId={field}>
+    <Form.Label column sm={2}>
+      {field.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+    </Form.Label>
+    <Col sm={10}>
+      <Form.Control
+        type="text"
+        placeholder={field.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+        name={field}
+        value={formData[field]}
+        onChange={handleChange}
+        disabled={disabled} // 根据disabled属性决定是否禁用输入
+      />
+    </Col>
+  </Form.Group>
+);
+
 const UpdateUserForm = ({ userData }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-    street_number: "",
-    street_name: "",
-    city_name: "",
-    postcode: "",
-    province: "",
-    date_of_birth: "",
-    profile_picture_url: "",
-    national_id: "",
-    employer_info: "",
-    bank_info: "",
-    reference_url: "",
-  });
+  const [formData, setFormData] = useState({ ...userData });
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState("");
 
-  console.log(userData);
   useEffect(() => {
-    if (userData) {
-      const updatedFormData = { ...formData };
-      Object.keys(formData).forEach(key => {
-        updatedFormData[key] = userData[key] ?? "";
-      });
-      setFormData(updatedFormData);
-    }
+    setFormData({ ...userData });
   }, [userData]);
 
-  const toFriendlyLabel = (label) => {
-    return label.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
-  };
-
-  const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
-
-  const handlePreviousStep = () => {
-    setCurrentStep(currentStep - 1);
+  const handleStepChange = (stepChange) => {
+    setCurrentStep(prevStep => prevStep + stepChange);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Update user logic...
-    console.log(formData); 
+    ApiService.updateUser(userData.id, formData)
+      .then(response => {
+        setSuccess("User updated successfully");
+        setMessage("");
+      })
+      .catch(error => {
+        setMessage(`Failed to update user data. Please try again. ${error.message}`);
+        setSuccess("");
+      });
   };
 
   const progress = ((currentStep + 1) / steps.length) * 100;
@@ -93,32 +86,27 @@ const UpdateUserForm = ({ userData }) => {
         <h3>{steps[currentStep].label}</h3>
         {steps[currentStep].icon}
         {steps[currentStep].fields.map((field) => (
-          <Form.Group as={Row} controlId={field} key={field}>
-            <Form.Label column sm={2}>
-              {toFriendlyLabel(field)}
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                placeholder={toFriendlyLabel(field)}
-                name={field}
-                value={formData[field]}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
+          <FormField
+            key={field}
+            field={field}
+            formData={formData}
+            handleChange={handleChange}
+            disabled={["email", "username", "role"].includes(field)}
+          />
         ))}
         <Row className="mt-4">
           <Col>
             {currentStep > 0 && (
-              <Button variant="secondary" onClick={handlePreviousStep}>
+              <Button variant="secondary" onClick={() => handleStepChange(-1)}>
                 Previous
               </Button>
             )}
           </Col>
           <Col className="text-right">
+            {message && <p className="text-danger">{message}</p>}
+            {success && <p className="text-success">{success}</p>}
             {currentStep < steps.length - 1 ? (
-              <Button variant="primary" onClick={handleNextStep}>
+              <Button variant="primary" onClick={() => handleStepChange(1)}>
                 Next
               </Button>
             ) : (
