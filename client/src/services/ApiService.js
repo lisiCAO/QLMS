@@ -87,7 +87,15 @@ const ApiService = {
     const data = await handleResponse(response);
     return data;
   },
-
+  
+  /* Landlord Dashboard */
+  async fetchLandlordDashboard() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/userinfo  `, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
 
   /* Profiles */
   async fetchProfile() {
