@@ -40,7 +40,6 @@ exports.createUser = async (userData) => {
 
         return newUser;
     } catch (error) {
-        console.log(error);
         throw error;
     }
 };
@@ -90,4 +89,15 @@ exports.uploadfileImage = async (file, userdata) => {
     );
 
     return { fileUrl };
+};
+
+exports.getALLTenantInfo = async () => {
+    const allTenantInfo = await user.findAll({
+        where: { role: "tenant" },
+        attributes: ["id", "username"],
+    });
+
+    if (allTenantInfo) {
+        return allTenantInfo;
+    }
 };

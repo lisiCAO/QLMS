@@ -203,3 +203,23 @@ exports.uploadProfileImage = async (req, res) => {
         res.sendError("Error upload user profile image: " + err.message, 500);
     }
 };
+
+exports.allTenantInfo = async (req, res) => {
+    //get all tenant information from user table where role="tenant"
+    try {
+        const allTenantInfo = await userService.getALLTenantInfo();
+        if (allTenantInfo) {
+            res.sendSuccess(
+                allTenantInfo,
+                "All tenants id and username retrieved successfully"
+            );
+        } else {
+            res.sendError("All tenants id and username not found", 404);
+        }
+    } catch (error) {
+        res.sendError(
+            "Failed to retrieve tenants id and username: " + error.message,
+            500
+        );
+    }
+};

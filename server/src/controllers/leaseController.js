@@ -157,7 +157,6 @@ exports.deleteLease = async (req, res) => {
 exports.getLeasesByLandlord = async (req, res) => {
     try {
         const userId = req.user.userId; // get the user ID from the token
-        console.log("userId: ", userId);
 
         const leases = await leaseService.getLeasesByLandlord(userId);
         if (leases) {
@@ -179,7 +178,6 @@ exports.getLeasesByLandlord = async (req, res) => {
 exports.getLeasesByTenant = async (req, res) => {
     try {
         const userId = req.user.userId; // get the user ID from the token
-        console.log("userId: ", userId);
 
         const leases = await leaseService.getLeasesByTenant(userId);
         if (leases) {

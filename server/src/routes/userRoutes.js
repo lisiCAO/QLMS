@@ -26,6 +26,9 @@ router.get("/", userController.getAllUsers);
 // get userinfo by userId in token
 router.get("/userinfo", authenticateToken, userController.getUserInfo);
 
+//get all tenant information return id as userId username  role="tenant"
+router.get("/alltenantinfo", authenticateToken, userController.allTenantInfo);
+
 // get single user
 router.get("/:id", userController.getSingleUser);
 

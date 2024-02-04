@@ -31,8 +31,6 @@ exports.propertyValidationRules = [
 
 // Create a new property
 exports.createProperty = async (req, res) => {
-    console.log(req.body); // req.body will contain the text fields, if there were any
-    console.log(req.files); // req.files will contain the uploaded files, if there were any
     // Check if there are validation errors
     const errors = validationResult(req);
 
@@ -134,7 +132,6 @@ exports.deleteProperty = async (req, res) => {
 exports.getUserPropertiesInfo = async (req, res) => {
     try {
         const userId = req.user.userId; // get the user ID from the token
-        console.log("userId: ", userId);
 
         // get all properties owned by the user
         let sql = `SELECT u.id AS tenant_id, u.username AS tenant_name, p.id AS property_id, p.address, p.property_type as type, l.id AS lease_id, l.start_date AS lease_startDate, l.end_date AS lease_endDate, l.rent_amount AS monthly_rent
@@ -146,7 +143,6 @@ exports.getUserPropertiesInfo = async (req, res) => {
         const propertiesResult = await sequelize.query(sql, {
             type: Sequelize.QueryTypes.SELECT,
         });
-        console.log("propertiesResult= ", propertiesResult);
 
         //for each property, get all images
         for (const property of propertiesResult) {
@@ -162,7 +158,6 @@ exports.getUserPropertiesInfo = async (req, res) => {
         const propertiesCount = await sequelize.query(sql, {
             type: Sequelize.QueryTypes.SELECT,
         });
-        console.log("propertiesCount= ", propertiesCount);
 
         const responseData = { propertiesCount, propertiesResult };
 
@@ -193,7 +188,6 @@ exports.getAvailableProperties = async (req, res) => {
 exports.getTenantPropertiesInfo = async (req, res) => {
     try {
         const userId = req.user.userId; // get the user ID from the token
-        console.log("userId: ", userId);
 
         // get all properties rented by the user
         let sql = `SELECT p.id AS property_id, p.address, p.number_of_units, p.property_type as type, p.size_in_sq_ft, 
@@ -206,7 +200,6 @@ exports.getTenantPropertiesInfo = async (req, res) => {
         const propertiesResult = await sequelize.query(sql, {
             type: Sequelize.QueryTypes.SELECT,
         });
-        console.log("propertiesResult= ", propertiesResult);
 
         //for each property, get all images
         for (const property of propertiesResult) {
