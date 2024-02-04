@@ -58,7 +58,6 @@ exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
             userId,
             transaction
         );
-        console.log("newProperty:", newProperty);
         // Step 2: Process images with imageService
         // Ensure imageService.saveImages is adapted to accept a transaction
         const processedImages = await imageService.saveImages(
@@ -66,18 +65,17 @@ exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
             newProperty.id,
             transaction
         );
-        console.log("processedImages:", processedImages);
+
         // If all operations are successful, commit the transaction
         await transaction.commit();
-        console.log("Transaction committed");
-        console.log("Transaction committed");
+
         return { property: newProperty, images: processedImages };
     } catch (error) {
         // If any operation fails, rollback the transaction
         if (transaction.rollback) {
             await transaction.rollback();
         }
-        console.error("Error creating property with images:", error);
+
         throw error;
     }
 };
@@ -88,7 +86,6 @@ exports.getAllProperties = async () => {
     const propertiesResult = await sequelize.query(sql, {
         type: Sequelize.QueryTypes.SELECT,
     });
-    console.log("propertiesResult= ", propertiesResult);
 
     //for each property, get all images
     for (const property of propertiesResult) {
@@ -108,7 +105,6 @@ exports.getSingleProperty = async (propertyId) => {
     let properyResult = await sequelize.query(sql, {
         type: Sequelize.QueryTypes.SELECT,
     });
-    console.log("propertyResult= ", properyResult);
 
     //for each property, get all images
     const imageSql = `SELECT property_id, image_url, description, uploaded_at, is_primary FROM image WHERE property_id = ${properyResult[0].id};`;
@@ -117,7 +113,6 @@ exports.getSingleProperty = async (propertyId) => {
     });
     properyResult[0].image_urls = imagesResult.map((image) => image.image_url);
 
-    console.log("propertyResult= ", properyResult);
     return properyResult;
 };
 
@@ -150,7 +145,6 @@ exports.getAvailableProperties = async () => {
     const propertiesResult = await sequelize.query(sql, {
         type: Sequelize.QueryTypes.SELECT,
     });
-    console.log("propertiesResult= ", propertiesResult);
 
     //for each property, get all images
     for (const property of propertiesResult) {

@@ -50,7 +50,6 @@ const findOrCreateUser = (userData, callback) => {
 };
 
 exports.googleAuthCallback = (accessToken, refreshToken, profile, done) => {
-    console.log("profile:", profile);
     const userData = {
         oauth_provider: profile.provider,
         oauth_provider_user_id: profile.id,
@@ -226,7 +225,9 @@ exports.login = async (req, res) => {
 
         // check if user has a lease
         const leaseCheckSql = `SELECT EXISTS(SELECT 1 FROM lease WHERE tenant_user_id = ${user.id}) AS hasLease;`;
-        const leaseCheckResult = await sequelize.query(leaseCheckSql, { type: Sequelize.QueryTypes.SELECT });
+        const leaseCheckResult = await sequelize.query(leaseCheckSql, {
+            type: Sequelize.QueryTypes.SELECT,
+        });
         const hasLease = leaseCheckResult[0].hasLease;
 
         // set HTTP-only cookie
@@ -234,7 +235,13 @@ exports.login = async (req, res) => {
 
         // send response
         res.sendSuccess(
-            { userId: user.id, username: user.username, role: user.role, profilePictureUrl: user.profile_picture_url, hasLease: hasLease },
+            {
+                userId: user.id,
+                username: user.username,
+                role: user.role,
+                profilePictureUrl: user.profile_picture_url,
+                hasLease: hasLease,
+            },
             "User Logged in successfully"
         );
     } catch (error) {
