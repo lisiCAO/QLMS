@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ApiService from "../../services/ApiService";
 import dayjs from "dayjs";
+import { Container } from "react-bootstrap";
 
 
 const LeaseView = () => {
@@ -21,6 +22,7 @@ const LeaseView = () => {
     }, []);
 
     return (
+        <Container fluid>
         <div>
             <h1>Lease</h1>
             <div>
@@ -77,6 +79,7 @@ const LeaseView = () => {
             </div>
             ) : <p>No lease selected</p>
         </div>
+        </Container>
     );
 };
 

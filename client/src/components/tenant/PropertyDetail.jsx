@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Carousel, Table, Badge } from "react-bootstrap";
+import { Carousel, Table, Badge, Container } from "react-bootstrap";
 import ApiService from "../../services/ApiService";
 
 const PropertyDetail = () => {
@@ -36,6 +36,7 @@ const PropertyDetail = () => {
   }, [property]);
 
   return (
+    <Container fluid>
     <div>
       <h1>Property Detail</h1>
 
@@ -74,6 +75,7 @@ const PropertyDetail = () => {
         <p>No property selected</p>
       )}
     </div>
+    </Container>
   );
 };
 

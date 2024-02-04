@@ -52,7 +52,8 @@ const ApiService = {
 
   async fetchPropertiesTenant() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/tenantinfo`, {
-      method: "GET"
+      method: "GET",
+      credentials: 'include',
     });
     const data = await handleResponse(response);
     return data;
@@ -79,7 +80,8 @@ const ApiService = {
 
   async fetchLeaseByTenant() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/tenant`, {
-      method: "GET"
+      method: "GET",
+      credentials: 'include',
     });
     const data = await handleResponse(response);
     return data;
