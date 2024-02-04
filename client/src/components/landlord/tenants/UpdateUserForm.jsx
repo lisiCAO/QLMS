@@ -39,7 +39,7 @@ const FormField = ({ field, formData, handleChange, disabled }) => (
         name={field}
         value={formData[field]}
         onChange={handleChange}
-        disabled={disabled} // 根据disabled属性决定是否禁用输入
+        disabled={disabled} 
       />
     </Col>
   </Form.Group>
@@ -95,6 +95,8 @@ const UpdateUserForm = ({ userData }) => {
           />
         ))}
         <Row className="mt-4">
+            {message && <p className="text-danger">{message}</p>}
+            {success && <p className="text-success">{success}</p>}
           <Col>
             {currentStep > 0 && (
               <Button variant="secondary" onClick={() => handleStepChange(-1)}>
@@ -102,9 +104,8 @@ const UpdateUserForm = ({ userData }) => {
               </Button>
             )}
           </Col>
+          
           <Col className="text-right">
-            {message && <p className="text-danger">{message}</p>}
-            {success && <p className="text-success">{success}</p>}
             {currentStep < steps.length - 1 ? (
               <Button variant="primary" onClick={() => handleStepChange(1)}>
                 Next
