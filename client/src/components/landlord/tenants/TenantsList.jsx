@@ -4,23 +4,36 @@ import ApiService from "../../../services/ApiService";
 import { Link } from "react-router-dom";
 
 const TenantsList = () => {
-  const [tenants, setTenants] = useState([]); 
+  const [tenants, setTenants] = useState([]);
 
   useEffect(() => {
     ApiService.fetchTenants()
       .then((data) => {
-        setTenants(data);
+        const updatedTenants = data.propertiesResult.map((tenant) => {
+          const leaseStartDate = new Date(tenant.lease_startDate).toISOString().split('T')[0];
+          const leaseEndDate = new Date(tenant.lease_endDate).toISOString().split('T')[0];
+          const leaseEnd = new Date(tenant.lease_endDate);
+          const now = new Date();
+          const status = leaseEnd < now ? "Inactive" : "Active";
+
+          return {
+            ...tenant,
+            lease_startDate: leaseStartDate,
+            lease_endDate: leaseEndDate,
+            status,
+          };
+        });
+
+        setTenants(updatedTenants);
       })
       .catch((error) => {
         console.error("Error fetching Tenants:", error);
       });
   }, []);
 
-  console.log("TenantsList: tenants:", tenants);
   return (
     <Container fluid>
       <h1 className="h3 mb-2 text-gray-800">List of Tenants</h1>
-
       <div className="card shadow mb-4">
         <div className="card-header py-3">
           <h6 className="m-0 font-weight-bold text-primary">Tenants</h6>
@@ -29,10 +42,9 @@ const TenantsList = () => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                {/* Adjust Table Name */}
                 <th>Tenant ID</th>
                 <th>Name</th>
-                <th>Unit</th>
+                <th>Address</th> 
                 <th>Lease Start</th>
                 <th>Lease End</th>
                 <th>Monthly Rent</th>
@@ -40,21 +52,17 @@ const TenantsList = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Iterator */}
               {tenants.map((tenant) => (
                 <tr key={tenant.tenant_id}>
                   <td>{tenant.tenant_id}</td>
-                  <td>{tenant.name}</td>
-                  <td>{tenant.unit}</td>
-                  <td>{tenant.lease_start}</td>
-                  <td>{tenant.lease_end}</td>
+                  <td>{tenant.tenant_name}</td>
+                  <td>{tenant.address}</td> 
+                  <td>{tenant.lease_startDate}</td>
+                  <td>{tenant.lease_endDate}</td>
                   <td>${tenant.monthly_rent}</td>
-                  <td>{tenant.status}</td>
+                  <td>{tenant.status}</td> 
                   <td>
-                    <Link
-                      to={`/edit/${tenant.tenant_id}`}
-                      className="btn btn-primary"
-                    >
+                    <Link to={`/edit/${tenant.tenant_id}`} className="btn btn-primary">
                       Edit
                     </Link>
                   </td>
