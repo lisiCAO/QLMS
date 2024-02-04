@@ -1,18 +1,6 @@
-import React, { useState } from "react";
-import {
-  Container,
-  Form,
-  Button,
-  ProgressBar,
-  Row,
-  Col,
-} from "react-bootstrap";
-import {
-  PersonCircle,
-  GeoAlt,
-  Telephone,
-  CardChecklist,
-} from "react-bootstrap-icons";
+import React, { useState, useEffect } from "react";
+import { Container, Form, Button, ProgressBar, Row, Col } from "react-bootstrap";
+import { PersonCircle, GeoAlt, Telephone, CardChecklist } from "react-bootstrap-icons";
 
 const steps = [
   {
@@ -60,13 +48,21 @@ const UpdateUserForm = ({ userData }) => {
     employer_info: "",
     bank_info: "",
     reference_url: "",
-    ...userData,
   });
+
+  console.log(userData);
+  useEffect(() => {
+    if (userData) {
+      const updatedFormData = { ...formData };
+      Object.keys(formData).forEach(key => {
+        updatedFormData[key] = userData[key] ?? "";
+      });
+      setFormData(updatedFormData);
+    }
+  }, [userData]);
+
   const toFriendlyLabel = (label) => {
-    return label
-      .split("_") // Split the string into an array of words
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
-      .join(" "); // Join the words back into a string
+    return label.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
   };
 
   const handleNextStep = () => {
@@ -85,6 +81,7 @@ const UpdateUserForm = ({ userData }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Update user logic...
+    console.log(formData); 
   };
 
   const progress = ((currentStep + 1) / steps.length) * 100;
