@@ -62,7 +62,7 @@ const TenantsList = () => {
                   <td>${tenant.monthly_rent}</td>
                   <td>{tenant.status}</td> 
                   <td>
-                    <Link to={`/edit/${tenant.tenant_id}`} className="btn btn-primary">
+                    <Link to={`/landlord/tenants/edit/${tenant.tenant_id}`} className="btn btn-primary">
                       Edit
                     </Link>
                   </td>

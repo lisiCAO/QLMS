@@ -4,28 +4,35 @@ import UpdateUserForm from "./UpdateUserForm";
 import { useParams } from "react-router-dom";
 
 const TenantEdit = () => {
-  const { id } = useParams();
-  const [selectedTenant, setSelectedTenant] = useState({});
+  const { id } = useParams(); 
+  const [selectedTenant, setSelectedTenant] = useState(null); 
+  const [isLoading, setIsLoading] = useState(true); 
+  const [error, setError] = useState(""); 
 
   useEffect(() => {
-    ApiService.fetchTenantById(id)
+    setIsLoading(true); 
+    ApiService.fetchUser(id)
       .then((data) => {
         setSelectedTenant(data);
+        setIsLoading(false); 
       })
       .catch((error) => {
         console.error("Error fetching Tenant:", error);
+        setError("Failed to fetch tenant data"); 
+        setIsLoading(false); 
       });
   }, [id]);
 
-  // TODO: Implement TenantEdit component logic here
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>; 
 
   return (
     <div>
-      {/* TODO: Add TenantEdit component content here */}
-      <h1>TenantEdit Page</h1>
-      <UpdateUserForm userData={selectedTenant} />
+      <h1>Edit Tenant</h1>
+      {selectedTenant && <UpdateUserForm userData={selectedTenant} />}
     </div>
   );
 };
 
 export default TenantEdit;
+
