@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ApiService from "../../services/ApiService";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,11 +13,13 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       await ApiService.forgotPassword(email);
-      // Handle success: Notify user to check their email //TODO: Add notification
+      // Handle success: Notify user to check their email
+      toast.success("An email with instructions has been sent. Please check your email.");
       navigate("/login"); // Optionally redirect user to login page
     } catch (error) {
       // Handle forgot password error
       console.error(error);
+      toast.error("Oops! Something went wrong. Please try again.");
     }
   };
 
@@ -38,6 +42,9 @@ const ForgotPassword = () => {
           Reset Password
         </Button>
       </Form>
+
+      {/* ToastContainer for notifications */}
+      <ToastContainer />
     </Container>
   );
 };

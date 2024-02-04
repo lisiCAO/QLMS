@@ -33,6 +33,15 @@ const ApiService = {
     return data;
   },
 
+  async forgotPassword(email) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/resetpassword`, {
+      method: "POST",
+      body: JSON.stringify(email),
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   /* Properties */
   async fetchProperties() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
