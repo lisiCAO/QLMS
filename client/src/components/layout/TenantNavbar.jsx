@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   Nav,
@@ -12,6 +12,7 @@ import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
 import { useAuth } from "./../../context/AuthContext";
+import ApiService from "../../services/ApiService";
 
 const TenantNavbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -19,7 +20,6 @@ const TenantNavbar = () => {
   const { user, logout } = useAuth();
   const [message, setMessage] = useState(null);
 
-  const leasePropertyId = "123";
   // TODO: Replace the above two lines with the commented line below
   const toggleLogoutModal = () => setShowLogoutModal(!showLogoutModal);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
@@ -76,14 +76,14 @@ const TenantNavbar = () => {
             {user?.hasLease ? (
               <>
                 <Link
-                  to={`/tenant/properties/${leasePropertyId}`}
+                  to={`/tenant/property`}
                   className="nav-link"
                   style={{ color: "#fff", marginBottom: "10px" }}
                 >
                   View Your Property
                 </Link>
                 <Link
-                  to="/tenant/lease"
+                  to="/tenant/view-lease"
                   className="nav-link"
                   style={{ color: "#fff", marginBottom: "10px" }}
                 >

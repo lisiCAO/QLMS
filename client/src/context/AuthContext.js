@@ -24,6 +24,15 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
+  const updateUser = async () => {
+    try {
+      const updatedUser = await ApiService.fetchCurrentUser(); 
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Failed to update user:', error);
+    }
+  };
+
   const value = useMemo(() => ({
     user,
     isAuthInitialized,
@@ -48,6 +57,7 @@ export const AuthProvider = ({ children }) => {
       }
     },
     isLoggedIn: !!user,
+    updateUser
   }), [user, isAuthInitialized]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
