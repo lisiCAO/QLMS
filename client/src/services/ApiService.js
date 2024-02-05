@@ -38,8 +38,7 @@ const ApiService = {
       method: "POST",
       body: JSON.stringify(email),
     });
-    const data = await handleResponse(response);
-    return data;
+    return response.json();
   },
 
   /* Properties */

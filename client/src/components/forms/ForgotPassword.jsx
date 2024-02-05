@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import ApiService from "../../services/ApiService";
 import { Form, Button, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  const [message, setMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      await ApiService.forgotPassword(email);
-      // Handle success: Notify user to check their email
-      toast.success("An email with instructions has been sent. Please check your email.");
-      navigate("/login"); // Optionally redirect user to login page
+      const response = await ApiService.forgotPassword({ email });
+  
+      if (response.success === false) {
+        setMessage(response.message);
+        setSuccess(false);
+        return;
+      }
+        setSuccess(response.message);
+        setMessage(null);
     } catch (error) {
-      // Handle forgot password error
-      console.error(error);
-      toast.error("Oops! Something went wrong. Please try again.");
+      setMessage("Error resetting password");
+      setSuccess(false);
     }
   };
 
@@ -42,9 +44,8 @@ const ForgotPassword = () => {
           Reset Password
         </Button>
       </Form>
-
-      {/* ToastContainer for notifications */}
-      <ToastContainer />
+      {message && <p className="text-danger text-center">{message}</p>}
+      {success && <p className="text-success text-center">{success}</p>}
     </Container>
   );
 };

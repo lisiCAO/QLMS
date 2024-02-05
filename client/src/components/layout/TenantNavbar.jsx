@@ -12,13 +12,13 @@ import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
 import { useAuth } from "./../../context/AuthContext";
-import ApiService from "../../services/ApiService";
 
 const TenantNavbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const { user, logout } = useAuth();
   const [message, setMessage] = useState(null);
+  console.log(user);
 
   // TODO: Replace the above two lines with the commented line below
   const toggleLogoutModal = () => setShowLogoutModal(!showLogoutModal);
