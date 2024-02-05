@@ -1,39 +1,69 @@
-# Project ReadMe
+# Quebec Landlord Management System (QLMS)
 
-Welcome to our Git repository! This document provides an overview of our branching strategy, issue-driven development process, project management via GitHub Projects, and our milestone breakdown.
+Welcome to the Quebec Landlord Management System (QLMS) project repository. QLMS is a comprehensive platform designed to simplify the management of rental properties, leases, and user interactions for both tenants and property managers. It provides an interactive, real-time interface with robust financial processing capabilities and detailed property oversight tools.
 
-## Branching Strategy
+## Team Members
 
-Our project employs a specific branching strategy to organize and manage the development process efficiently:
+- **Cao, Lisi**: Full-Stack Developer & DevOps
+- **Li, Zhi**: Frontend Developer
+- **Tang, Shixin**: Backend Developer & Database Administrator
 
-- **`main`**: This branch is reserved for completed and released versions of the project. It represents the stable production build.
-- **`develop`**: This branch serves as the integration point for both the client and server sides of the project. All features are merged here before being considered for release.
-- **`feature/client`**: This branch is dedicated to aggregating all front-end development work. It acts as a collective branch for all front-end features.
-- **`feature/server`**: Similarly, this branch is the aggregation point for all back-end development efforts. It contains the cumulative back-end features.
-- **`feature/docs`**: This branch is used for sharing and collaborating on project documentation.
+## Technologies and Features
 
-## Issue-Driven Development
+QLMS leverages a modern technology stack and includes several key features:
 
-Our development process is guided by issues to ensure organization and focus. Here's how we manage it:
+- **Front-End**: React.js with TypeScript for a dynamic and responsive user interface.
+- **Back-End**: Node.js with Express for efficient server-side processing.
+- **Database**: Azure MySQL for reliable data storage and management.
+- **Authentication**: OAuth for secure user authentication.
+- **Deployment**: Docker for containerization, GitHub for source control, and Azure (Client: [Azure Static Web Apps](https://black-sky-08b5f0d10.4.azurestaticapps.net), Server: [Azure Web App](https://qlms-server.azurewebsites.net)) for hosting.
+- **API Documentation**: Available on Postman, detailing all RESTful endpoints.
+- **Project Management**: Managed using GitHub Projects with a Kanban approach.
 
-- **GitHub Project Management**: We utilize GitHub Projects to track and manage our project's progress. Issues are created to represent tasks, bugs, or features.
-- **Milestones**: The project is divided into 5 main milestones, each with specific goals and tasks outlined.
-- **Daily Issue Preparation**: Each day, issues that will be addressed are prepared and moved to the "Ready to Pick" column in our GitHub Project. Team members can then pick up issues they will work on.
-- **Issue Handling**: Each issue, representing a feature or a bug, is addressed in a dedicated branch linked to the issue. When a team member picks an issue, the corresponding project card moves to "In Progress".
-- **Concurrent Issues**: To maintain focus and efficiency, we limit the number of issues in progress to three at any given time.
-- **Pull Requests and Issue Closure**: Once an issue is resolved and tested, a pull request is created to merge the changes back into the parent branch. Merging a pull request will automatically close the associated issue and update the project board.
+### Special Features
 
-## Milestones
+- Multi-tenant system architecture, allowing for efficient management of multiple properties and tenants.
+- Automated lease management with renewal notifications, ensuring timely communications.
+- Real-time transaction processing for up-to-date financial data.
+- Personalized landlord and tenant portals for tailored user experiences.
 
-Our project is structured around 5 key milestones. Each milestone represents a significant phase or set of features in the project lifecycle.
+## API Documentation
 
+QLMS's API documentation is hosted on Postman, providing detailed information on available endpoints, such as user authentication (`/login`, `/register`), property management (`/properties`, `/properties/:id`), and lease operations (`/leases`, `/leases/:id`).
+
+## Project Management and Contribution
+
+### Branching Strategy
+
+- **`main`**: Stable production builds.
+- **`develop`**: Integration branch for new features and bug fixes.
+- **`feature/*`**: Branches for specific features or enhancements.
+
+### Issue-Driven Development
+
+We employ an issue-driven development process, managed through GitHub Projects. Contributors can pick issues from the "Ready to Pick" column, work on them, and submit pull requests to the corresponding feature branch.
+
+## Milestones and Timeline
+
+The project is divided into key milestones, each focusing on a specific phase of development, from environment setup and scaffolding to testing, documentation, and deployment.
 
 ## Contributing
 
-To contribute:
+To contribute, please follow these steps:
 
-1. Check the "Ready to Pick" column in our GitHub Project for available issues.
-2. Assign an issue to yourself and move it to "In Progress".
+1. Pick an issue from the "Ready to Pick" column in our GitHub Project.
+2. Assign the issue to yourself and move it to "In Progress".
 3. Create a branch from the appropriate feature branch for your issue.
-4. Once completed and tested, submit a pull request back to the parent feature branch.
-5. Ensure your pull request passes all checks and receives approval before merging.
+4. Submit a pull request back to the parent feature branch after completion and testing.
+
+For more details on contributing, please refer to the project's contribution guidelines.
+
+## Deployment
+
+The QLMS client and server are deployed at:
+
+- Client: [Azure Static Web Apps](https://black-sky-08b5f0d10.4.azurestaticapps.net)
+- Server: [Azure Web App](https://qlms-server.azurewebsites.net)
+
+The database is hosted on Azure MySQL, and storage is managed through Azure Blob.
+
