@@ -26,29 +26,29 @@ const PropertyList = () => {
   useEffect(() => {
     let isMounted = true; 
 
-    ApiService.fetchProperties()
-      .then((data) => {
-        if (isMounted) {
-          setProperties(data);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching properties:", error);
-        if (isMounted) {
-          setMessage("Failed to fetch properties.");
+        ApiService.fetchProperties()
+            .then((data) => {
+                if (isMounted) {
+                    setProperties(data);
+                    setLoading(false);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching properties:", error);
+                if (isMounted) {
+                    setMessage("Failed to fetch properties.");
 
-          setLoading(false);
-        }
-      });
+                    setLoading(false);
+                }
+            });
 
     return () => {
       isMounted = false; 
     };
   }, []);
 
-  if (loading) return <div>Loading properties...</div>;
-  if (message) return <div>Error fetching properties: {message}</div>;
+    if (loading) return <div>Loading properties...</div>;
+    if (message) return <div>Error fetching properties: {message}</div>;
 
   return (
     <div className="properties-list">

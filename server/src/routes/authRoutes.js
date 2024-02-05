@@ -38,6 +38,9 @@ router.post(
     authController.login
 );
 
+//user password reset
+router.post("/resetpassword", authController.resetPassword);
+
 // user logout
 router.post("/logout", authenticateToken, authController.logout);
 
