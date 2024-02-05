@@ -33,6 +33,15 @@ const ApiService = {
     return data;
   },
 
+  async forgotPassword(email) {
+    const response = await fetchWithConfig(`${API_BASE_URL}/auth/resetpassword`, {
+      method: "POST",
+      body: JSON.stringify(email),
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
   /* Properties */
   async fetchProperties() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties`, {
@@ -41,6 +50,24 @@ const ApiService = {
     const data = await handleResponse(response);
     return data;
   },
+
+  async fetchPropertiesAvailable() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/available`, {
+      method: "GET"
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
+  async fetchPropertiesTenant() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/tenantinfo`, {
+      method: "GET",
+      credentials: 'include',
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+
 
   async createProperty(formData) {
     const response = await fetch(`${API_BASE_URL}/api/properties`, {
@@ -52,6 +79,15 @@ const ApiService = {
     return data;
   },
 
+  async fetchLeaseByTenant() {
+    const response = await fetchWithConfig(`${API_BASE_URL}/api/leases/tenant`, {
+      method: "GET",
+      credentials: 'include',
+    });
+    const data = await handleResponse(response);
+    return data;
+  },
+  
   /* Landlord Dashboard */
   async fetchLandlordDashboard() {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/properties/userinfo  `, {
@@ -69,6 +105,7 @@ const ApiService = {
     const data = await handleResponse(response);
     return data;
   },
+
 
   async updateProfile(userId, profile) {
     const response = await fetchWithConfig(`${API_BASE_URL}/api/users/${userId}`, {
