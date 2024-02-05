@@ -116,7 +116,7 @@ exports.createLease = async (req, res) => {
 
 exports.updateLease = async (req, res) => {
     // Check if there are validation errors
-    const isvalid = handleValidationErrors(
+    const isValid = handleValidationErrors(
         req,
         res,
         "Update lease validation failed: "

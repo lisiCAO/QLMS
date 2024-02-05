@@ -9,6 +9,8 @@ const LeaseList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedLease, setSelectedLease] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     // API call to fetch leases
@@ -49,11 +51,12 @@ const LeaseList = () => {
     try {
       // Call API to update lease
       const response = await ApiService.updateLease(
-        lease.lease_id,
+        lease.id,
         updatedLease
       );
       console.log("Lease renewed successfully", response.data);
-
+      setSuccessMessage('Lease has been successfully renewed.'); 
+      setShowSuccessModal(true);
       // Update leases state
       // fetchLeases();
     } catch (error) {
@@ -61,6 +64,20 @@ const LeaseList = () => {
       // Show error message
     }
   };
+
+  const deleteLease = async (e, leaseId) => {
+    e.stopPropagation();
+    try {
+      // Call API to delete lease
+      const response = await ApiService.deleteLease(leaseId);
+      setSuccessMessage(response); 
+      setShowSuccessModal(true);
+      setLeases(leases.filter((lease) => lease.id !== leaseId));
+    } catch (error) {
+      console.error("Failed to delete lease:", error);
+      // Show error message
+    }
+  }
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -95,25 +112,22 @@ const LeaseList = () => {
         </thead>
         <tbody>
           {filteredLeases.map((lease) => (
-            <tr key={lease.lease_id} onClick={() => handleLeaseClick(lease)}>
+            <tr key={lease.id} onClick={() => handleLeaseClick(lease)}>
               <td>{lease.property_id}</td>
               <td>{dayjs(lease.start_date).format("MM/DD/YYYY")}</td>
               <td>{dayjs(lease.end_date).format("MM/DD/YYYY")}</td>
               <td>{lease.rent_amount}</td>
               <td>{lease.payment_due_day}</td>
               <td>
-                <Button
-                  variant="primary"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    renewLease(lease);
-                  }}
-                >
-                  Renew Lease
-                </Button>
-                <Button variant="danger" onClick={(e) => e.stopPropagation()}>
-                  End Lease
-                </Button>
+              <Button
+                variant="primary"
+                onClick={(e) => renewLease(e, lease)} 
+              >
+                Renew Lease
+              </Button>
+              <Button variant="danger"  onClick={(e) => deleteLease(e, lease.id)} style={{ marginLeft: '10px' }}>
+                End Lease
+              </Button>
               </td>
             </tr>
           ))}
@@ -186,6 +200,18 @@ const LeaseList = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseDetailModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* 成功提示 Modal */}
+      <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{successMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
             Close
           </Button>
         </Modal.Footer>
