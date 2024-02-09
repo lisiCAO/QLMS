@@ -64,6 +64,16 @@ The QLMS client and server are deployed at:
 
 - Client: [Azure Static Web Apps](https://black-sky-08b5f0d10.4.azurestaticapps.net)
 - Server: [Azure Web App](https://qlms-server.azurewebsites.net)
-
+- 
 The database is hosted on Azure MySQL, and storage is managed through Azure Blob.
+
+<img width="1665" alt="landlord-property-list" src="https://github.com/lisiCAO/QLMS/assets/137085653/9a6774d9-46f8-45be-bd8c-5b9e9ac7ba7f">
+<img width="1665" alt="landlord-property-create" src="https://github.com/lisiCAO/QLMS/assets/137085653/8e56049d-bfae-4584-992b-7a612e596bad">
+<img width="1665" alt="landlord-lease-list" src="https://github.com/lisiCAO/QLMS/assets/137085653/e690b2c3-d688-4c8b-8f52-8cf72fdcc0d1">
+<img width="1665" alt="lease-create" src="https://github.com/lisiCAO/QLMS/assets/137085653/db537900-859d-4d7c-89de-c58362e1d567">
+<img width="1665" alt="tenant-list" src="https://github.com/lisiCAO/QLMS/assets/137085653/45ca6e53-8e52-4680-9041-53d0cc3531c9">
+<img width="1665" alt="profile" src="https://github.com/lisiCAO/QLMS/assets/137085653/e1132db1-c545-4461-9c63-5b2d7b673e3d">
+
+<img width="1320" alt="auth" src="https://github.com/lisiCAO/QLMS/assets/137085653/834b2cee-0ed3-47f5-b84e-a27089272dd2">
+
 
