@@ -30,6 +30,7 @@ QLMS leverages a modern technology stack and includes several key features:
 ## API Documentation
 
 QLMS's API documentation is hosted on Postman, providing detailed information on available endpoints, such as user authentication (`/login`, `/register`), property management (`/properties`, `/properties/:id`), and lease operations (`/leases`, `/leases/:id`).
+[API docs](https://documenter.getpostman.com/view/30166269/2s9YyzdJSs)
 
 ## Project Management and Contribution
 
