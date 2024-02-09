@@ -73,7 +73,7 @@ The database is hosted on Azure MySQL, and storage is managed through Azure Blob
 <img width="1665" alt="lease-create" src="https://github.com/lisiCAO/QLMS/assets/137085653/db537900-859d-4d7c-89de-c58362e1d567">
 <img width="1665" alt="tenant-list" src="https://github.com/lisiCAO/QLMS/assets/137085653/45ca6e53-8e52-4680-9041-53d0cc3531c9">
 <img width="1665" alt="profile" src="https://github.com/lisiCAO/QLMS/assets/137085653/e1132db1-c545-4461-9c63-5b2d7b673e3d">
-
 <img width="1320" alt="auth" src="https://github.com/lisiCAO/QLMS/assets/137085653/834b2cee-0ed3-47f5-b84e-a27089272dd2">
+<img width="1719" alt="QLMS-team" src="https://github.com/lisiCAO/QLMS/assets/137085653/d46085da-cef4-422d-89fa-6954062cd504">
 
 
