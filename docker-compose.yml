@@ -2,19 +2,19 @@ version: "3.8"
 services:
     server:
         build: ./server
+        volumes:
+          - ./server/local_storage:/app/local_storage
         ports:
             - "8000:8000"
-        volumes:
-            - ./server:/app
-
+        environment:
+          LOCAL_STORAGE_PATH: /app/local_storage
+          LOCAL_STORAGE_BASE_URL: http://localhost:8000/public
 
     client:
         build:
           context: ./client  # path to project
           dockerfile: Dockerfile
           target: development
-        volumes:
-          - ./client:/app
         ports:
           - "3000:3000"
 

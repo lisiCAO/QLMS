@@ -50,35 +50,27 @@ exports.createProperty = async (propertyData, userId, transaction) => {
 
 exports.createPropertyWithImages = async (propertyData, imagesData, userId) => {
     const transaction = await sequelize.transaction();
-
     try {
-        // Step 1: Create the property
-        const newProperty = await this.createProperty(
-            propertyData,
-            userId,
-            transaction
-        );
-        // Step 2: Process images with imageService
-        // Ensure imageService.saveImages is adapted to accept a transaction
-        const processedImages = await imageService.saveImages(
-            imagesData,
-            newProperty.id,
-            transaction
-        );
+        // 创建物业
+        const newProperty = await property.create({
+            ...propertyData,
+            owner_user_id: userId
+        }, { transaction });
 
-        // If all operations are successful, commit the transaction
+        // 保存图片并获取图片数据
+        const imageData = await imageService.saveImages(imagesData, newProperty.id);
+
+        // 将图片数据保存到数据库
+        await image.bulkCreate(imageData, { transaction });
+
         await transaction.commit();
-
-        return { property: newProperty, images: processedImages };
+        return { property: newProperty, images: imageData };
     } catch (error) {
-        // If any operation fails, rollback the transaction
-        if (transaction.rollback) {
-            await transaction.rollback();
-        }
-
-        throw error;
+        await transaction.rollback();
+        throw error;  // 向上抛出错误，以便调用者处理
     }
 };
+
 
 exports.getAllProperties = async () => {
     const sql = `SELECT * FROM property;`; // get all properties

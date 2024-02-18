@@ -258,37 +258,27 @@ exports.logout = (req, res) => {
 };
 
 // user password reset
+// user password reset
 exports.resetPassword = async (req, res) => {
     try {
         const { email } = req.body;
-
-        // check if email exists
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
             return res.sendError("Email: " + email + " does not exist", 404);
         }
 
-        // generate password reset token
         const resetToken = crypto.randomBytes(20).toString("hex");
-
-        // set password reset token expiration time
         const reset_password_expires = Date.now() + 1200000; // 20minutes
 
-        //save or update OAuth token info in oauth_token table
-        OAuthToken.upsert({
+        await OAuthToken.upsert({
             user_id: user.id,
             access_token: resetToken,
             expires_in: reset_password_expires,
             provider: "QLMS",
             oauth_provider_user_id: user.id,
-        })
-            .then(() => console.log("Reset Password Token saved or updated"))
-            .catch((err) =>
-                console.error("Error saving Reset Password Token:", err)
-            );
+        });
 
-        // send password reset email with reset link
         const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
         const mailOptions = {
             to: user.email,
@@ -297,13 +287,13 @@ exports.resetPassword = async (req, res) => {
             text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
                     Please click on the following link, or paste this into your browser to complete the process:\n\n${resetLink}\n\n
                     If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-            html: `
-                    <p>If you request to reset your password, please click on the following link, or paste this link into your browser to complete the process：</p>
-                    <a href="${resetLink}">Reset Password</a>
-                    <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`,
         };
 
-        // create smtp transporter
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_PASSWORD) {
+            console.log("Email environment variables not set. Password reset email will not be sent.");
+            return res.sendSuccess(null, "Password reset initiated, but email service is not available. Please contact support.");
+        }
+
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -311,21 +301,12 @@ exports.resetPassword = async (req, res) => {
                 pass: process.env.GMAIL_PASSWORD,
             },
         });
-        // send email using smtp transporter
+
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                res.sendError(
-                    "Failed to send Reset Passwored email: " + error.message,
-                    500
-                );
-            } else {
-                res.sendSuccess(
-                    null,
-                    "Password reset message " +
-                        info.messageId +
-                        " sent successfully"
-                );
+                return res.sendError("Failed to send Reset Password email: " + error.message, 500);
             }
+            res.sendSuccess(null, "Password reset message " + info.messageId + " sent successfully");
         });
     } catch (error) {
         res.sendError("Failed to reset password: " + error.message, 500);

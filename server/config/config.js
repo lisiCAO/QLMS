@@ -3,9 +3,9 @@ require("dotenv").config(); // 确保在文件顶部引入 dotenv
 module.exports = {
     development: {
         username: "root",
-        password: "password",
+        password: "",
         database: "qlmsdb",
-        host: "qlms-db",
+        host: "host.docker.internal",
         dialect: "mysql",
     },
     test: {
